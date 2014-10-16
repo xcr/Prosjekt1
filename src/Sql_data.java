@@ -98,7 +98,7 @@ public class Sql_data {
 		try {
 			while(cabin.next()){
 				
-				c = new Cabin(cabin.getInt("cnr"),cabin.getString("name"), cabin.getInt("bednumber"), cabin.getInt("tablenumber"),
+				c = new Cabin(cabin.getString("name"), cabin.getInt("bednumber"), cabin.getInt("tablenumber"),
 						cabin.getInt("year"), cabin.getString("terrain"), cabin.getInt("bike"), cabin.getInt("trip"),
 						cabin.getInt("guitar"), cabin.getInt("waffleiron"), cabin.getInt("hunting"),cabin.getInt("fishing"),
 						cabin.getString("specialities"), cabin.getString("wood"));		
@@ -115,12 +115,14 @@ public class Sql_data {
 		ArrayList<Destroyed> destroyed = new ArrayList<Destroyed>();
 		Destroyed d;
 		
+		
 		ResultSet destroyedItems = getTableInformation("Destroyed");
 		
 		try {
 			while(destroyedItems.next()){
-				d = new Destroyed(destroyedItems.getInt("cnr"), destroyedItems.getString("cabinname"), destroyedItems.getString("description")
+				d = new Destroyed(destroyedItems.getString("cabinname"), destroyedItems.getString("description")
 						, destroyedItems.getString("email"));
+				destroyed.add(d);
 			}
 			
 		} catch (SQLException e) {
@@ -129,5 +131,44 @@ public class Sql_data {
 		}
 		
 		return destroyed;
+	}
+	public ArrayList<Forgotten> getForgottenData(){
+		ArrayList<Forgotten> forgotten = new ArrayList<Forgotten>();
+		Forgotten f;
+		ResultSet fi = getTableInformation("Forgotten");
+		
+		try {
+			while(fi.next()){
+				f = new Forgotten(fi.getString("cabinname"), fi.getString("description"), fi.getString("email"));
+				forgotten.add(f);
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to retrieve forgotten items from ResultSet");
+			e.printStackTrace();
+		}
+		
+		return forgotten;
+	}
+	
+	public ArrayList<Reservation> getReservationData(){
+		ArrayList<Reservation> reservations = new ArrayList<Reservation>();
+		Reservation r;
+		ResultSet res = getTableInformation("Reservation");
+		
+		try {
+			while(res.next()){
+				r = new Reservation(res.getString("cabinname"), res.getString("email"), res.getString("startdate"),
+						res.getString("enddate"));
+				reservations.add(r);
+			}
+		} catch (SQLException e) {
+			System.out.println("failed to retrieve reservationdata from resultSet in getReservationdata()");
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		return reservations;
 	}
 }
