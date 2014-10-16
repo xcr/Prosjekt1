@@ -4,11 +4,13 @@ import java.sql.DriverManager;
 import java.sql.DriverPropertyInfo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import com.mysql.jdbc.ResultSetMetaData;
 import com.mysql.jdbc.Statement;
 
-//tid brukt: ca. 4 timer
+//tid brukt: ca. 5 timer
 
 //stmt.execute("INSERT INTO login (username, passwd) VALUES ('SomeUsername', '123')");
 public class Sql_data {
@@ -62,12 +64,12 @@ public class Sql_data {
 			} 
 		
 		catch (SQLException e) {
-			System.out.println("connection failed" + e);
+			System.out.println("Failed to close connections" + e);
 		}
 		System.out.println("Connection closed!");
 	}
 
-	public ResultSet getTableInformation(String table, String column){
+	public ResultSet getTableInformation(String table){
 
 		try {
 			statement = connection.createStatement();
@@ -75,34 +77,57 @@ public class Sql_data {
 			System.out.println("Could not create Statement in connection" + e);
 			e.printStackTrace();
 		}
-
 		try {
-			if(column != null){
-				resultSet  = statement.executeQuery("SELECT * FROM " + table);
-			}
-
-			else{
-				resultSet = statement.executeQuery("SELECT "+ column +" FROM " + table + ":");
-			}
-
+			
+			resultSet  = statement.executeQuery("SELECT * FROM " + table);
+			
 		} catch (SQLException e) {
 			System.out.println("Failed to fetch data from table");
 			e.printStackTrace();
 		}
-		
 		return resultSet;
 	}
-
-	public static void main(String Args[]){
-
-		String url = "jdbc:mysql://mysql.stud.ntnu.no/gabrielb_gruppe2";
-		String username = "gabrielb_guest";
-		String password = "guest";
+	
+	//Cabin database information: cnr-name-bednumber-tablenumber-year-terrain-bike-trip-guitar-waffleiron-hunting-fishing-specialities-wood
+	//Retrieves data from getTableInformation(), and uses the results to make an ArrayList with Cabin objects.
+	public ArrayList<Cabin> getCabinData(){
+		ResultSet cabin = getTableInformation("Cabin");
+		Cabin c;
+		ArrayList<Cabin> cabinList = new ArrayList<Cabin>(); 
 		
-		Sql_data sql = new Sql_data(url, username, password);
-		sql.connect();
-		sql.getTableInformation("Destroyed", "l");
-
-		sql.closeConnection();
+		try {
+			while(cabin.next()){
+				
+				c = new Cabin(cabin.getInt("cnr"),cabin.getString("name"), cabin.getInt("bednumber"), cabin.getInt("tablenumber"),
+						cabin.getInt("year"), cabin.getString("terrain"), cabin.getInt("bike"), cabin.getInt("trip"),
+						cabin.getInt("guitar"), cabin.getInt("waffleiron"), cabin.getInt("hunting"),cabin.getInt("fishing"),
+						cabin.getString("specialities"), cabin.getString("wood"));		
+				cabinList.add(c);
+			}
+		} catch (SQLException e) {
+			
+			System.out.println("failed to retrieve CabinData from sql server" + e);
+		}	
+		return cabinList;
+	}
+	
+	public ArrayList<Destroyed> getDestroyedData(){
+		ArrayList<Destroyed> destroyed = new ArrayList<Destroyed>();
+		Destroyed d;
+		
+		ResultSet destroyedItems = getTableInformation("Destroyed");
+		
+		try {
+			while(destroyedItems.next()){
+				d = new Destroyed(destroyedItems.getInt("cnr"), destroyedItems.getString("cabinname"), destroyedItems.getString("description")
+						, destroyedItems.getString("email"));
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Failed to read from ResultSet");
+			e.printStackTrace();
+		}
+		
+		return destroyed;
 	}
 }
