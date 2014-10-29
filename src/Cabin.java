@@ -1,54 +1,87 @@
 import java.util.HashMap;
 
+import org.omg.PortableServer.ServantRetentionPolicyValue;
+
+import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableMap;
+
 
 public class Cabin {
 	
 	//name-bednumber-tablenumber-year-terrain-bike-trip-guitar-waffleiron-hunting-fishing-specialities-wood
 	
 	//private int bednumber, tablenumber, year, bike, trip, guitar, waffleiron, hunting, fishing;
-	private String name, terrain, specialities, wood;
-	private HashMap<String, String> items;
+	private  StringProperty name, bednumber,tablenumber,year,terrain,bike,trip,guitar,waffleiron,hunting,fishing,specialities,wood;
 	
 	public Cabin(String name, int bednumber, int tablenumber, int year, String terrain, int bike, int trip,
 			int guitar, int waffleiron, int hunting, int fishing, String specialities, String wood ){
 		
-		this.wood = wood;
-		this.name = name;
-		this.terrain = terrain;
-		this.specialities = specialities;
+		this.name.setValue(name);
+		this.bednumber.setValue(Integer.toString(bednumber));
+		this.tablenumber.setValue(Integer.toString(tablenumber));
+		this.year.setValue(Integer.toString(year));
+		this.terrain.setValue(terrain);
+		this.bike.setValue(Integer.toString(bike));
+		this.trip.setValue(Integer.toString(trip));
+		this.guitar.setValue(Integer.toString(guitar));
+		this.waffleiron.setValue(Integer.toString(waffleiron));
+		this.hunting.setValue(Integer.toString(hunting));
+		this.fishing.setValue(Integer.toString(fishing));
+		this.specialities.setValue(specialities);
+		this.wood.setValue(wood);
 		
-		items = new HashMap<String, String>();
-		items.put("bednumber", Integer.toString(bednumber));
-		items.put("tablenumber", Integer.toString(tablenumber));
-		items.put("year", Integer.toString(year));
-		items.put("bike", Integer.toString(bike));
-		items.put("trip", Integer.toString(trip));
-		items.put("guitar", Integer.toString(guitar));
-		items.put("waffleiron", Integer.toString(waffleiron));
-		items.put("hunting", Integer.toString(hunting));
-		items.put("fishing", Integer.toString(fishing));
-		items.put("name", name);
-		items.put("terrain", terrain);
-		items.put("specialities", specialities);
-	}
+		}
 	
-	public String getWood(){
+	public StringProperty getBednumber() {
+		return bednumber;
+	}
+
+	public StringProperty getTablenumber() {
+		return tablenumber;
+	}
+
+	public StringProperty getYear() {
+		return year;
+	}
+
+	public StringProperty getBike() {
+		return bike;
+	}
+
+	public StringProperty getTrip() {
+		return trip;
+	}
+
+	public StringProperty getGuitar() {
+		return guitar;
+	}
+
+	public StringProperty getWaffleiron() {
+		return waffleiron;
+	}
+
+	public StringProperty getHunting() {
+		return hunting;
+	}
+
+	public StringProperty getFishing() {
+		return fishing;
+	}
+
+	public StringProperty getWood(){
 		return this.wood;
 	}
 	
-	public String getName(){
+	public StringProperty getName(){
 		return this.name;
 	}
 	
-	public String getSpecialities(){
+	public StringProperty getSpecialities(){
 		return this.specialities;
 	}
 	
-	public String getTerrain(){
+	public StringProperty getTerrain(){
 		return this.terrain;
 	}
-	public HashMap<String, String> getItems(){
-		
-		return items;
-	}
+	
 }
