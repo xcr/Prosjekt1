@@ -1,24 +1,25 @@
+import javafx.beans.property.StringProperty;
+
 
 public class Forgotten {
 	
-	String name, description, email;
+	StringProperty name, description, email;
 	
 	public Forgotten(String name, String description, String email){
-		this.name = name;
-		this.description = description;
-		this.email = email;
+		this.name.setValue(name);
+		this.description.setValue(description);
+		this.email.setValue(email);
 	}
 	
-	public String getName(){
+	public StringProperty getName(){
 		return this.name;
 	}
 	
-	public String getDescription(){
+	public StringProperty getDescription(){
 		return this.description;
 	}
 	
-	public String getEmail(){
+	public StringProperty getEmail(){
 		return this.email;
 	}
-
 }

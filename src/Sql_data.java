@@ -7,8 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import com.mysql.jdbc.ResultSetMetaData;
 import com.mysql.jdbc.Statement;
+import com.sun.deploy.uitoolkit.impl.fx.ui.FXConsole;
 
 //tid brukt: ca. 5 timer
 
@@ -37,10 +41,8 @@ public class Sql_data {
 		}
 	}
 
-	//Connecting to the SQL database with information given in the constructor. 
-	//You have to use connect before any other functions! And remember to close the connection
-	
-	
+	//Connects to the SQL database with information given in the constructor. 
+	//You have to use connect before any other functions! And remember to close the connection after use
 	public void connect(){
 
 		try {
@@ -90,10 +92,10 @@ public class Sql_data {
 	
 	//Cabin database information: cnr-name-bednumber-tablenumber-year-terrain-bike-trip-guitar-waffleiron-hunting-fishing-specialities-wood
 	//Retrieves data from getTableInformation(), and uses the results to make an ArrayList with Cabin objects.
-	public ArrayList<Cabin> getCabinData(){
+	public ObservableList<Cabin> getCabinData(){
 		ResultSet cabin = getTableInformation("Cabin");
 		Cabin c;
-		ArrayList<Cabin> cabinList = new ArrayList<Cabin>(); 
+		ObservableList<Cabin> cabinList = FXCollections.observableArrayList();
 		
 		try {
 			while(cabin.next()){
@@ -111,10 +113,9 @@ public class Sql_data {
 		return cabinList;
 	}
 	
-	public ArrayList<Destroyed> getDestroyedData(){
-		ArrayList<Destroyed> destroyed = new ArrayList<Destroyed>();
+	public ObservableList<Destroyed> getDestroyedData(){
+		ObservableList<Destroyed> destroyed =  FXCollections.observableArrayList();
 		Destroyed d;
-		
 		
 		ResultSet destroyedItems = getTableInformation("Destroyed");
 		
@@ -132,8 +133,8 @@ public class Sql_data {
 		
 		return destroyed;
 	}
-	public ArrayList<Forgotten> getForgottenData(){
-		ArrayList<Forgotten> forgotten = new ArrayList<Forgotten>();
+	public ObservableList<Forgotten> getForgottenData(){
+		ObservableList<Forgotten> forgotten = FXCollections.observableArrayList();
 		Forgotten f;
 		ResultSet fi = getTableInformation("Forgotten");
 		
@@ -146,12 +147,11 @@ public class Sql_data {
 			System.out.println("Failed to retrieve forgotten items from ResultSet");
 			e.printStackTrace();
 		}
-		
 		return forgotten;
 	}
 	
-	public ArrayList<Reservation> getReservationData(){
-		ArrayList<Reservation> reservations = new ArrayList<Reservation>();
+	public ObservableList<Reservation> getReservationData(){
+		ObservableList<Reservation> reservations = FXCollections.observableArrayList();
 		Reservation r;
 		ResultSet res = getTableInformation("Reservation");
 		
@@ -165,10 +165,6 @@ public class Sql_data {
 			System.out.println("failed to retrieve reservationdata from resultSet in getReservationdata()");
 			e.printStackTrace();
 		}
-		
-		
-		
-		
 		return reservations;
 	}
 }

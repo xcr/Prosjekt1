@@ -1,29 +1,29 @@
+import javafx.beans.property.StringProperty;
 
 public class Reservation {
 	
-	private String name, email, startdate, enddate;
+	private StringProperty name, email, startdate, enddate;
 	
 	public Reservation(String name, String email, String startdate, String enddate){
-		this.name = name;
-		this.email = email;
-		this.startdate = startdate;
-		this.enddate = enddate;
+		this.name.setValue(name); 
+		this.email.setValue(email);
+		this.startdate.setValue(startdate);
+		this.enddate.setValue(enddate);
 	}
 	
-	public String getName(){
+	public StringProperty getName(){
 		return name;
 	}
 	
-	public String getEmail(){
+	public StringProperty getEmail(){
 		return email;
 	}
 	
-	public String getStartdate(){
+	public StringProperty getStartdate(){
 		return startdate;
 	}
 	
-	public String getEnddate(){
+	public StringProperty getEnddate(){
 		return enddate;
 	}
-
 }

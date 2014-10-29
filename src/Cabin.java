@@ -29,7 +29,6 @@ public class Cabin {
 		this.fishing.setValue(Integer.toString(fishing));
 		this.specialities.setValue(specialities);
 		this.wood.setValue(wood);
-		
 		}
 	
 	public StringProperty getBednumber() {
