@@ -1,26 +1,45 @@
 package Cabin;
+
+import javafx.beans.property.StringProperty;
+
 public class Destroyed {
 	
-	private String cabinName, description, email;
+	private StringProperty cabinName, description, email;
 	
 	public Destroyed(String cabinName, String description, String email){
 		
 		
-		this.cabinName = cabinName;
-		this.description = description;
-		this.email = email;
+		this.cabinName.setValue(cabinName);
+		this.description.setValue(description);
+		this.email.setValue(email);
 	}
 	
+	//StringProperty getters starts here--------------
 	
-	public String getCabinName(){
+	public StringProperty getCabinNameProperty(){
 		return this.cabinName;
 	}
 	
-	public String getDescription(){
+	public StringProperty getDescriptionProperty(){
 		return this.description;
 	}
 	
-	public String getEmail(){
+	public StringProperty getEmailProperty(){
 		return this.email;
+	}
+	
+	
+	//String getters starts here ----------------
+	
+	public String getCabinName(){
+		return this.cabinName.toString();
+	}
+	
+	public String getDescription(){
+		return this.description.toString();
+	}
+	
+	public String getEmail(){
+		return this.email.toString();
 	}
 }

@@ -12,15 +12,31 @@ public class Forgotten {
 		this.email.setValue(email);
 	}
 	
-	public StringProperty getName(){
+	//Property getters starts here-----------------
+	
+	public StringProperty getNameProperty(){
 		return this.name;
 	}
 	
-	public StringProperty getDescription(){
+	public StringProperty getDescriptionProperty(){
 		return this.description;
 	}
 	
-	public StringProperty getEmail(){
+	public StringProperty getEmailProperty(){
 		return this.email;
+	}
+	
+	//String getters starts here-------------------
+	
+	public String getName(){
+		return this.name.toString();
+	}
+	
+	public String getDescription(){
+		return this.description.toString();
+	}
+	
+	public String getEmail(){
+		return this.email.toString();
 	}
 }

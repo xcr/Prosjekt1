@@ -35,56 +35,114 @@ public class Cabin {
 		this.wood.setValue(wood);
 		}
 	
-	public StringProperty getBednumber() {
+	//Property getters starts here------------------------->
+	
+	public StringProperty getBednumberProperty() {
 		return bednumber;
 	}
 
-	public StringProperty getTablenumber() {
+	public StringProperty getTablenumberProperty() {
 		return tablenumber;
 	}
 
-	public StringProperty getYear() {
+	public StringProperty getYearProperty() {
 		return year;
 	}
 
-	public StringProperty getBike() {
+	public StringProperty getBikeProperty() {
 		return bike;
 	}
 
-	public StringProperty getTrip() {
+	public StringProperty getTripProperty() {
 		return trip;
 	}
 
-	public StringProperty getGuitar() {
+	public StringProperty getGuitarProperty() {
 		return guitar;
 	}
 
-	public StringProperty getWaffleiron() {
+	public StringProperty getWaffleironProperty() {
 		return waffleiron;
 	}
 
-	public StringProperty getHunting() {
+	public StringProperty getHuntingProperty() {
 		return hunting;
 	}
 
-	public StringProperty getFishing() {
+	public StringProperty getFishingProperty() {
 		return fishing;
 	}
 
-	public StringProperty getWood(){
+	public StringProperty getWoodProperty(){
 		return this.wood;
 	}
 	
-	public StringProperty getName(){
+	public StringProperty getNameProperty(){
 		return this.name;
 	}
 	
-	public StringProperty getSpecialities(){
+	public StringProperty getSpecialitiesProperty(){
 		return this.specialities;
 	}
 	
-	public StringProperty getTerrain(){
+	public StringProperty getTerrainProperty(){
 		return this.terrain;
 	}
+	
+	//String getters starts here --------------------------
+	
+	
+	public String getBednumber() {
+		return bednumber.toString();
+	}
+
+	public String getTablenumber() {
+		return tablenumber.toString();
+	}
+
+	public String getYear() {
+		return year.toString();
+	}
+
+	public String getBike() {
+		return bike.toString();
+	}
+
+	public String getTrip() {
+		return trip.toString();
+	}
+
+	public String getGuitar() {
+		return guitar.toString();
+	}
+
+	public String getWaffleiron() {
+		return waffleiron.toString();
+	}
+
+	public String getHunting() {
+		return hunting.toString();
+	}
+
+	public String getFishing() {
+		return fishing.toString();
+	}
+
+	public String getWood(){
+		return this.wood.toString();
+	}
+	
+	public String getName(){
+		return this.name.toString();
+	}
+	
+	public String getSpecialities(){
+		return this.specialities.toString();
+	}
+	
+	public String getTerrain(){
+		return this.terrain.toString();
+	}
+
 	
 }

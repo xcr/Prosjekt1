@@ -12,19 +12,39 @@ public class Reservation {
 		this.enddate.setValue(enddate);
 	}
 	
-	public StringProperty getName(){
+	//StringProperty getters starts here ---------
+	
+	public StringProperty getNameProperty(){
 		return name;
 	}
 	
-	public StringProperty getEmail(){
+	public StringProperty getEmailProperty(){
 		return email;
 	}
 	
-	public StringProperty getStartdate(){
+	public StringProperty getStartdateProperty(){
 		return startdate;
 	}
 	
-	public StringProperty getEnddate(){
+	public StringProperty getEnddateProperty(){
 		return enddate;
+	}
+	
+	//String getters starts here---------------
+	
+	public String getName(){
+		return name.toString();
+	}
+	
+	public String getEmail(){
+		return email.toString();
+	}
+	
+	public String getStartdate(){
+		return startdate.toString();
+	}
+	
+	public String getEnddate(){
+		return enddate.toString();
 	}
 }
