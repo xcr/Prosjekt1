@@ -7,5 +7,6 @@ public class Test {
 		
 		Sql_data sql = new Sql_data("jdbc:mysql://mysql.stud.ntnu.no/gabrielb_gruppe2", "gabrielb_guest", "guest");
 		sql.connect();
+		sql.writeData("Destroyed", "cabinname", "Ja det fuker", "dnr", "138");
 	}
 }

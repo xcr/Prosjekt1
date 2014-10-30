@@ -91,6 +91,17 @@ public class Sql_data {
 		return resultSet;
 	}
 	
+	public void writeData(String dbName, String columnName, String newValue, String rowIDname, String id  ){
+		try {
+			statement = connection.createStatement();
+			statement.execute("UPDATE " + dbName + " SET " + columnName + "=" + "'" + newValue +"'" + " WHERE " + rowIDname + "=" + id);
+			
+		} catch (SQLException e) {
+			System.out.println("failed to write" + dbName + columnName + newValue);
+			e.printStackTrace();
+		}
+	}
+	
 	//Cabin database information: cnr-name-bednumber-tablenumber-year-terrain-bike-trip-guitar-waffleiron-hunting-fishing-specialities-wood
 	//Retrieves data from getTableInformation(), and uses the results to make an ArrayList with Cabin objects.
 	public ObservableList<Cabin> getCabinData(){
@@ -167,5 +178,10 @@ public class Sql_data {
 			e.printStackTrace();
 		}
 		return reservations;
+	}
+	
+	
+	public void updateCabinData(){
+		
 	}
 }
