@@ -4,8 +4,9 @@ import javafx.beans.property.StringProperty;
 public class Reservation {
 	
 	private StringProperty name, email, startdate, enddate;
+	private int id;
 	
-	public Reservation(String name, String email, String startdate, String enddate){
+	public Reservation(int id, String name, String email, String startdate, String enddate){
 		this.name.setValue(name); 
 		this.email.setValue(email);
 		this.startdate.setValue(startdate);

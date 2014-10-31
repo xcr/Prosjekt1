@@ -5,13 +5,15 @@ import javafx.beans.property.StringProperty;
 public class Destroyed {
 	
 	private StringProperty cabinName, description, email;
+	private int id;
 	
-	public Destroyed(String cabinName, String description, String email){
+	public Destroyed(int id, String cabinName, String description, String email){
 		
 		
 		this.cabinName.setValue(cabinName);
 		this.description.setValue(description);
 		this.email.setValue(email);
+		this.id = id;
 	}
 	
 	//StringProperty getters starts here--------------

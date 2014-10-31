@@ -4,12 +4,14 @@ import javafx.beans.property.StringProperty;
 
 public class Forgotten {
 	
-	StringProperty name, description, email;
+	private StringProperty name, description, email;
+	private int id;
 	
-	public Forgotten(String name, String description, String email){
+	public Forgotten(int id, String name, String description, String email){
 		this.name.setValue(name);
 		this.description.setValue(description);
 		this.email.setValue(email);
+		this.id = id;
 	}
 	
 	//Property getters starts here-----------------

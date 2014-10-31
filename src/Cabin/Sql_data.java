@@ -103,7 +103,7 @@ public class Sql_data {
 	}
 	
 	//Cabin database information: cnr-name-bednumber-tablenumber-year-terrain-bike-trip-guitar-waffleiron-hunting-fishing-specialities-wood
-	//Retrieves data from getTableInformation(), and uses the results to make an ArrayList with Cabin objects.
+	//Retrieves data from getTableInformation(), sql table "Cabin" and uses the results to make an ArrayList with Cabin objects.
 	public ObservableList<Cabin> getCabinData(){
 		ResultSet cabin = getTableInformation("Cabin");
 		Cabin c;
@@ -112,7 +112,7 @@ public class Sql_data {
 		try {
 			while(cabin.next()){
 				
-				c = new Cabin(cabin.getString("name"), cabin.getInt("bednumber"), cabin.getInt("tablenumber"),
+				c = new Cabin(cabin.getInt("cnr"), cabin.getString("name"), cabin.getInt("bednumber"), cabin.getInt("tablenumber"),
 						cabin.getInt("year"), cabin.getString("terrain"), cabin.getInt("bike"), cabin.getInt("trip"),
 						cabin.getInt("guitar"), cabin.getInt("waffleiron"), cabin.getInt("hunting"),cabin.getInt("fishing"),
 						cabin.getString("specialities"), cabin.getString("wood"));		
@@ -124,7 +124,7 @@ public class Sql_data {
 		}	
 		return cabinList;
 	}
-	
+	//Retrieves data from getTableInformation(), sql table "Destroyed" and uses the results to make an ArrayList with Destroyed objects.
 	public ObservableList<Destroyed> getDestroyedData(){
 		ObservableList<Destroyed> destroyed =  FXCollections.observableArrayList();
 		Destroyed d;
@@ -133,7 +133,7 @@ public class Sql_data {
 		
 		try {
 			while(destroyedItems.next()){
-				d = new Destroyed(destroyedItems.getString("cabinname"), destroyedItems.getString("description")
+				d = new Destroyed(destroyedItems.getInt("dnr"), destroyedItems.getString("cabinname"), destroyedItems.getString("description")
 						, destroyedItems.getString("email"));
 				destroyed.add(d);
 			}
@@ -152,7 +152,7 @@ public class Sql_data {
 		
 		try {
 			while(fi.next()){
-				f = new Forgotten(fi.getString("cabinname"), fi.getString("description"), fi.getString("email"));
+				f = new Forgotten(fi.getInt("fnr"), fi.getString("cabinname"), fi.getString("description"), fi.getString("email"));
 				forgotten.add(f);
 			}
 		} catch (SQLException e) {
@@ -169,7 +169,7 @@ public class Sql_data {
 		
 		try {
 			while(res.next()){
-				r = new Reservation(res.getString("cabinname"), res.getString("email"), res.getString("startdate"),
+				r = new Reservation(res.getInt("rnr"), res.getString("cabinname"), res.getString("email"), res.getString("startdate"),
 						res.getString("enddate"));
 				reservations.add(r);
 			}
