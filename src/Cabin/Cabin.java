@@ -10,8 +10,6 @@ import javafx.collections.ObservableMap;
 public class Cabin {
 	
 	
-	
-	//Git test
 	//name-bednumber-tablenumber-year-terrain-bike-trip-guitar-waffleiron-hunting-fishing-specialities-wood
 	
 	//private int bednumber, tablenumber, year, bike, trip, guitar, waffleiron, hunting, fishing;
