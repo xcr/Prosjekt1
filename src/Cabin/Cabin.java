@@ -12,9 +12,13 @@ public class Cabin {
 	// private int bednumber, tablenumber, year, bike, trip, guitar, waffleiron,
 	// hunting, fishing;
 	private StringProperty name, bedNumber, tableNumber, year, terrain, bike,
+
 			trip, guitar, waffleIron, hunting, fishing, specialities, wood, cnr;
 
+
+
 	public Cabin(int cnr, String name, int bedNumber, int tableNumber, int year,
+
 			String terrain, int bike, int trip, int guitar, int waffleIron,
 			int hunting, int fishing, String specialities, String wood) {
 
@@ -34,7 +38,11 @@ public class Cabin {
 	}
 
 	public Cabin(){
+
 		this(0,null,0,0,0,null,0,0,0,0,0,0,null,null);
+
+		
+
 	}
 	// Property getters starts here------------------------->
 
@@ -196,4 +204,8 @@ public class Cabin {
 		this.wood.setValue(wood);
 	}
 
+
 }
+
+
+
