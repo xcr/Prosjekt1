@@ -203,9 +203,4 @@ public class Cabin {
 	public void setWood(String wood){		
 		this.wood.setValue(wood);
 	}
-
-
 }
-
-
-

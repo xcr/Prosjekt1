@@ -31,14 +31,14 @@ public class MainApp extends Application {
      */
     public MainApp() {
         // Add some sample data
-    	cabinData.add(new Cabin("Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
-        cabinData.add(new Cabin("Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
-        cabinData.add(new Cabin("Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
-        cabinData.add(new Cabin("Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
-        cabinData.add(new Cabin("Hajkjkjs", 2, 3, 1989, "bafdsjkjkjlksd", 2, 3232, 34, 3, 121, 3, "us", "hkjjjjjh"));
-        cabinData.add(new Cabin("Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
-        cabinData.add(new Cabin("Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
-        cabinData.add(new Cabin("Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
+    	cabinData.add(new Cabin(1, "Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
+        cabinData.add(new Cabin(1, "Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
+        cabinData.add(new Cabin(1, "Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
+        cabinData.add(new Cabin(1, "Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
+        cabinData.add(new Cabin(1, "Hajkjkjs", 2, 3, 1989, "bafdsjkjkjlksd", 2, 3232, 34, 3, 121, 3, "us", "hkjjjjjh"));
+        cabinData.add(new Cabin(1, "Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
+        cabinData.add(new Cabin(1, "Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
+        cabinData.add(new Cabin(1, "Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
 
     }
 

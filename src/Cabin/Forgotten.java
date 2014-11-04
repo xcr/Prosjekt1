@@ -1,7 +1,6 @@
 package Cabin;
 import javafx.beans.property.StringProperty;
 
-
 public class Forgotten {
 	
 	private StringProperty name, description, email;
