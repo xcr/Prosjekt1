@@ -179,7 +179,6 @@ public class Sql_data {
 		}
 		return reservations;
 	}
-	//qwerty13'''+0987654 JEG VANT!
 	
 	public void updateCabinData(){
 		

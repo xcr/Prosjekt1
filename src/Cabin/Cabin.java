@@ -1,48 +1,49 @@
 package Cabin;
-import java.util.HashMap;
 
-import org.omg.PortableServer.ServantRetentionPolicyValue;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.ObservableMap;
-
 
 public class Cabin {
-	
-	
-	//name-bednumber-tablenumber-year-terrain-bike-trip-guitar-waffleiron-hunting-fishing-specialities-wood
-	
-	//private int bednumber, tablenumber, year, bike, trip, guitar, waffleiron, hunting, fishing;
-	private  StringProperty name, bednumber,tablenumber,year,terrain,bike,trip,guitar,waffleiron,hunting,fishing,specialities,wood;
-	private int id;
-	
-	public Cabin(int id, String name, int bednumber, int tablenumber, int year, String terrain, int bike, int trip,
-			int guitar, int waffleiron, int hunting, int fishing, String specialities, String wood ){
-		
-		this.name.setValue(name);
-		this.bednumber.setValue(Integer.toString(bednumber));
-		this.tablenumber.setValue(Integer.toString(tablenumber));
-		this.year.setValue(Integer.toString(year));
-		this.terrain.setValue(terrain);
-		this.bike.setValue(Integer.toString(bike));
-		this.trip.setValue(Integer.toString(trip));
-		this.guitar.setValue(Integer.toString(guitar));
-		this.waffleiron.setValue(Integer.toString(waffleiron));
-		this.hunting.setValue(Integer.toString(hunting));
-		this.fishing.setValue(Integer.toString(fishing));
-		this.specialities.setValue(specialities);
-		this.wood.setValue(wood);
-		this.id = id;
-		}
-	
-	//Property getters starts here------------------------->
-	
+
+	// Git test
+	// name-bednumber-tablenumber-year-terrain-bike-trip-guitar-waffleiron-hunting-fishing-specialities-wood
+
+	// private int bednumber, tablenumber, year, bike, trip, guitar, waffleiron,
+	// hunting, fishing;
+	private StringProperty name, bedNumber, tableNumber, year, terrain, bike,
+			trip, guitar, waffleIron, hunting, fishing, specialities, wood, cnr;
+
+	public Cabin(int cnr, String name, int bedNumber, int tableNumber, int year,
+			String terrain, int bike, int trip, int guitar, int waffleIron,
+			int hunting, int fishing, String specialities, String wood) {
+
+		this.name = new SimpleStringProperty(name);
+		this.bedNumber = new SimpleStringProperty(Integer.toString(bedNumber));
+		this.tableNumber = new SimpleStringProperty(Integer.toString(tableNumber));
+		this.year = new SimpleStringProperty(Integer.toString(year));
+		this.terrain = new SimpleStringProperty(terrain);
+		this.bike = new SimpleStringProperty(Integer.toString(bike));
+		this.trip = new SimpleStringProperty(Integer.toString(trip));
+		this.guitar = new SimpleStringProperty(Integer.toString(guitar));
+		this.waffleIron = new SimpleStringProperty(Integer.toString(waffleIron));
+		this.hunting = new SimpleStringProperty(Integer.toString(hunting));
+		this.fishing = new SimpleStringProperty(Integer.toString(fishing));
+		this.specialities = new SimpleStringProperty(specialities);
+		this.wood = new SimpleStringProperty(wood);
+	}
+
+	public Cabin(){
+		this(0,null,0,0,0,null,0,0,0,0,0,0,null,null);
+	}
+	// Property getters starts here------------------------->
+
 	public StringProperty getBednumberProperty() {
-		return bednumber;
+		return bedNumber;
 	}
 
 	public StringProperty getTablenumberProperty() {
-		return tablenumber;
+		return tableNumber;
 	}
 
 	public StringProperty getYearProperty() {
@@ -62,7 +63,7 @@ public class Cabin {
 	}
 
 	public StringProperty getWaffleironProperty() {
-		return waffleiron;
+		return waffleIron;
 	}
 
 	public StringProperty getHuntingProperty() {
@@ -73,76 +74,126 @@ public class Cabin {
 		return fishing;
 	}
 
-	public StringProperty getWoodProperty(){
+	public StringProperty getWoodProperty() {
 		return this.wood;
 	}
-	
-	public StringProperty getNameProperty(){
+
+	public StringProperty getNameProperty() {
 		return this.name;
 	}
-	
-	public StringProperty getSpecialitiesProperty(){
+
+	public StringProperty getSpecialitiesProperty() {
 		return this.specialities;
 	}
-	
-	public StringProperty getTerrainProperty(){
+
+	public StringProperty getTerrainProperty() {
 		return this.terrain;
 	}
-	
-	//String getters starts here --------------------------
-	
-	
+
+	// String getters starts here --------------------------
+
 	public String getBednumber() {
-		return bednumber.toString();
+		return bedNumber.get();
 	}
 
 	public String getTablenumber() {
-		return tablenumber.toString();
+		return tableNumber.get();
 	}
 
 	public String getYear() {
-		return year.toString();
+		return year.get();
 	}
 
 	public String getBike() {
-		return bike.toString();
+		return bike.get();
 	}
 
 	public String getTrip() {
-		return trip.toString();
+		return trip.get();
 	}
 
 	public String getGuitar() {
-		return guitar.toString();
+		return guitar.get();
 	}
 
 	public String getWaffleiron() {
-		return waffleiron.toString();
+		return waffleIron.get();
 	}
 
 	public String getHunting() {
-		return hunting.toString();
+		return hunting.get();
 	}
 
 	public String getFishing() {
-		return fishing.toString();
+		return fishing.get();
 	}
 
-	public String getWood(){
-		return this.wood.toString();
-	}
-	
-	public String getName(){
-		return this.name.toString();
-	}
-	
-	public String getSpecialities(){
-		return this.specialities.toString();
-	}
-	
-	public String getTerrain(){
-		return this.terrain.toString();
+	public String getWood() {
+		return this.wood.get();
 	}
 
+	public String getName() {
+		return this.name.get();
+	}
+
+	public String getSpecialities() {
+		return this.specialities.get();
+	}
+
+	public String getTerrain() {
+		return this.terrain.get();
+	}
+
+	//Setters go here..........................
+	public void setName(String name){
+		this.name.setValue(name);
+	}
 	
+	public void setBedNumber(String bedNumber){
+		this.bedNumber.setValue(bedNumber);		
+	}
+	
+	public void setTableNumber(String tableNumber){		
+		this.tableNumber.setValue(tableNumber);
+	}
+	
+	public void setYear(String year){	
+		this.year.setValue(year);
+	}
+	
+	public void setTerrain(String terrain){
+		this.terrain.setValue(terrain);
+	}
+	
+	public void setBike(String bike){
+		this.bike.setValue(bike);
+	}
+	
+	public void setTrip(String trip){
+		this.trip.setValue(trip);
+	}
+	
+	public void setGuitar(String guitar){
+		this.guitar.setValue(guitar);
+	}
+	
+	public void setWaffleIron(String waffleIron){
+		this.waffleIron.setValue(waffleIron);		
+	}
+	
+	public void setHunting(String hunting){
+		this.hunting.setValue(hunting);
+	}
+
+	public void setFishing(String fishing){
+		this.fishing.setValue(fishing);
+	}
+	public void setSpecialities(String specialities){		
+		this.specialities.setValue(specialities);
+	}
+	
+	public void setWood(String wood){		
+		this.wood.setValue(wood);
+	}
+
 }
