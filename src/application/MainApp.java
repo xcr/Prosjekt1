@@ -13,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import Cabin.Cabin;
+import Cabin.Sql_data;
 
 public class MainApp extends Application {
 
@@ -31,14 +32,12 @@ public class MainApp extends Application {
      */
     public MainApp() {
         // Add some sample data
-    	cabinData.add(new Cabin(1, "Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
-        cabinData.add(new Cabin(1, "Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
-        cabinData.add(new Cabin(1, "Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
-        cabinData.add(new Cabin(1, "Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
-        cabinData.add(new Cabin(1, "Hajkjkjs", 2, 3, 1989, "bafdsjkjkjlksd", 2, 3232, 34, 3, 121, 3, "us", "hkjjjjjh"));
-        cabinData.add(new Cabin(1, "Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
-        cabinData.add(new Cabin(1, "Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
-        cabinData.add(new Cabin(1, "Hans", 2, 3, 1989, "bafdsjlksd", 2, 3232, 34, 3, 3, 3, "anus", "hkjh"));
+    	
+    	
+    	Sql_data sql = new Sql_data("jdbc:mysql://mysql.stud.ntnu.no/gabrielb_gruppe2", "gabrielb_guest", "guest");
+		sql.connect();
+		cabinData = sql.getCabinData();
+		sql.closeConnection();
 
     }
 

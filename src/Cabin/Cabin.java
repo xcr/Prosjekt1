@@ -1,6 +1,8 @@
 package Cabin;
 
 
+import java.util.HashMap;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -12,10 +14,9 @@ public class Cabin {
 	// private int bednumber, tablenumber, year, bike, trip, guitar, waffleiron,
 	// hunting, fishing;
 	private StringProperty name, bedNumber, tableNumber, year, terrain, bike,
-
 			trip, guitar, waffleIron, hunting, fishing, specialities, wood, cnr;
 
-
+	private HashMap<String, String> changedItems;
 
 	public Cabin(int cnr, String name, int bedNumber, int tableNumber, int year,
 
@@ -40,8 +41,6 @@ public class Cabin {
 	public Cabin(){
 
 		this(0,null,0,0,0,null,0,0,0,0,0,0,null,null);
-
-		
 
 	}
 	// Property getters starts here------------------------->

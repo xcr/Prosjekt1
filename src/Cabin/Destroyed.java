@@ -9,7 +9,6 @@ public class Destroyed {
 	
 	public Destroyed(int id, String cabinName, String description, String email){
 		
-		
 		this.cabinName.setValue(cabinName);
 		this.description.setValue(description);
 		this.email.setValue(email);
