@@ -44,16 +44,16 @@
                                                           <AnchorPane maxHeight="121.0" minHeight="121.0" minWidth="0.0" prefHeight="121.0" prefWidth="160.0">
                                                                <children>
                                                                   <Label layoutX="5.0" layoutY="53.5" text="To:" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="53.5" />
-                                                                  <TextField layoutX="50.0" layoutY="51.0" prefHeight="25.0" prefWidth="411.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="51.0" />
+                                                                  <TextField fx:id="to" layoutX="50.0" layoutY="51.0" prefHeight="25.0" prefWidth="411.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="51.0" />
                                                                   <Label layoutX="5.0" layoutY="88.5" text="Subject:" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="88.5" />
-                                                                  <TextField layoutX="50.0" layoutY="86.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="86.0" />
-                                                                  <TextField layoutX="50.0" layoutY="16.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="16.0" />
+                                                                  <TextField fx:id="subject" layoutX="50.0" layoutY="86.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="86.0" />
+                                                                  <TextField layoutX="50.0" layoutY="16.0" text="koieadm1n@gmail.com" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="16.0" />
                                                                   <Label layoutX="5.0" layoutY="18.5" text="From:" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="18.5" />
                                                                </children>
                                                             </AnchorPane>
                                                             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                                                <children>
-                                                                  <TextArea prefHeight="277.0" prefWidth="565.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                                  <TextArea fx:id="body" prefHeight="277.0" prefWidth="565.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                                </children>
                                                             </AnchorPane>
                                                         </items>
@@ -79,7 +79,7 @@
                         </SplitPane>
                         <HBox spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
                            <children>
-                              <Button layoutX="373.0" layoutY="315.0" mnemonicParsing="false" text="Send" />
+                              <Button layoutX="373.0" layoutY="315.0" mnemonicParsing="false" onAction="#handleSendMail" text="Send" />
                               <Button layoutX="454.0" layoutY="315.0" mnemonicParsing="false" text="save" />
                               <Button layoutX="512.0" layoutY="315.0" mnemonicParsing="false" text="Knapp" />
                            </children>

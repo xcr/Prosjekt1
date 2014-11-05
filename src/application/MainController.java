@@ -1,11 +1,14 @@
 package application;
 
+
 import org.controlsfx.dialog.Dialogs;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import application.MainApp;
 import Cabin.Cabin;
 
@@ -17,7 +20,11 @@ public class MainController {
     private TableColumn<Cabin, String> cabinNameColumn;
     @FXML
     private Label beds, tables, yearBuilt, terrain, reachableByBike, trip, guitar, waffleIron, hunting, fishing, specialties, woodStatus;
-    //skriv om testing på forskjellige os osv
+    @FXML
+    private TextField to, subject;
+    @FXML
+    private TextArea body;
+    //skriv om testing pï¿½ forskjellige os osv
     
     // Reference to the main application.
     private MainApp mainApp;
@@ -148,4 +155,9 @@ public class MainController {
                 .showWarning();
         }
     }
+	
+	@FXML
+	private void handleSendMail(){
+		SendEmail.sendEmail(to.getText(), subject.getText(), body.getText());
+	}
 }
