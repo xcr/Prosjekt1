@@ -13,6 +13,7 @@ public class Reservation {
 		this.enddate.setValue(enddate);
 	}
 	
+	
 	//StringProperty getters starts here ---------
 	
 	public StringProperty getNameProperty(){

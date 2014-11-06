@@ -1,14 +1,21 @@
 package application;
 
 
+import java.util.EventObject;
+
 import org.controlsfx.dialog.Dialogs;
 
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import application.MainApp;
 import Cabin.Cabin;
 
@@ -24,9 +31,14 @@ public class MainController {
     private TextField to, subject;
     @FXML
     private TextArea body;
+    @FXML
+    //dottene på kartet
+    private ImageView Flaakoia, Fosenkoia, Heinfjordstua, Hognabu, Holmsaakoia, Holvassgamma, Iglbu, 
+    Kamtjonnkoia, Kraaklikaaten, Kvernmovollen,	Kaasen, Lynhogen, Mortenskaaten, Nicokoia, Rindalsloa,
+    Selbukaaten, Sonvasskoia, Stabburet, Stakkslettbua, Telin, Taagaabu, Vekvessaetra, Ovensenget;
     //skriv om testing pï¿½ forskjellige os osv
     
-    // Reference to the main application.
+    // referanse til main classen.
     private MainApp mainApp;
 
     /**
@@ -34,7 +46,10 @@ public class MainController {
      * The constructor is called before the initialize() method.
      */
     public MainController() {
+    	
+    //	Flaakoia.addEventHandler(MouseEvent.MOUSE_ENTERED, new MyButtonHandler());
     }
+
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -155,9 +170,22 @@ public class MainController {
                 .showWarning();
         }
     }
+	@FXML
+	private void handleMouseOver(Event evt){
+		ImageView lol = (ImageView) evt.getSource();
+		System.out.println(lol.getId());
 	
+	}
+	@FXML
+	private void handleMoveRemoved(Event evt){
+		System.out.println("hade");
+	}
 	@FXML
 	private void handleSendMail(){
 		SendEmail.sendEmail(to.getText(), subject.getText(), body.getText());
 	}
+
+
+
+
 }
