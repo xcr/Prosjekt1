@@ -13,6 +13,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import Cabin.Cabin;
+import Cabin.Forgotten;
+import Cabin.Reservation;
 import Cabin.Sql_data;
 
 public class MainApp extends Application {
@@ -20,34 +22,60 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     
-
-    // ... AFTER THE OTHER VARIABLES ...
-
-    /**
-     * The data as an observable list of Cabins.
-     */
+/*
+ * 2. Administratorer i koiestyret skal kunne ta ut status for utstyr på en eller alle koiene, samt legge inn når nytt utstyr er innkjøpt.
+3. Administrator i koiestyret skal kunne ta ut status for ved på en eller alle koiene, og få anslag på hvor lenge det vil vare før det er nødvendig med veddugnad.
+4. Administrator i koiestyret skal kunne melde til brukere som har reservert koie at det er utstyr som må fraktes til koia.
+5. Administrator i koiestyret skal kunne se et kart hvor koiene er plottet inn, og hvor klikk på en koie gir administrativ informasjon.
+ */
+    
+    //listene som hentes fra mysql som Observable List
     private ObservableList<Cabin> cabinData = FXCollections.observableArrayList();
+    private ObservableList<Forgotten> forgottenData = FXCollections.observableArrayList();
+    private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
     /**
      * Constructor
      */
     public MainApp() {
-        // Add some sample data
     	
-    	
+    	//Main constructor, loader data fra mysql inn i programmet.
     	Sql_data sql = new Sql_data("jdbc:mysql://mysql.stud.ntnu.no/gabrielb_gruppe2", "gabrielb_guest", "guest");
 		sql.connect();
 		cabinData = sql.getCabinData();
+		forgottenData = sql.getForgottenData();
+		reservationData = sql.getReservationData();
 		sql.closeConnection();
+		reservationData.add(new Reservation(1,"Fosenkoia","amail@rofl.copter","24.11.14","25.11.14"));
+		reservationData.add(new Reservation(1,"Heinfjordstua","bmail@rofl.copter","24.11.14","25.11.14"));
+		reservationData.add(new Reservation(1,"Heinfjordstua","cmail@rofl.copter","24.11.14","25.11.14"));
+		reservationData.add(new Reservation(1,"Fosenkoia","dmail@rofl.copter","26.11.14","28.11.14"));
+		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","24.11.14","25.11.14"));
+		for(Cabin c : cabinData){
+			for(Reservation r : reservationData){
+			//	System.out.println("cabin name = "+c.getName()+"   reservation name = "+r.getName());
+				if(c.getName().toLowerCase().equals(r.getName().toLowerCase())){
+					c.setReservation(r);
+				}
+			}
 
+		}
+		
     }
 
-    /**
-     * Returns the data as an observable list of Cabins. 
-     * @return
-     */
+    //getters for observable listene
     public ObservableList<Cabin> getCabinData() {
         return cabinData;
     }
+    
+    public ObservableList<Forgotten> getForgottenData(){
+    	return forgottenData;
+    }
+    
+    public ObservableList<Reservation> getReservationData(){
+    	return reservationData;
+    }
+    
+    
 
     // ... THE REST OF THE CLASS ...
     
@@ -61,9 +89,7 @@ public class MainApp extends Application {
         showCabinOverview();
     }
 
-    /**
-     * Initializes the root layout.
-     */
+   //initialiserer root layouten
     public void initRootLayout() {
         try {
             // Load root layout from fxml file.
@@ -90,10 +116,10 @@ public class MainApp extends Application {
             loader.setLocation(MainApp.class.getResource("/fxml/Tabs.fxml"));
             AnchorPane cabinOverview = (AnchorPane) loader.load();
 
-            // Set Cabin overview into the center of root layout.
+            // Setter cabinOverview i midtten av boarderpaneet
             rootLayout.setCenter(cabinOverview);
             
-            // Give the controller access to the main app.
+            //gir MainControllern til gang til mainApp
             MainController controller = loader.getController();
             controller.setMainApp(this);
         } catch (IOException e) {

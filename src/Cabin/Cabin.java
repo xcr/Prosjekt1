@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Cabin {
 
@@ -15,6 +17,7 @@ public class Cabin {
 	// hunting, fishing;
 	private StringProperty name, bedNumber, tableNumber, year, terrain, bike,
 			trip, guitar, waffleIron, hunting, fishing, specialities, wood, cnr;
+	private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
 
 	private HashMap<String, String> changedItems;
 
@@ -151,6 +154,17 @@ public class Cabin {
 		return this.terrain.get();
 	}
 
+	
+	// liste getter
+	
+	public ObservableList<Reservation> getReservationList(){
+		return reservationData;
+	}
+	
+	public void setReservation(Reservation r){
+		reservationData.add(r);
+
+	}
 	//Setters go here..........................
 	public void setName(String name){
 		this.name.setValue(name);

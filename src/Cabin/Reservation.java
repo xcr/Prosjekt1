@@ -1,17 +1,19 @@
 package Cabin;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Reservation {
 	
-	private StringProperty name, email, startdate, enddate;
+	private StringProperty name, email, startDate, endDate;
 	private int id;
 	
-	public Reservation(int id, String name, String email, String startdate, String enddate){
-		this.name.setValue(name); 
-		this.email.setValue(email);
-		this.startdate.setValue(startdate);
-		this.enddate.setValue(enddate);
+	public Reservation(int id, String name, String email, String startDate, String endDate){
+		this.name = new SimpleStringProperty(name); 
+		this.email = new SimpleStringProperty(email);
+		this.startDate = new SimpleStringProperty(startDate);
+		this.endDate = new SimpleStringProperty(endDate);
 	}
+	
 	
 	//StringProperty getters starts here ---------
 	
@@ -23,29 +25,48 @@ public class Reservation {
 		return email;
 	}
 	
-	public StringProperty getStartdateProperty(){
-		return startdate;
+	public StringProperty getStartDateProperty(){
+		return startDate;
 	}
 	
-	public StringProperty getEnddateProperty(){
-		return enddate;
+	public StringProperty getEndDateProperty(){
+		return endDate;
 	}
 	
 	//String getters starts here---------------
 	
 	public String getName(){
-		return name.toString();
+		return name.get();
 	}
 	
 	public String getEmail(){
-		return email.toString();
+		return email.get();
 	}
 	
-	public String getStartdate(){
-		return startdate.toString();
+	public String getStartDate(){
+		return startDate.get();
 	}
 	
-	public String getEnddate(){
-		return enddate.toString();
+	public String getEndDate(){
+		return endDate.get();
 	}
+	
+	//String setters her
+	
+	public void setName(String name){
+		this.name.setValue(name);
+	}
+	
+	public void setEmail(String email){
+		this.email.setValue(email);
+	}
+	
+	public void setStartDate(String date){
+		this.startDate.setValue(date);
+	}
+	
+	public void setEndDate(String date){
+		this.endDate.setValue(date);
+	}
+	
 }
