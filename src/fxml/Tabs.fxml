@@ -183,9 +183,9 @@
                                                       </GridPane>
                                                       <HBox spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
                                                          <children>
-                                                            <Button layoutX="310.0" layoutY="366.0" mnemonicParsing="false" onAction="#handleNewCabin" text="New Item" />
-                                                            <Button layoutX="362.0" layoutY="366.0" mnemonicParsing="false" onAction="#handleEditCabin" text="Edit" />
-                                                            <Button layoutX="414.0" layoutY="366.0" mnemonicParsing="false" onAction="#handleDeleteCabin" text="Delete" />
+                                                            <Button layoutX="310.0" layoutY="366.0" mnemonicParsing="false" text="New Item" />
+                                                            <Button layoutX="362.0" layoutY="366.0" mnemonicParsing="false" text="Edit" />
+                                                            <Button layoutX="414.0" layoutY="366.0" mnemonicParsing="false" text="Delete" />
                                                          </children>
                                                       </HBox>
                                                    </children>
@@ -227,6 +227,21 @@
                                                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                                          </columnResizePolicy>
                                                       </TableView>
+                                                      <HBox layoutX="538.0" layoutY="543.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
+                                                         <children>
+                                                            <Button layoutX="538.0" layoutY="555.0" mnemonicParsing="false" text="Add" />
+                                                            <Button layoutX="610.0" layoutY="555.0" mnemonicParsing="false" text="Edit" />
+                                                            <Button layoutX="662.0" layoutY="543.0" mnemonicParsing="false" text="Remove" />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox layoutX="10.0" layoutY="560.0" spacing="10.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0">
+                                                         <children>
+                                                            <Label layoutX="10.0" layoutY="569.0" text="From:" />
+                                                            <DatePicker fx:id="reservationDateFrom" layoutX="34.0" layoutY="555.0" onAction="#handleReservationOk" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="40.0" />
+                                                            <Label layoutX="225.0" layoutY="560.0" text="To:" />
+                                                            <DatePicker fx:id="reservationDateTo" layoutX="243.0" layoutY="564.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="260.0" />
+                                                         </children>
+                                                      </HBox>
                                                    </children>
                                                 </AnchorPane>
                                             </items>
@@ -241,134 +256,53 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Map">
+            <Tab text="Reservations">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="619.0" fitWidth="763.0" layoutX="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="158.0" AnchorPane.topAnchor="0.0">
-                           <image>
-                              <Image url="@../Resources/Koie%20bilde.png" />
-                           </image>
-                           <viewport>
-                              <Rectangle2D />
-                           </viewport>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="383.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="Flaakoia" fitHeight="10.0" fitWidth="10.0" layoutX="517.0" layoutY="551.0" onMouseEntered="#handleMouseOver" onMouseExited="#handleMoveRemoved" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="537.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="595.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="613.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="450.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="430.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="477.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="363.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="472.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="383.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="410.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="420.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="577.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="278.0" layoutY="459.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="253.0" layoutY="401.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="333.0" layoutY="352.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="415.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="477.0" layoutY="357.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="208.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="161.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="171.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="208.0" layoutY="438.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Resources/reddot.png" />
-                           </image>
-                        </ImageView>
+                        <TableView fx:id="mainResTable" prefHeight="625.0" prefWidth="1000.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                           <columns>
+                              <TableColumn fx:id="mainResName" prefWidth="75.0" text="Cabin Name" />
+                              <TableColumn fx:id="mainResFrom" prefWidth="75.0" text="From" />
+                              <TableColumn fx:id="mainResTo" prefWidth="75.0" text="To" />
+                              <TableColumn fx:id="mainResFirstName" prefWidth="75.0" text="First Name" />
+                              <TableColumn fx:id="mainResLastName" prefWidth="75.0" text="Last Name" />
+                           </columns>
+                        </TableView>
+                        <HBox spacing="10.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0">
+                           <children>
+                              <Label layoutX="10.0" layoutY="569.0" text="From:" />
+                              <DatePicker fx:id="reservationDateFrom1" layoutX="34.0" layoutY="555.0" onAction="#handleReservationOk" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="40.0" />
+                              <Label layoutX="225.0" layoutY="560.0" text="To:" />
+                              <DatePicker fx:id="reservationDateTo1" layoutX="243.0" layoutY="564.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="260.0" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
+                           <children>
+                              <Button fx:id="reservationAdd" layoutX="538.0" layoutY="555.0" mnemonicParsing="false" text="Add" />
+                              <Button fx:id="handleEditReservation" layoutX="610.0" layoutY="555.0" mnemonicParsing="false" onAction="#handleEditReservation" text="Edit" />
+                              <Button fx:id="reservationRemove" layoutX="662.0" layoutY="543.0" mnemonicParsing="false" onAction="#handleRemoveReservation" text="Remove" />
+                           </children>
+                        </HBox>
                      </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Map">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab text="Wood Status">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab text="Items">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
             </Tab>
         </tabs>

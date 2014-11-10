@@ -23,16 +23,16 @@
          <children>
             <Label text="First Name" />
             <Label text="Last Name" GridPane.rowIndex="1" />
-            <Label text="Street" GridPane.rowIndex="2" />
-            <Label text="City" GridPane.rowIndex="3" />
-            <Label text="Post code" GridPane.rowIndex="4" />
-            <Label text="Birthday" GridPane.rowIndex="5" />
-            <TextField fx:id="firstNameField" GridPane.columnIndex="1" />
-            <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="streetField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="cityField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="postalCodeField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="birthdayField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="CabinName" GridPane.rowIndex="2" />
+            <Label text="From" GridPane.rowIndex="3" />
+            <Label text="To" GridPane.rowIndex="4" />
+            <Label text="Email" GridPane.rowIndex="5" />
+            <TextField fx:id="firstName" GridPane.columnIndex="1" />
+            <TextField fx:id="lastName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="cabinName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="from" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="to" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <HBox layoutX="201.0" layoutY="211.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="6.0">

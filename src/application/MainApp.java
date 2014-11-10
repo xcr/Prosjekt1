@@ -23,16 +23,17 @@ public class MainApp extends Application {
     private BorderPane rootLayout;
     
 /*
- * 2. Administratorer i koiestyret skal kunne ta ut status for utstyr på en eller alle koiene, samt legge inn når nytt utstyr er innkjøpt.
-3. Administrator i koiestyret skal kunne ta ut status for ved på en eller alle koiene, og få anslag på hvor lenge det vil vare før det er nødvendig med veddugnad.
-4. Administrator i koiestyret skal kunne melde til brukere som har reservert koie at det er utstyr som må fraktes til koia.
-5. Administrator i koiestyret skal kunne se et kart hvor koiene er plottet inn, og hvor klikk på en koie gir administrativ informasjon.
+ * 2. Administratorer i koiestyret skal kunne ta ut status for utstyr pï¿½ en eller alle koiene, samt legge inn nï¿½r nytt utstyr er innkjï¿½pt.
+3. Administrator i koiestyret skal kunne ta ut status for ved pï¿½ en eller alle koiene, og fï¿½ anslag pï¿½ hvor lenge det vil vare fï¿½r det er nï¿½dvendig med veddugnad.
+4. Administrator i koiestyret skal kunne melde til brukere som har reservert koie at det er utstyr som mï¿½ fraktes til koia.
+5. Administrator i koiestyret skal kunne se et kart hvor koiene er plottet inn, og hvor klikk pï¿½ en koie gir administrativ informasjon.
  */
     
     //listene som hentes fra mysql som Observable List
     private ObservableList<Cabin> cabinData = FXCollections.observableArrayList();
     private ObservableList<Forgotten> forgottenData = FXCollections.observableArrayList();
     private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
+    
     /**
      * Constructor
      */
@@ -45,12 +46,22 @@ public class MainApp extends Application {
 		forgottenData = sql.getForgottenData();
 		reservationData = sql.getReservationData();
 		sql.closeConnection();
+		
+		//test data
 		reservationData.add(new Reservation(1,"Fosenkoia","amail@rofl.copter","24.11.14","25.11.14"));
 		reservationData.add(new Reservation(1,"Heinfjordstua","bmail@rofl.copter","24.11.14","25.11.14"));
 		reservationData.add(new Reservation(1,"Heinfjordstua","cmail@rofl.copter","24.11.14","25.11.14"));
 		reservationData.add(new Reservation(1,"Fosenkoia","dmail@rofl.copter","26.11.14","28.11.14"));
 		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","24.11.14","25.11.14"));
-		for(Cabin c : cabinData){
+		reservationSorting();
+
+		
+		
+    }
+    
+    //sorterer reservasjonene og legger de til riktig koie.
+    public void reservationSorting(){
+    	for(Cabin c : cabinData){
 			for(Reservation r : reservationData){
 			//	System.out.println("cabin name = "+c.getName()+"   reservation name = "+r.getName());
 				if(c.getName().toLowerCase().equals(r.getName().toLowerCase())){
@@ -59,9 +70,8 @@ public class MainApp extends Application {
 			}
 
 		}
-		
+    	
     }
-
     //getters for observable listene
     public ObservableList<Cabin> getCabinData() {
         return cabinData;
@@ -97,6 +107,7 @@ public class MainApp extends Application {
             loader.setLocation(MainApp.class.getResource("/fxml/Root.fxml"));
             rootLayout = (BorderPane) loader.load();
 
+            
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
@@ -142,7 +153,7 @@ public class MainApp extends Application {
      * @param Cabin the Cabin object to be edited
      * @return true if the user clicked OK, false otherwise.
      */
-    public boolean showCabinEditDialog(Cabin cabin) {
+    public boolean showCabinEditDialog(Reservation res) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -151,7 +162,7 @@ public class MainApp extends Application {
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Cabin");
+            dialogStage.setTitle("Edit Reservation");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
@@ -160,7 +171,7 @@ public class MainApp extends Application {
             // Set the Cabin into the controller.
             editController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setCabin(cabin);
+            controller.setReservation(res);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();

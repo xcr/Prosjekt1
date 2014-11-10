@@ -11,6 +11,8 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -23,23 +25,27 @@ import Cabin.Cabin;
 import Cabin.Forgotten;
 import Cabin.Reservation;
 
+
 @SuppressWarnings("deprecation")
-public class MainController {
+public class MainController{
     @FXML
     private TableView<Cabin> cabinTable,cabinTable2;
     @FXML
     private TableColumn<Cabin, String> cabinNameColumn, cabinNameColumn2;
-   
+    
+    @FXML
+    private Button reservationAdd, reservationRemove, reservationEdit;
+    
     @FXML
     private TableView<Forgotten> forgottenTable;
     @FXML
     private TableColumn<Forgotten, String> forgottenMailColumn;
     
     @FXML
-    private TableView<Reservation> reservationTable,sendTable;
+    private TableView<Reservation> reservationTable,sendTable,mainResTable;
     @FXML
     private TableColumn<Reservation, String> reservationTo, reservationFrom, reservationFirstName, reservationLastName,
-    sendFirstName, sendLastName;
+    sendFirstName, sendLastName,mainResName, mainResFrom, mainResTo,mainResFirstName, mainResLastName;
     //cabin lables
     @FXML
     private Label beds, tables, yearBuilt, terrain, reachableByBike, trip, guitar, waffleIron, hunting, fishing, specialties, woodStatus;
@@ -48,24 +54,25 @@ public class MainController {
     @FXML
     private TextArea body, mailBody;
     @FXML
-    //dottene på kartet
+    //dottene pï¿½ kartet
     private ImageView Flaakoia, Fosenkoia, Heinfjordstua, Hognabu, Holmsaakoia, Holvassgamma, Iglbu, 
     Kamtjonnkoia, Kraaklikaaten, Kvernmovollen,	Kaasen, Lynhogen, Mortenskaaten, Nicokoia, Rindalsloa,
     Selbukaaten, Sonvasskoia, Stabburet, Stakkslettbua, Telin, Taagaabu, Vekvessaetra, Ovensenget;
     //skriv om testing pï¿½ forskjellige os osv
+    @FXML
+    private DatePicker reservationDateFrom, reservationDateTo;
     
     // referanse til main classen.
     private MainApp mainApp;
-
+    
     /**
      * The constructor.
      * The constructor is called before the initialize() method.
      */
     public MainController() {
-    	
-    //	Flaakoia.addEventHandler(MouseEvent.MOUSE_ENTERED, new MyButtonHandler());
-    }
 
+
+    }
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -73,6 +80,7 @@ public class MainController {
      */
     @FXML
     private void initialize() {
+    	
         // Initialize the cabin table with the two columns.
     	cabinNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
     	forgottenMailColumn.setCellValueFactory(cellData -> cellData.getValue().getEmailProperty());
@@ -80,6 +88,14 @@ public class MainController {
     	cabinNameColumn2.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
     	//change this later to name
     	sendFirstName.setCellValueFactory(cellData -> cellData.getValue().getEmailProperty());
+    	
+    	mainResName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+    	mainResFrom.setCellValueFactory(cellData -> cellData.getValue().getStartDateProperty());
+    	mainResTo.setCellValueFactory(cellData -> cellData.getValue().getEndDateProperty());
+    	mainResFirstName.setCellValueFactory(cellData -> cellData.getValue().getEmailProperty());
+
+
+    	
 
     	
     	
@@ -116,8 +132,16 @@ public class MainController {
         forgottenTable.setItems(mainApp.getForgottenData());
         cabinTable2.setItems(mainApp.getCabinData());
         sendTable.setItems(mainApp.getReservationData());
+        mainResTable.setItems(mainApp.getReservationData());
         
     }
+    
+    
+    //HER BLIR DET KART JA!!!
+
+    
+    
+    
     /**
      * Fills all text fields to show details about the cabin.
      * If the specified cabin is null, all text fields are cleared.
@@ -125,7 +149,7 @@ public class MainController {
      * @param newValue the cabin or null
      */
     
-    //showDetails klassene som sørger for at riktig info vises i tabellene/labelene
+    //showDetails klassene som sï¿½rger for at riktig info vises i tabellene/labelene
     
     
     private void showMessagingDetail(Reservation newValue) {
@@ -179,6 +203,24 @@ public class MainController {
         	woodStatus.setText("");
         }
     }
+    
+    
+    @FXML
+    private void handleRemoveReservation(){
+    	int selected = mainResTable.getSelectionModel().getSelectedIndex();
+    	if (selected >= 0){
+    		mainResTable.getItems().remove(selected);
+    		}
+    	else{
+    		Dialogs.create()
+    		.title("No Selection")
+    		.masthead("No reservation was selected")
+    		.message("Please select a reservation in the table.")
+    		.showWarning();
+    	}
+    }
+    
+    
     /**
      * Called when the user clicks on the delete button.
      */
@@ -201,18 +243,36 @@ public class MainController {
      * details for a new cabin.
      */
   
+	@FXML
+	private void handleReservationOk(){
+		 System.out.println(reservationDateFrom.getValue());
+	}
+	/*
     @FXML
     private void handleNewCabin() {
         Cabin tempCabin = new Cabin();
-        boolean okClicked = mainApp.showCabinEditDialog(tempCabin);
+       boolean okClicked = mainApp.showCabinEditDialog(tempCabin);
         if (okClicked) {
             mainApp.getCabinData().add(tempCabin);
         }
     }
+    
+    */
     /**
      * Called when the user clicks the edit button. Opens a dialog to edit
      * details for the selected cabin.
      */
+	@FXML
+	private void handleEditReservation(){
+		Reservation selected = mainResTable.getSelectionModel().getSelectedItem();
+		if (selected != null){
+			boolean okClicked = mainApp.showCabinEditDialog(selected);
+			if(okClicked){
+				
+			}
+		}
+	}
+	/*
 	@FXML
     private void handleEditCabin() {
         Cabin selectedCabin = cabinTable.getSelectionModel().getSelectedItem();
@@ -231,6 +291,7 @@ public class MainController {
                 .showWarning();
         }
     }
+    */
 	@FXML
 	private void handleMouseOver(Event evt){
 		ImageView lol = (ImageView) evt.getSource();
