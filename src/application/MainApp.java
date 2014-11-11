@@ -7,39 +7,39 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import Cabin.Cabin;
 import Cabin.Forgotten;
-<<<<<<< HEAD:src/application/MainApp.java
 import Cabin.Reservation;
-=======
->>>>>>> origin/eirik:application/MainApp.java
 import Cabin.Sql_data;
 
-public class MainApp extends Application {
+
+
+public class MainApp extends Application{
 
     private Stage primaryStage;
     private BorderPane rootLayout;
     
+
+    
 /*
- * 2. Administratorer i koiestyret skal kunne ta ut status for utstyr på en eller alle koiene, samt legge inn når nytt utstyr er innkjøpt.
-3. Administrator i koiestyret skal kunne ta ut status for ved på en eller alle koiene, og få anslag på hvor lenge det vil vare før det er nødvendig med veddugnad.
-4. Administrator i koiestyret skal kunne melde til brukere som har reservert koie at det er utstyr som må fraktes til koia.
-5. Administrator i koiestyret skal kunne se et kart hvor koiene er plottet inn, og hvor klikk på en koie gir administrativ informasjon.
+ * 2. Administratorer i koiestyret skal kunne ta ut status for utstyr pï¿½ en eller alle koiene, samt legge inn nï¿½r nytt utstyr er innkjï¿½pt.
+3. Administrator i koiestyret skal kunne ta ut status for ved pï¿½ en eller alle koiene, og fï¿½ anslag pï¿½ hvor lenge det vil vare fï¿½r det er nï¿½dvendig med veddugnad.
+4. Administrator i koiestyret skal kunne melde til brukere som har reservert koie at det er utstyr som mï¿½ fraktes til koia.
+5. Administrator i koiestyret skal kunne se et kart hvor koiene er plottet inn, og hvor klikk pï¿½ en koie gir administrativ informasjon.
  */
     
     //listene som hentes fra mysql som Observable List
     private ObservableList<Cabin> cabinData = FXCollections.observableArrayList();
-<<<<<<< HEAD:src/application/MainApp.java
     private ObservableList<Forgotten> forgottenData = FXCollections.observableArrayList();
     private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
-=======
-   // private ObservableList<Forgotten> forgottenData = FXCollections.observableArrayList();
->>>>>>> origin/eirik:application/MainApp.java
+    
     /**
      * Constructor
      */
@@ -49,19 +49,25 @@ public class MainApp extends Application {
     	Sql_data sql = new Sql_data("jdbc:mysql://mysql.stud.ntnu.no/gabrielb_gruppe2", "gabrielb_guest", "guest");
 		sql.connect();
 		cabinData = sql.getCabinData();
-<<<<<<< HEAD:src/application/MainApp.java
 		forgottenData = sql.getForgottenData();
 		reservationData = sql.getReservationData();
-=======
-		//forgottenData = sql.getForgottenData();
->>>>>>> origin/eirik:application/MainApp.java
 		sql.closeConnection();
-		reservationData.add(new Reservation(1,"Fosenkoia","amail@rofl.copter","24.11.14","25.11.14"));
-		reservationData.add(new Reservation(1,"Heinfjordstua","bmail@rofl.copter","24.11.14","25.11.14"));
-		reservationData.add(new Reservation(1,"Heinfjordstua","cmail@rofl.copter","24.11.14","25.11.14"));
-		reservationData.add(new Reservation(1,"Fosenkoia","dmail@rofl.copter","26.11.14","28.11.14"));
-		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","24.11.14","25.11.14"));
-		for(Cabin c : cabinData){
+		
+		//test data
+		reservationData.add(new Reservation(1,"Fosenkoia","amail@rofl.copter","2014-10-4","2014-10-4"));
+		reservationData.add(new Reservation(1,"Heinfjordstua","bmail@rofl.copter","2014-10-4","2014-10-4"));
+		reservationData.add(new Reservation(1,"Heinfjordstua","cmail@rofl.copter","2014-10-1","2014-10-4"));
+		reservationData.add(new Reservation(1,"Fosenkoia","dmail@rofl.copter","2014-10-4","2014-10-7"));
+		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-25","2014-11-28"));
+		reservationSorting();
+
+		
+		
+    }
+    
+    //sorterer reservasjonene og legger de til riktig koie.
+    public void reservationSorting(){
+    	for(Cabin c : cabinData){
 			for(Reservation r : reservationData){
 			//	System.out.println("cabin name = "+c.getName()+"   reservation name = "+r.getName());
 				if(c.getName().toLowerCase().equals(r.getName().toLowerCase())){
@@ -70,14 +76,9 @@ public class MainApp extends Application {
 			}
 
 		}
-		
+    	
     }
-
-<<<<<<< HEAD:src/application/MainApp.java
     //getters for observable listene
-=======
-    //returnerer cabin lista
->>>>>>> origin/eirik:application/MainApp.java
     public ObservableList<Cabin> getCabinData() {
         return cabinData;
     }
@@ -97,6 +98,8 @@ public class MainApp extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+
+    	
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Koie Admin Client");
 
@@ -112,6 +115,7 @@ public class MainApp extends Application {
             loader.setLocation(MainApp.class.getResource("/fxml/Root.fxml"));
             rootLayout = (BorderPane) loader.load();
 
+            
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
@@ -137,6 +141,8 @@ public class MainApp extends Application {
             //gir MainControllern til gang til mainApp
             MainController controller = loader.getController();
             controller.setMainApp(this);
+          
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -157,7 +163,7 @@ public class MainApp extends Application {
      * @param Cabin the Cabin object to be edited
      * @return true if the user clicked OK, false otherwise.
      */
-    public boolean showCabinEditDialog(Cabin cabin) {
+    public boolean showCabinEditDialog(Reservation res) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -166,16 +172,16 @@ public class MainApp extends Application {
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Cabin");
+            dialogStage.setTitle("Edit Reservation");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
             // Set the Cabin into the controller.
-            editController controller = loader.getController();
+            ReservationController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setCabin(cabin);
+            controller.setChanges(res);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -186,7 +192,12 @@ public class MainApp extends Application {
             return false;
         }
     }
+    
+
+    
     public static void main(String[] args) {
         launch(args);
     }
+
+
 }
