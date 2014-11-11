@@ -23,24 +23,24 @@ public class Cabin {
 	private HashMap<String, String> oldItems;
 	private String id;
 
-	public Cabin(int cnr, String name, int bedNumber, int tableNumber, int year,
+	public Cabin(int cnr, String name, String bedNumber, String tableNumber, int year,
 
-			String terrain, int bike, int trip, int guitar, int waffleIron,
-			int hunting, int fishing, String specialities, String wood) {
+			String terrain, String bike, String trip, String guitar, String waffleIron,
+			String hunting, String fishing, String specialities, String wood) {
 
 		this.id = Integer.toString(cnr);
 		
 		this.name = new SimpleStringProperty(name);
-		this.bedNumber = new SimpleStringProperty(Integer.toString(bedNumber));
-		this.tableNumber = new SimpleStringProperty(Integer.toString(tableNumber));
+		this.bedNumber = new SimpleStringProperty(bedNumber);
+		this.tableNumber = new SimpleStringProperty(tableNumber);
 		this.year = new SimpleStringProperty(Integer.toString(year));
 		this.terrain = new SimpleStringProperty(terrain);
-		this.bike = new SimpleStringProperty(Integer.toString(bike));
-		this.trip = new SimpleStringProperty(Integer.toString(trip));
-		this.guitar = new SimpleStringProperty(Integer.toString(guitar));
-		this.waffleIron = new SimpleStringProperty(Integer.toString(waffleIron));
-		this.hunting = new SimpleStringProperty(Integer.toString(hunting));
-		this.fishing = new SimpleStringProperty(Integer.toString(fishing));
+		this.bike = new SimpleStringProperty(bike);
+		this.trip = new SimpleStringProperty(trip);
+		this.guitar = new SimpleStringProperty(guitar);
+		this.waffleIron = new SimpleStringProperty(waffleIron);
+		this.hunting = new SimpleStringProperty(hunting);
+		this.fishing = new SimpleStringProperty(fishing);
 		this.specialities = new SimpleStringProperty(specialities);
 		this.wood = new SimpleStringProperty(wood);
 		
@@ -50,7 +50,7 @@ public class Cabin {
 
 	public Cabin(){
 
-		this(0,null,0,0,0,null,0,0,0,0,0,0,null,null);
+		this(0,null,null,null,0,null,null,null,null,null,null,null,null,null);
 
 	}
 	// Property getters starts here --->

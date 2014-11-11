@@ -170,9 +170,9 @@ public class Sql_data {
 			try {
 				while(cabin.next()){
 
-					c = new Cabin(cabin.getInt("cnr"), cabin.getString("name"), cabin.getInt("bednumber"), cabin.getInt("tablenumber"),
-							cabin.getInt("year"), cabin.getString("terrain"), cabin.getInt("bike"), cabin.getInt("trip"),
-							cabin.getInt("guitar"), cabin.getInt("waffleiron"), cabin.getInt("hunting"),cabin.getInt("fishing"),
+					c = new Cabin(cabin.getInt("cnr"), cabin.getString("name"), cabin.getString("bednumber"), cabin.getString("tablenumber"),
+							cabin.getInt("year"), cabin.getString("terrain"), cabin.getString("bike"), cabin.getString("trip"),
+							cabin.getString("guitar"), cabin.getString("waffleiron"), cabin.getString("hunting"),cabin.getString("fishing"),
 							cabin.getString("specialities"), cabin.getString("wood"));		
 					cabinList.add(c);
 				}
@@ -249,12 +249,15 @@ public class Sql_data {
 	public ObservableList<Reservation> getReservationData(){
 		ObservableList<Reservation> reservations = FXCollections.observableArrayList();
 		Reservation r;
-		ResultSet res = getTableInformation("Reservation");
+		ResultSet res = null;
 
 		try {
+			statement = connection.createStatement();
+			res  = statement.executeQuery("SELECT * FROM Reservation, User WHERE Reservation.email = User.email");
+			
 			while(res.next()){
 				r = new Reservation(res.getInt("rnr"), res.getString("cabinname"), res.getString("email"), res.getString("startdate"),
-						res.getString("enddate"));
+						res.getString("enddate"), res.getString("firstname"));
 				reservations.add(r);
 			}
 		} catch (SQLException e) {
@@ -268,7 +271,7 @@ public class Sql_data {
 	 * Checks if the cabin has had any changes, and updates all the changes in the sql database.
 	 */
 	public void updateCabindata(){
-
+		//checks the cabinlist to ensure that getCabindata() has been used first
 		if(cabinList != null){
 			HashMap<String, String> temp = new HashMap<String, String>();
 			for (Cabin cabin : cabinList) {

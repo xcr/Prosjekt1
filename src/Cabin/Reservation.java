@@ -9,12 +9,12 @@ import javafx.beans.property.StringProperty;
 
 public class Reservation {
 	
-	private StringProperty name, email, startDate, endDate;
+	private StringProperty name, email, startDate, endDate, firstname, lastname;
 	private int id;
 	private ObjectProperty<LocalDate> start, end;
 	private HashMap<String, String> changedFields;
 	
-	public Reservation(int id, String name, String email, String startDate, String endDate){
+	public Reservation(int id, String name, String email, String startDate, String endDate, String firstname){
 		this.name = new SimpleStringProperty(name); 
 		this.email = new SimpleStringProperty(email);
 		this.startDate = new SimpleStringProperty(startDate);
@@ -29,8 +29,7 @@ public class Reservation {
 		this.changedFields = new HashMap<String, String>();
 	}
 	public Reservation(){
-		this(0,null, null, null, null);
-		
+		this(0,null, null, null, null,null);
 	}
 	
 	public ObjectProperty<LocalDate> getStartProperty(){
@@ -39,6 +38,8 @@ public class Reservation {
 	public ObjectProperty<LocalDate> getEndProperty(){
 		return this.end;
 	}
+	
+	
 	public void setStart(LocalDate ld){
 		start.set(ld);
 	}
@@ -51,9 +52,6 @@ public class Reservation {
 	public LocalDate getEnd(){
 		return end.get();
 	}
-	
-	
-	
 	
 	//StringProperty getters starts here ---------
 	
@@ -72,6 +70,9 @@ public class Reservation {
 	public StringProperty getEndDateProperty(){
 		return endDate;
 	}
+	public StringProperty firstname(){
+		return this.firstname;
+	}
 	
 	//String getters starts here---------------
 	
@@ -89,6 +90,9 @@ public class Reservation {
 	
 	public String getEndDate(){
 		return endDate.get();
+	}
+	public String getfirstname(){
+		return this.firstname.get();
 	}
 	
 	//String setters her

@@ -234,7 +234,9 @@ public class MainController{
     private void handleRemoveReservation(){
     	int selected = mainResTable.getSelectionModel().getSelectedIndex();
     	if (selected >= 0){
+    		
     		mainResTable.getItems().remove(selected);
+    		
     		}
     	else{
     		Dialogs.create()
