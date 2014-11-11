@@ -6,6 +6,8 @@ import java.sql.DriverPropertyInfo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javafx.collections.FXCollections;
@@ -15,7 +17,7 @@ import com.mysql.jdbc.ResultSetMetaData;
 import com.mysql.jdbc.Statement;
 
 
-//tid brukt: ca. 5 timer
+
 
 //stmt.execute("INSERT INTO login (username, passwd) VALUES ('SomeUsername', '123')");
 public class Sql_data {
@@ -26,6 +28,7 @@ public class Sql_data {
 	private Connection connection = null;
 	private java.sql.Statement statement = null;
 	private ResultSet resultSet = null;
+	private ObservableList<Cabin> cabinList = null; 
 
 	public Sql_data(String sqlURL, String username,String passwd){
 
@@ -91,7 +94,7 @@ public class Sql_data {
 		return resultSet;
 	}
 	
-	public void writeData(String dbName, String columnName, String newValue, String rowIDname, String id  ){
+	public void updateSqlTable(String dbName, String columnName, String newValue, String rowIDname, String id  ){
 		try {
 			statement = connection.createStatement();
 			statement.execute("UPDATE " + dbName + " SET " + columnName + "=" + "'" + newValue +"'" + " WHERE " + rowIDname + "=" + id);
@@ -107,7 +110,7 @@ public class Sql_data {
 	public ObservableList<Cabin> getCabinData(){
 		ResultSet cabin = getTableInformation("Cabin");
 		Cabin c;
-		ObservableList<Cabin> cabinList = FXCollections.observableArrayList();
+		cabinList = FXCollections.observableArrayList();
 		
 		try {
 			while(cabin.next()){
@@ -137,7 +140,6 @@ public class Sql_data {
 						, destroyedItems.getString("email"));
 				destroyed.add(d);
 			}
-			
 		} catch (SQLException e) {
 			System.out.println("Failed to read from ResultSet");
 			e.printStackTrace();
@@ -180,7 +182,17 @@ public class Sql_data {
 		return reservations;
 	}
 	
-	public void updateCabinData(){
+	public void updateCabindata(){
 		
+		HashMap<String, String> temp = new HashMap<String, String>();
+		
+		for (Cabin cabin : cabinList) {
+			
+			temp = cabin.getChangedItems();
+			
+			for(Map.Entry<String, String> e : temp.entrySet()){
+				updateSqlTable("Cabin", e.getKey(), e.getValue(), "cnr", cabin.getId());
+			}
+		}
 	}
 }

@@ -20,12 +20,16 @@ public class Cabin {
 	private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
 
 	private HashMap<String, String> changedItems;
+	private HashMap<String, String> oldItems;
+	private String id;
 
 	public Cabin(int cnr, String name, int bedNumber, int tableNumber, int year,
 
 			String terrain, int bike, int trip, int guitar, int waffleIron,
 			int hunting, int fishing, String specialities, String wood) {
 
+		this.id = Integer.toString(cnr);
+		
 		this.name = new SimpleStringProperty(name);
 		this.bedNumber = new SimpleStringProperty(Integer.toString(bedNumber));
 		this.tableNumber = new SimpleStringProperty(Integer.toString(tableNumber));
@@ -39,6 +43,9 @@ public class Cabin {
 		this.fishing = new SimpleStringProperty(Integer.toString(fishing));
 		this.specialities = new SimpleStringProperty(specialities);
 		this.wood = new SimpleStringProperty(wood);
+		
+		changedItems = new HashMap<String, String>();
+		oldItems = new HashMap<String, String>();
 	}
 
 	public Cabin(){
@@ -47,6 +54,11 @@ public class Cabin {
 
 	}
 	// Property getters starts here --->
+	
+	public HashMap<String, String> getChangedItems(){
+		return this.changedItems;
+	}
+	
 
 	public StringProperty getBednumberProperty() {
 		return bedNumber;
@@ -153,6 +165,10 @@ public class Cabin {
 	public String getTerrain() {
 		return this.terrain.get();
 	}
+	
+	public String getId(){
+		return this.id;
+	}
 
 	
 	// liste getter
@@ -163,6 +179,7 @@ public class Cabin {
 	
 	public void setReservation(Reservation r){
 		reservationData.add(r);
+		
 
 	}
 	//Setters go here..........................
@@ -171,49 +188,62 @@ public class Cabin {
 	}
 	
 	public void setBedNumber(String bedNumber){
-		this.bedNumber.setValue(bedNumber);		
+		this.bedNumber.setValue(bedNumber);	
+		this.changedItems.put("bednumber", bedNumber);
 	}
 	
 	public void setTableNumber(String tableNumber){		
 		this.tableNumber.setValue(tableNumber);
+		this.changedItems.put("tablenumber", tableNumber);
 	}
 	
 	public void setYear(String year){	
 		this.year.setValue(year);
+		this.changedItems.put("year", year);
 	}
 	
 	public void setTerrain(String terrain){
 		this.terrain.setValue(terrain);
+		this.changedItems.put("terrain", terrain);
 	}
 	
 	public void setBike(String bike){
 		this.bike.setValue(bike);
+		this.changedItems.put("bike", bike);
 	}
 	
 	public void setTrip(String trip){
 		this.trip.setValue(trip);
+		this.changedItems.put("trip", trip);
 	}
 	
 	public void setGuitar(String guitar){
 		this.guitar.setValue(guitar);
+		this.changedItems.put("guitar", guitar);
 	}
 	
 	public void setWaffleIron(String waffleIron){
-		this.waffleIron.setValue(waffleIron);		
+		this.waffleIron.setValue(waffleIron);
+		this.changedItems.put("waffleiron", waffleIron);
 	}
 	
 	public void setHunting(String hunting){
 		this.hunting.setValue(hunting);
+		this.changedItems.put("hunting", hunting);
 	}
 
 	public void setFishing(String fishing){
 		this.fishing.setValue(fishing);
+		this.changedItems.put("fishing", fishing);
+		
 	}
 	public void setSpecialities(String specialities){		
 		this.specialities.setValue(specialities);
+		this.changedItems.put("specialities", specialities);
 	}
 	
 	public void setWood(String wood){		
 		this.wood.setValue(wood);
+		this.changedItems.put("wood", wood);
 	}
 }
