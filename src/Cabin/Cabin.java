@@ -46,7 +46,7 @@ public class Cabin {
 		this(0,null,0,0,0,null,0,0,0,0,0,0,null,null);
 
 	}
-	// Property getters starts here------------------------->
+	// Property getters starts here --->
 
 	public StringProperty getBednumberProperty() {
 		return bedNumber;
@@ -100,7 +100,7 @@ public class Cabin {
 		return this.terrain;
 	}
 
-	// String getters starts here --------------------------
+	// String getters starts here --->
 
 	public String getBednumber() {
 		return bedNumber.get();

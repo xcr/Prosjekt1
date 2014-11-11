@@ -15,7 +15,7 @@ public class Forgotten {
 		this.id = id;
 	}
 	
-	//Property getters starts here-----------------
+	//Property getters starts here --->
 	
 	public StringProperty getNameProperty(){
 		return this.name;
@@ -29,7 +29,7 @@ public class Forgotten {
 		return this.email;
 	}
 	
-	//String getters starts here-------------------
+	//String getters starts here --->
 	
 	public String getName(){
 		return this.name.get();

@@ -1,5 +1,6 @@
 package Cabin;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Destroyed {
@@ -9,9 +10,9 @@ public class Destroyed {
 	
 	public Destroyed(int id, String cabinName, String description, String email){
 		
-		this.cabinName.setValue(cabinName);
-		this.description.setValue(description);
-		this.email.setValue(email);
+		this.cabinName = new SimpleStringProperty(cabinName);
+		this.description = new SimpleStringProperty(description);
+		this.email = new SimpleStringProperty(email);
 		this.id = id;
 	}
 	
@@ -27,6 +28,10 @@ public class Destroyed {
 	
 	public StringProperty getEmailProperty(){
 		return this.email;
+	}
+	
+	public int getId(){
+		return this.id;
 	}
 	
 	
