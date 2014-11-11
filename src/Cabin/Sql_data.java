@@ -27,7 +27,6 @@ import com.mysql.jdbc.Statement;
  * @return      an Sql_data instance
  */
 
-
 public class Sql_data {
 
 	private String url = null;
@@ -53,8 +52,11 @@ public class Sql_data {
 		}
 	}
 
-	//Connects to the SQL database with information given in the constructor. 
-	//You have to use connect before any other functions! And remember to close the connection after use
+	/**
+	 * Opens a connection to the database with the information given in the contructor.
+	 *<p>Remember to close the connection after use</p>
+	 */
+	
 	public void connect(){
 
 		try {
@@ -68,6 +70,11 @@ public class Sql_data {
 		}
 	}
 
+	
+	/**
+	 * Closes the connection to the database, the resultset and the statement.
+	 */
+	
 	public void closeConnection(){
 
 		if(connection != null){
@@ -90,7 +97,14 @@ public class Sql_data {
 			System.out.println("Connection closed!");
 		}
 	}
-
+	
+	/**
+	 * Retrieves information from the sql database.
+	 * Will only get information if the connection is established with connect()
+	 * <br>
+	 * @param table the sql table you want to retrieve information from
+	 * @return Returns a Resultset which is holding all the information
+	 */
 	public ResultSet getTableInformation(String table){
 
 		if(connection != null){
@@ -109,17 +123,26 @@ public class Sql_data {
 				System.out.println("Failed to fetch data from table");
 				e.printStackTrace();
 			}
-
 		}
 		return resultSet;
 	}
+	
+	/**
+	 * Updates the specified table in the sql database with a new value.
+	 * <p>
+	 * @param dbName tablename of the table that is going to be changed
+	 * @param columnName name of the column that is going to be changed
+	 * @param newValue The new value 
+	 * @param columnIDname the unique name of the ID for the column
+	 * @param id The id unique id for the row
+	 */
 
-	public void updateSqlTable(String dbName, String columnName, String newValue, String rowIDname, String id  ){
+	public void updateSqlTable(String dbName, String columnName, String newValue, String columnIDname, String id  ){
 
 		if(connection != null){
 			try {
 				statement = connection.createStatement();
-				statement.execute("UPDATE " + dbName + " SET " + columnName + "=" + "'" + newValue +"'" + " WHERE " + rowIDname + "=" + id);
+				statement.execute("UPDATE " + dbName + " SET " + columnName + "=" + "'" + newValue +"'" + " WHERE " + columnIDname + "=" + id);
 
 			} catch (SQLException e) {
 				System.out.println("failed to write" + dbName + columnName + newValue);
@@ -130,8 +153,14 @@ public class Sql_data {
 
 	//Cabin database variables: cnr-name-bednumber-tablenumber-year-terrain-bike-trip-guitar-waffleiron-hunting-fishing-specialities-wood
 
-	//Retrieves data from the cabin table in the sql database
-	//returns an Observable list that is being used by javaFX
+	/**
+	 * Retrieves the tableinformation for the Cabins in the sql database, and makes an array with Cabin objects.
+	 * Only works if a connection has been established. 
+	 * The observable List is being used by JAVAFX in the GUI.
+	 * <p>
+	 * @return an ObservableList which contains the cabins
+	 */
+	
 	public ObservableList<Cabin> getCabinData(){
 		ResultSet cabin = getTableInformation("Cabin");
 		Cabin c;
@@ -148,16 +177,20 @@ public class Sql_data {
 					cabinList.add(c);
 				}
 			} catch (SQLException e) {
-
 				System.out.println("failed to retrieve CabinData from sql server" + e);
 			}	
-
 		}
 		return cabinList;
 	}
-	//retrieves data from the destroyed table in the sql database.
-	//returns an Observable list that is being used by javaFX
-
+	
+	/**
+	 * Retrieves the tableinformation for the Destroyed items in the sql database, and makes an array with Destroyed objects.
+	 * Only works if a connection has been established. 
+	 * The observable List is being used by JAVAFX in the GUI.
+	 * <p>
+	 * @return an ObservableList which contains the Destroyed objects.
+	 */
+	
 	public ObservableList<Destroyed> getDestroyedData(){
 
 		ObservableList<Destroyed> destroyed =  FXCollections.observableArrayList();
@@ -177,13 +210,17 @@ public class Sql_data {
 				System.out.println("Failed to read from ResultSet");
 				e.printStackTrace();
 			}
-
-
 		}
 		return destroyed;
 	}
-	//retrieves data from the forgotten table in the sql database.
-	//returns an Observable list that is being used by javaFX
+	
+	/**
+	 * Retrieves the tableinformation for the Forgotten items in the sql database, and makes an array with Forgotten objects.
+	 * Only works if a connection has been established. 
+	 * The observable List is being used by JAVAFX in the GUI.
+	 * <p>
+	 * @return an ObservableList which contains the Forgotten objects.
+	 */
 
 	public ObservableList<Forgotten> getForgottenData(){
 		ObservableList<Forgotten> forgotten = FXCollections.observableArrayList();
@@ -202,8 +239,13 @@ public class Sql_data {
 		return forgotten;
 	}
 
-	//Retrieves data from the reservationtable in the sql database
-	//returns an Observable list that is being used by javaFX
+	/**
+	 * Retrieves the tableinformation for the Reservations in the sql database, and makes an array with Reservation objects.
+	 * Only works if a connection has been established. 
+	 * The observable List is being used by JAVAFX in the GUI.
+	 * <p>
+	 * @return an ObservableList which contains the Reservation objects.
+	 */
 	public ObservableList<Reservation> getReservationData(){
 		ObservableList<Reservation> reservations = FXCollections.observableArrayList();
 		Reservation r;
@@ -222,9 +264,9 @@ public class Sql_data {
 		return reservations;
 	}
 
-
-
-	//Updates cabinData with new data if something has been changed(set methods) in the cabin class.
+	/**
+	 * Checks if the cabin has had any changes, and updates all the changes in the sql database.
+	 */
 	public void updateCabindata(){
 
 		if(cabinList != null){
@@ -244,5 +286,4 @@ public class Sql_data {
 	public void updateDestroyedData(){
 
 	}
-
 }
