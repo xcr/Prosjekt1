@@ -286,7 +286,8 @@ public class Sql_data {
 		}
 	}
 
-	public void updateDestroyedData(){
+	public void updateReservationData(){
 
 	}
+	
 }

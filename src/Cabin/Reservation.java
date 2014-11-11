@@ -17,6 +17,7 @@ public class Reservation {
 	public Reservation(int id, String name, String email, String startDate, String endDate, String firstname){
 		this.name = new SimpleStringProperty(name); 
 		this.email = new SimpleStringProperty(email);
+		this.firstname = new SimpleStringProperty(firstname);
 		this.startDate = new SimpleStringProperty(startDate);
 		this.endDate = new SimpleStringProperty(endDate);
 		String[] temp = startDate.split("-");
@@ -27,6 +28,8 @@ public class Reservation {
 				LocalDate.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2])));
 		
 		this.changedFields = new HashMap<String, String>();
+		this.id = id;
+		
 	}
 	public Reservation(){
 		this(0,null, null, null, null,null);
@@ -115,5 +118,9 @@ public class Reservation {
 	public void setEndDate(String date){
 		this.endDate.setValue(date);
 		this.changedFields.put("enddate", date);
+	}
+	
+	public int getId(){
+		return this.id;
 	}
 }
