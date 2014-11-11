@@ -5,8 +5,11 @@ import java.util.EventObject;
 
 import org.controlsfx.dialog.Dialogs;
 
+<<<<<<< HEAD:src/application/MainController.java
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+=======
+>>>>>>> origin/eirik:application/MainController.java
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -46,7 +49,11 @@ public class MainController {
     @FXML
     private TextField to, subject;
     @FXML
+<<<<<<< HEAD:src/application/MainController.java
     private TextArea body, mailBody;
+=======
+    private TextArea body;
+>>>>>>> origin/eirik:application/MainController.java
     @FXML
     //dottene på kartet
     private ImageView Flaakoia, Fosenkoia, Heinfjordstua, Hognabu, Holmsaakoia, Holvassgamma, Iglbu, 

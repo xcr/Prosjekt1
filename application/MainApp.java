@@ -14,7 +14,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import Cabin.Cabin;
 import Cabin.Forgotten;
+<<<<<<< HEAD:src/application/MainApp.java
 import Cabin.Reservation;
+=======
+>>>>>>> origin/eirik:application/MainApp.java
 import Cabin.Sql_data;
 
 public class MainApp extends Application {
@@ -31,8 +34,12 @@ public class MainApp extends Application {
     
     //listene som hentes fra mysql som Observable List
     private ObservableList<Cabin> cabinData = FXCollections.observableArrayList();
+<<<<<<< HEAD:src/application/MainApp.java
     private ObservableList<Forgotten> forgottenData = FXCollections.observableArrayList();
     private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
+=======
+   // private ObservableList<Forgotten> forgottenData = FXCollections.observableArrayList();
+>>>>>>> origin/eirik:application/MainApp.java
     /**
      * Constructor
      */
@@ -42,8 +49,12 @@ public class MainApp extends Application {
     	Sql_data sql = new Sql_data("jdbc:mysql://mysql.stud.ntnu.no/gabrielb_gruppe2", "gabrielb_guest", "guest");
 		sql.connect();
 		cabinData = sql.getCabinData();
+<<<<<<< HEAD:src/application/MainApp.java
 		forgottenData = sql.getForgottenData();
 		reservationData = sql.getReservationData();
+=======
+		//forgottenData = sql.getForgottenData();
+>>>>>>> origin/eirik:application/MainApp.java
 		sql.closeConnection();
 		reservationData.add(new Reservation(1,"Fosenkoia","amail@rofl.copter","24.11.14","25.11.14"));
 		reservationData.add(new Reservation(1,"Heinfjordstua","bmail@rofl.copter","24.11.14","25.11.14"));
@@ -62,7 +73,11 @@ public class MainApp extends Application {
 		
     }
 
+<<<<<<< HEAD:src/application/MainApp.java
     //getters for observable listene
+=======
+    //returnerer cabin lista
+>>>>>>> origin/eirik:application/MainApp.java
     public ObservableList<Cabin> getCabinData() {
         return cabinData;
     }
