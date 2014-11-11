@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 	import org.controlsfx.dialog.Dialogs;
 
 	import Cabin.Cabin;
-import Cabin.Reservation;
 import application.DateUtil;
 
 	/**
@@ -17,11 +16,13 @@ import application.DateUtil;
 	 * @author Marco Jakob
 	 */
 	public class editController {
-		@FXML
-		TextField  cabinName, firstName, lastName, from, to;
-		
+
+
+	    @FXML
+	    private TextField bedsField, tablesField, yearBuiltField, terrainField, reachableByBikeField, tripField;
+
 	    private Stage dialogStage;
-	    private Reservation res;
+	    private Cabin cabin;
 	    private boolean okClicked = false;
 
 	    /**
@@ -46,13 +47,15 @@ import application.DateUtil;
 	     * 
 	     * @param cabin
 	     */
-	    public void setReservation(Reservation res) {
-	        this.res = res;
-	        System.out.println(res.getName());
-	        this.cabinName.setText(res.getName());
-	        this.from.setText(res.getStartDate());
-	        this.to.setText(res.getEndDate());
-	        this.firstName.setText(res.getEmail());
+	    public void setCabin(Cabin cabin) {
+	        this.cabin = cabin;
+
+	        bedsField.setText(cabin.getBednumber());
+	        tablesField.setText(cabin.getTablenumber());
+	        yearBuiltField.setText(cabin.getYear());
+	        terrainField.setText(cabin.getTerrain());
+	        reachableByBikeField.setText(cabin.getBike());
+	        tripField.setText(cabin.getTrip());
 	    }
 
 	    /**
@@ -70,10 +73,12 @@ import application.DateUtil;
 	    @FXML
 	    private void handleOk() {
 	        if (isInputValid()) {
-	           res.setEmail(this.firstName.getText());
-	           res.setEndDate(this.to.getText());
-	           res.setStartDate(this.from.getText());
-	           res.setName(this.cabinName.getText());
+	            cabin.setBedNumber(bedsField.getText());
+	            cabin.setTableNumber(tablesField.getText());
+	            cabin.setYear(yearBuiltField.getText());
+	            cabin.setTerrain(terrainField.getText());
+	            cabin.setBike(reachableByBikeField.getText());
+	            cabin.setTrip(tripField.getText());
 
 	            okClicked = true;
 	            dialogStage.close();
@@ -96,19 +101,27 @@ import application.DateUtil;
 	    private boolean isInputValid() {
 	        String errorMessage = "";
 
-	        if (from.getText() == null || from.getText().length() == 0) {
-	            errorMessage += "Did not set a from date\n"; 
+	        if (bedsField.getText() == null || bedsField.getText().length() == 0) {
+	            errorMessage += "No valid bednr!\n"; 
 	        }
-	        if (to.getText() == null || to.getText().length() == 0) {
-	            errorMessage += "Did not set a to date\n"; 
+	        if (tablesField.getText() == null || tablesField.getText().length() == 0) {
+	            errorMessage += "No valid tablesField!\n"; 
 	        }
-	        if (cabinName.getText() == null || cabinName.getText().length() == 0) {
-	            errorMessage += "Did not set a cabin name\n"; 
+	        if (yearBuiltField.getText() == null || yearBuiltField.getText().length() == 0) {
+	            errorMessage += "No valid year!\n"; 
 	        }
 
-	        if (firstName.getText() == null || firstName.getText().length() == 0) {
-	            errorMessage += "Did not set a first name\n"; 
+	        if (terrainField.getText() == null || terrainField.getText().length() == 0) {
+	            errorMessage += "No valid teraain????!\n"; 
 	        } 
+
+	        if (reachableByBikeField.getText() == null || reachableByBikeField.getText().length() == 0) {
+	            errorMessage += "no valid reachableByBikeField\n"; 
+	        }
+
+	        if (tripField.getText() == null || tripField.getText().length() == 0) {
+	            errorMessage += "No valid birthday!\n";
+	        }
 
 	        if (errorMessage.length() == 0) {
 	            return true;
