@@ -1,4 +1,5 @@
 package Cabin;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Forgotten {
@@ -7,9 +8,10 @@ public class Forgotten {
 	private int id;
 	
 	public Forgotten(int id, String name, String description, String email){
-		this.name.setValue(name);
-		this.description.setValue(description);
-		this.email.setValue(email);
+		
+		this.name = new SimpleStringProperty(name);
+		this.description = new SimpleStringProperty(description);
+		this.email = new SimpleStringProperty(email);
 		this.id = id;
 	}
 	
@@ -30,14 +32,27 @@ public class Forgotten {
 	//String getters starts here-------------------
 	
 	public String getName(){
-		return this.name.toString();
+		return this.name.get();
 	}
 	
 	public String getDescription(){
-		return this.description.toString();
+		return this.description.get();
 	}
 	
 	public String getEmail(){
-		return this.email.toString();
+		return this.email.get();
+	}
+	
+	//String setters start here-------------
+	public void setName(String name){
+		this.name.setValue(name);
+	}
+	
+	public void setEmail(String email){
+		this.email.setValue(email);
+	}
+	
+	public void setDescription(String description){
+		this.description.setValue(description);
 	}
 }
