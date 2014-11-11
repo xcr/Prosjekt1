@@ -1,5 +1,6 @@
 package Cabin;
 import java.time.LocalDate;
+import java.util.HashMap;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -11,6 +12,7 @@ public class Reservation {
 	private StringProperty name, email, startDate, endDate;
 	private int id;
 	private ObjectProperty<LocalDate> start, end;
+	private HashMap<String, String> changedFields;
 	
 	public Reservation(int id, String name, String email, String startDate, String endDate){
 		this.name = new SimpleStringProperty(name); 
@@ -23,6 +25,8 @@ public class Reservation {
 		temp = endDate.split("-");
 		this.end = new SimpleObjectProperty<LocalDate>(
 				LocalDate.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2])));
+		
+		this.changedFields = new HashMap<String, String>();
 	}
 	public Reservation(){
 		this(0,null, null, null, null);
@@ -91,18 +95,21 @@ public class Reservation {
 	
 	public void setName(String name){
 		this.name.setValue(name);
+		this.changedFields.put("name", name);
 	}
 	
 	public void setEmail(String email){
 		this.email.setValue(email);
+		this.changedFields.put("email", email);
 	}
 	
 	public void setStartDate(String date){
 		this.startDate.setValue(date);
+		this.changedFields.put("startdate", date);
 	}
 	
 	public void setEndDate(String date){
 		this.endDate.setValue(date);
+		this.changedFields.put("enddate", date);
 	}
-	
 }
