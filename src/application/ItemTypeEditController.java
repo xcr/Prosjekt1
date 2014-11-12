@@ -5,35 +5,34 @@ import javafx.scene.control.TextField;
 
 import org.controlsfx.dialog.Dialogs;
 
-import Cabin.Item;
-
+import Cabin.ItemType;
 import Cabin.Reservation;
 
-public class ItemEditController extends AbstractEditor {
+public class ItemTypeEditController extends AbstractEditor {
 
 	@FXML
 	private TextField  itemName, amount, cabinName;
-	private Item item;
+	private ItemType itemT;
 	
     @FXML
 	protected void initialize() {
     }
 
     
-    public void setChanges(Item i) {
-        this.item = i;
+    public void setChanges(ItemType i) {
+        this.itemT = i;
         System.out.println(i.getItemName() + " in editor");
         this.itemName.setText(i.getItemName());
         this.amount.setText(i.getAmount());
-        this.cabinName.setText(i.getCabinName());
+        this.cabinName.setText(i.getCabinNames());
     }
 
     @FXML
 	protected void handleOk() {
         if (isInputValid()) {
-        	item.setAmount(amount.getText());
-        	item.setCabinName(cabinName.getText());
-        	item.setItemName(itemName.getText());
+        	itemT.setAmount(amount.getText());
+        	itemT.setCabinNames(cabinName.getText());
+        	itemT.setItemName(itemName.getText());
 
            
 
