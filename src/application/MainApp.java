@@ -43,29 +43,29 @@ public class MainApp extends Application{
  toDo:
  *lage items klasse
  *integrer item i gui
- *lag kode som håndterer logikken med item amount osv
- *add editorer for de gjennværende feltene.
+ *lag kode som hï¿½ndterer logikken med item amount osv
+ *add editorer for de gjennvï¿½rende feltene.
  *fix kart markers
  *lag wood algorithme
- *add threading til email
+ *add threading til email 
  *flytt ting fra about cabin til items(i mysql)
  *add destroyed
  fix reservasjonsbuttons
  fix wood per koie
  fix dato felt greia for reservasjoner
  fix set conditions for datoer
- fix så datoan står riktig vei
+ fix sï¿½ datoan stï¿½r riktig vei
  fix wood css
  sort greia til wood
  lagre meldinger
  hente emails fra gmail
  lag undo(hotkey?)
- fix på alle tabellene så de ikke har overflødige felt osv
+ fix pï¿½ alle tabellene sï¿½ de ikke har overflï¿½dige felt osv
  save og load funksjoner(david)
  sette cabin reservation og cabin info til samme colonne listener(lav prio)
  embed kart(lav prio)
  add about page(lav prio)
- adde masse throws osv(noe av det siste som kan gjøres)
+ adde masse throws osv(noe av det siste som kan gjï¿½res)
  comment all koden
  
  
