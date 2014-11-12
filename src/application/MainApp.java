@@ -42,12 +42,12 @@ public class MainApp extends Application{
  toDo:
  *lage items klasse
  *integrer item i gui
- *lag kode som håndterer logikken med item amount osv
- add editorer for de gjennværende feltene.
+ lag kode som hï¿½ndterer logikken med item amount osv
+ add editorer for de gjennvï¿½rende feltene.
  fix wood per koie
  fix dato felt greia for reservasjoner
  fix set conditions for datoer
- fix så datoan står riktig vei
+ fix sï¿½ datoan stï¿½r riktig vei
  add destroyed
  lag wood algorithme
  fix wood css
@@ -58,11 +58,11 @@ public class MainApp extends Application{
  add threading til email
  flytt ting fra about cabin til items(i mysql)
  lag undo(hotkey?)
- fix på alle tabellene så de ikke har overflødige felt osv
+ fix pï¿½ alle tabellene sï¿½ de ikke har overflï¿½dige felt osv
  save og load funksjoner(david)
  sette cabin reservation og cabin info til samme colonne listener(lav prio)
  add about page(lav prio)
- adde masse throws osv(noe av det siste som kan gjøres)
+ adde masse throws osv(noe av det siste som kan gjï¿½res)
  comment all koden
  
  
@@ -90,11 +90,19 @@ public class MainApp extends Application{
 		sql.closeConnection();
 		
 		//test data
+<<<<<<< Updated upstream
 		reservationData.add(new Reservation(1,"Fosenkoia","amail@rofl.copter","2014-10-4","2014-10-4", "David","Bakke"));
 		reservationData.add(new Reservation(1,"Heinfjordstua","bmail@rofl.copter","2014-10-4","2014-10-4", "Magnus","Blomlie"));
 		reservationData.add(new Reservation(1,"Heinfjordstua","cmail@rofl.copter","2014-10-1","2014-10-4", "Eirik","Bertelsen"));
 		reservationData.add(new Reservation(1,"Fosenkoia","dmail@rofl.copter","2014-10-4","2014-10-7", "Gabriel","Et eller annet"));
 		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-25","2014-11-28", "Ola","Nordmann"));
+=======
+		reservationData.add(new Reservation(1,"Fosenkoia","amail@rofl.copter","2014-10-4","2014-10-4", "David", "a"));
+		reservationData.add(new Reservation(1,"Heinfjordstua","bmail@rofl.copter","2014-10-4","2014-10-4", "Magnus", "b"));
+		reservationData.add(new Reservation(1,"Heinfjordstua","cmail@rofl.copter","2014-10-1","2014-10-4", "Eirik", "c"));
+		reservationData.add(new Reservation(1,"Fosenkoia","dmail@rofl.copter","2014-10-4","2014-10-7", "Gabriel", "d"));
+		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-25","2014-11-28", "Ola", "e"));
+>>>>>>> Stashed changes
 		reservationSorting();
 		
 		itemData.add(new Item("Guitar", "4","Heinfjordstua"));
@@ -207,7 +215,9 @@ public class MainApp extends Application{
         }
     }
 
-
+    /**
+     * Shows the Cabin overview inside the root layout.
+     */
     public void showCabinOverview() {
         try {
             // Load Cabin overview.
@@ -228,73 +238,21 @@ public class MainApp extends Application{
         }
     }
 
-
+    /**
+     * Returns the main stage.
+     * @return
+     */
     public Stage getPrimaryStage() {
         return primaryStage;
     }
-
-    
-    
-    public boolean showItemEditDialog(Item selected) {
-   	 try {
-            // Load the fxml file and create a new stage for the popup dialog.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/fxml/ItemEditor.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-
-            // Create the dialog Stage.
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Item");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            
-            ItemEditController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setChanges(selected);
-
-   
-            dialogStage.showAndWait();
-
-            return controller.isOkClicked();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-   }
-    
-    public boolean showItemTypeEditDialog(ItemType selected) {
-    	 try {
-             // Load the fxml file and create a new stage for the popup dialog.
-             FXMLLoader loader = new FXMLLoader();
-             loader.setLocation(MainApp.class.getResource("/fxml/ItemTypeEditor.fxml"));
-             AnchorPane page = (AnchorPane) loader.load();
-
-             // Create the dialog Stage.
-             Stage dialogStage = new Stage();
-             dialogStage.setTitle("Edit Item");
-             dialogStage.initModality(Modality.WINDOW_MODAL);
-             dialogStage.initOwner(primaryStage);
-             Scene scene = new Scene(page);
-             dialogStage.setScene(scene);
-
-             
-             ItemTypeEditController controller = loader.getController();
-             controller.setDialogStage(dialogStage);
-             controller.setChanges(selected);
-
-    
-             dialogStage.showAndWait();
-
-             return controller.isOkClicked();
-         } catch (IOException e) {
-             e.printStackTrace();
-             return false;
-         }
-    }
-    
+    /**
+     * Opens a dialog to edit details for the specified Cabin. If the user
+     * clicks OK, the changes are saved into the provided Cabin object and true
+     * is returned.
+     * 
+     * @param Cabin the Cabin object to be edited
+     * @return true if the user clicked OK, false otherwise.
+     */
     public boolean showReservationEditDialog(Reservation res) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
@@ -330,7 +288,6 @@ public class MainApp extends Application{
     public static void main(String[] args) {
         launch(args);
     }
-
 
 
 }

@@ -139,7 +139,7 @@
                                                       <HBox spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
                                                          <children>
                                                             <Button layoutX="310.0" layoutY="366.0" mnemonicParsing="false" text="New Item" />
-                                                            <Button layoutX="362.0" layoutY="366.0" mnemonicParsing="false" onAction="#handleCabinItemEdit" text="Edit" />
+                                                            <Button layoutX="362.0" layoutY="366.0" mnemonicParsing="false" text="Edit" />
                                                             <Button layoutX="414.0" layoutY="366.0" mnemonicParsing="false" text="Delete" />
                                                          </children>
                                                       </HBox>
@@ -363,9 +363,9 @@
                         </TableView>
                         <HBox layoutX="714.0" layoutY="586.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
                            <children>
-                              <Button layoutX="714.0" layoutY="586.0" mnemonicParsing="false" onAction="#handleItemAdd" text="Add" />
-                              <Button layoutX="805.0" layoutY="586.0" mnemonicParsing="false" onAction="#handleItemEdit" text="Edit" />
-                              <Button layoutX="903.0" layoutY="586.0" mnemonicParsing="false" onAction="#handleItemRemove" text="Remove" />
+                              <Button layoutX="714.0" layoutY="586.0" mnemonicParsing="false" text="Add" />
+                              <Button layoutX="805.0" layoutY="586.0" mnemonicParsing="false" text="Edit" />
+                              <Button layoutX="903.0" layoutY="586.0" mnemonicParsing="false" text="Remove" />
                            </children>
                         </HBox>
                      </children></AnchorPane>

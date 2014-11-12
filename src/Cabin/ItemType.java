@@ -18,9 +18,6 @@ public class ItemType {
 		this.amount = new SimpleStringProperty("");
 	}
 	
-	public ItemType(){
-		this(null);
-	}
 	public void addItem(Item i){
 		am += Integer.parseInt(i.getAmount());
 		str = i.getCabinName()+":"+i.getAmount()+" ";

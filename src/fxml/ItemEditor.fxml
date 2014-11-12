@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="159.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ItemEditController">
+<AnchorPane prefHeight="250.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ReservationEditController">
    <children>
       <GridPane layoutX="22.0" layoutY="35.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
@@ -19,10 +19,10 @@
         </rowConstraints>
          <children>
             <Label text="Item Name" />
-            <Label text="Amount" GridPane.rowIndex="1" />
+            <Label text="Last Name" GridPane.rowIndex="1" />
             <Label text="CabinName" GridPane.rowIndex="2" />
-            <TextField fx:id="itemName" GridPane.columnIndex="1" />
-            <TextField fx:id="amount" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="firstName" GridPane.columnIndex="1" />
+            <TextField fx:id="lastName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="cabinName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>

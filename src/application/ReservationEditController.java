@@ -1,6 +1,6 @@
 package application;
 
-import javafx.fxml.FXML;
+	import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -11,7 +11,11 @@ import javafx.stage.Stage;
 import Cabin.Reservation;
 import application.DateUtil;
 
-
+	/**
+	 * Dialog to edit details of a cabin.
+	 * 
+	 * @author Marco Jakob
+	 */
 	public class ReservationEditController extends AbstractEditor {
 		@FXML
 		TextField  cabinName, firstName, lastName, from, to;
