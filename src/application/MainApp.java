@@ -43,12 +43,15 @@ public class MainApp extends Application{
  lag kode som håndterer logikken med item amount osv
  add editorer for de gjennværende feltene.
  fix wood per koie
+ fix dato felt greia for reservasjoner
  fix set conditions for datoer
  fix så datoan står riktig vei
  add destroyed
  lag wood algorithme
  fix wood css
+ sort greia til wood
  fix kart markers,embed
+ hente emails fra gmail
  add threading til email
  flytt ting fra about cabin til items(i mysql)
  lag undo(hotkey?)
@@ -90,25 +93,28 @@ public class MainApp extends Application{
 		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-25","2014-11-28", "Ola"));
 		reservationSorting();
 		
-		itemData.add(new Item("Guitar", "1","Heinfjordstua 1"));
-		itemData.add(new Item("Guitar", "5","Heinfjordstua 3 Fosenkoia 2"));
-		itemData.add(new Item("Grill", "1","Heinfjordstua 1"));
-		itemData.add(new Item("Sykkel", "1", "Heinfjordstua 1"));
-		itemData.add(new Item("Sykkel", "1", "Fosenkoia 1"));
+		itemData.add(new Item("Guitar", "1","Heinfjordstua:1"));
+		itemData.add(new Item("Guitar", "5","Heinfjordstua:3 Fosenkoia:2"));
+		itemData.add(new Item("Grill", "1","Heinfjordstua:1"));
+		itemData.add(new Item("Sykkel", "1", "Heinfjordstua:1"));
+		itemData.add(new Item("Sykkel", "1", "Fosenkoia:1"));
 		itemHandeling();
     }
     
     public void itemHandeling(){
     	for(Cabin c : cabinData){
     		for(Item i : itemData){
-    			String[] names = i.getCabinName().split(" ");
+    			String[] nameNumber = i.getCabinName().split(" ");
+    			for(int k = 0;k < nameNumber.length; k++){
+    				String[] nameOrNumber = nameNumber[k].split(":");
+    					if(c.getName().toLowerCase().equals(nameOrNumber[0].toLowerCase())){
+    						c.addItem(new Item(i.getItemName(),nameOrNumber[1],nameOrNumber[0] ));
+    						System.out.println("it worked\n\n\n\n\n");
+    					}
+    	
+    				
+    			}
     			
-	    			for (int j = 0; j < names.length; j = j + 2) {
-	    				if(c.getName().toLowerCase().equals(names[j].toLowerCase())){
-	    					c.addItem(new Item(i.getItemName(),names[j+1],names[j] ));
-	    					System.out.println("it worked\n\n\n\n\n");
-	    				}
-				}
     		}
     	}
     	

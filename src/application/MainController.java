@@ -141,6 +141,9 @@ public class MainController{
     				
     				else{
     					if(item.equals("Full")){
+    						setStyle("-fx-background-color: green");
+    					}
+    					else if(item.equals("High")){
     						setStyle("-fx-background-color: #00AA00");
     					}
     					else if(item.equals("Medium")){
@@ -148,6 +151,9 @@ public class MainController{
     					}
     					else if(item.equals("Empty")){
     						setStyle("-fx-background-color: #FF5555");
+    					}
+    					else if(item.equals("Low")){
+    						setStyle("-fx-background-color: #FFA000");
     					}
     				}
     			}
