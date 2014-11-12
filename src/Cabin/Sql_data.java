@@ -257,7 +257,7 @@ public class Sql_data {
 			
 			while(res.next()){
 				r = new Reservation(res.getInt("rnr"), res.getString("cabinname"), res.getString("email"), res.getString("startdate"),
-						res.getString("enddate"), res.getString("firstname"));
+						res.getString("enddate"), res.getString("firstname"), res.getString("lastname"));
 				reservations.add(r);
 			}
 		} catch (SQLException e) {

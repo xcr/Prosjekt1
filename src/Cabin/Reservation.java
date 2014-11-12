@@ -14,13 +14,14 @@ public class Reservation {
 	private ObjectProperty<LocalDate> start, end;
 	private HashMap<String, String> changedFields;
 	
-	public Reservation(int id, String name, String email, String startDate, String endDate, String firstname){
+	public Reservation(int id, String name, String email, String startDate, String endDate, String firstname, String lastname){
 		this.name = new SimpleStringProperty(name); 
 		this.email = new SimpleStringProperty(email);
 		this.firstname = new SimpleStringProperty(firstname);
+		this.lastname = new SimpleStringProperty(lastname);
 		this.startDate = new SimpleStringProperty(startDate);
 		this.endDate = new SimpleStringProperty(endDate);
-		/* local date stuff om man skal omgjøre
+		/* local date stuff om man skal omgjï¿½re
 		String[] temp = startDate.split("-");
 		this.start = new SimpleObjectProperty<LocalDate>(
 				LocalDate.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2])));
@@ -34,7 +35,7 @@ public class Reservation {
 		
 	}
 	public Reservation(){
-		this(0,null, null, null, null,null);
+		this(0,null, null, null, null,null, null);
 	}
 	
 	public ObjectProperty<LocalDate> getStartProperty(){
@@ -60,6 +61,7 @@ public class Reservation {
 	
 	//StringProperty getters starts here ---------
 	
+	
 	public StringProperty getNameProperty(){
 		return name;
 	}
@@ -77,6 +79,10 @@ public class Reservation {
 	}
 	public StringProperty firstname(){
 		return this.firstname;
+	}
+	
+	public StringProperty getLastnameProperty(){
+		return this.lastname;
 	}
 	
 	//String getters starts here---------------
@@ -98,6 +104,10 @@ public class Reservation {
 	}
 	public String getfirstname(){
 		return this.firstname.get();
+	}
+	
+	public String getlastname(){
+		return this.lastname.get();
 	}
 	
 	//String setters her
