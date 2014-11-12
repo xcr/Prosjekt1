@@ -47,8 +47,6 @@ import application.DateUtil;
 	            dialogStage.close();
 	        }
 	    }
-	    
-	   
 
 	    protected boolean isInputValid() {
 	        String errorMessage = "";
