@@ -18,16 +18,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.stage.Stage;
  
+import netscape.javascript.JSObject;
  
 public class Map extends Application implements MapComponentInitializedListener {
-
 
 	GoogleMapView mapView;
 	GoogleMap map;
 
-	
-
-	
 	@Override
 	public void start(Stage stage) throws Exception {
 
@@ -206,14 +203,21 @@ public class Map extends Application implements MapComponentInitializedListener 
                                 + "Current Location: Safeway<br>"
                                 + "ETA: 45 minutes");
 
-        InfoWindow fredWilkeInfoWindow = new InfoWindow(infoWindowOptions);
-        fredWilkeInfoWindow.open(map, fosenkoiaMarker);
-        
-       // map.addUIEventHandler(fosenkoiaMarker, UIEventType.click, fredWilkeInfoWindow.open(map, fosenkoiaMarker));
-		//map.addMarker(fosenkoiaMarker);
+			MarkerOptions testMarkerOptions = new MarkerOptions();
+			Marker hytteMarker = new Marker(testMarkerOptions);
+			
+			infoWindowOptions.content("<h2>lulzdfsfsd<h2>");
+			InfoWindow hytteInfoWindow = new InfoWindow(infoWindowOptions);
+			
+			map.addUIEventHandler(fosenkoiaMarker, UIEventType.click, (JSObject obj) -> hytteInfoWindow.open(map, fosenkoiaMarker));
+			
+		
 		
 	}
 
+	public static void main(String[] args) {
+		launch(args);
+	}
 
  
 
