@@ -19,6 +19,7 @@ import Cabin.Cabin;
 import Cabin.Forgotten;
 import Cabin.Item;
 import Cabin.ItemType;
+import Cabin.MailInterface;
 import Cabin.Reservation;
 import Cabin.Sql_data;
 
@@ -44,24 +45,25 @@ public class MainApp extends Application{
  *integrer item i gui
  *lag kode som håndterer logikken med item amount osv
  *add editorer for de gjennværende feltene.
+ *fix kart markers
+ *lag wood algorithme
+ *add threading til email
+ *flytt ting fra about cabin til items(i mysql)
+ *add destroyed
  fix reservasjonsbuttons
  fix wood per koie
  fix dato felt greia for reservasjoner
  fix set conditions for datoer
  fix så datoan står riktig vei
- add destroyed
- lag wood algorithme
  fix wood css
  sort greia til wood
- *fix kart markers,embed
  lagre meldinger
  hente emails fra gmail
- *add threading til email
- flytt ting fra about cabin til items(i mysql)
  lag undo(hotkey?)
  fix på alle tabellene så de ikke har overflødige felt osv
  save og load funksjoner(david)
  sette cabin reservation og cabin info til samme colonne listener(lav prio)
+ embed kart(lav prio)
  add about page(lav prio)
  adde masse throws osv(noe av det siste som kan gjøres)
  comment all koden
@@ -72,11 +74,11 @@ public class MainApp extends Application{
     
     //listene som hentes fra mysql som Observable List
     private ObservableList<Cabin> cabinData = FXCollections.observableArrayList();
-    private ObservableList<Forgotten> forgottenData = FXCollections.observableArrayList();
+    private ObservableList<MailInterface> forgottenData = FXCollections.observableArrayList();
     private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
     private ObservableList<Item> itemData = FXCollections.observableArrayList();
     private ObservableList<ItemType> itemTypeData = FXCollections.observableArrayList();
-    
+    private ObservableList<MailInterface> destroyedData = FXCollections.observableArrayList();
 
     public MainApp() {
     	
@@ -85,6 +87,9 @@ public class MainApp extends Application{
 		sql.connect();
 		cabinData = sql.getCabinData();
 		forgottenData = sql.getForgottenData();
+		forgottenData.addAll(sql.getDestroyedData());
+		
+		
 		reservationData = sql.getReservationData();
 		sql.closeConnection();
 		
@@ -123,7 +128,6 @@ public class MainApp extends Application{
 		for(String s : names){
 			
 				itemTypeData.add(new ItemType(s));
-
 		}
 		for(ItemType i : itemTypeData){
 			for(Item j : itemData){
@@ -132,9 +136,6 @@ public class MainApp extends Application{
 				}
 			}
 		}
-			
-    	
-    	
     }
     
     //sorterer reservasjonene og legger de til riktig koie.
@@ -148,7 +149,6 @@ public class MainApp extends Application{
 					
 				}
 			}
-
 		}
     }
     
@@ -158,7 +158,7 @@ public class MainApp extends Application{
         return cabinData;
     }
     
-    public ObservableList<Forgotten> getForgottenData(){
+    public ObservableList<MailInterface> getForgottenData(){
     	return forgottenData;
     }
     

@@ -3,7 +3,7 @@ package Cabin;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Destroyed {
+public class Destroyed implements MailInterface {
 	
 	private StringProperty cabinName, description, email;
 	private int id;
@@ -16,36 +16,44 @@ public class Destroyed {
 		this.id = id;
 	}
 	
-	//StringProperty getters starts here--------------
+	//Property getters starts here --->
 	
-	public StringProperty getCabinNameProperty(){
-		return this.cabinName;
+		public StringProperty getCabinNameProperty(){
+			return this.cabinName;
+		}
+		
+		public StringProperty getDescriptionProperty(){
+			return this.description;
+		}
+		
+		public StringProperty getEmailProperty(){
+			return this.email;
+		}
+		
+		//String getters starts here --->
+		
+		public String getName(){
+			return this.cabinName.get();
+		}
+		
+		public String getDescription(){
+			return this.description.get();
+		}
+		
+		public String getEmail(){
+			return this.email.get();
+		}
+		
+		//String setters start here-------------
+		public void setName(String cabinName){
+			this.cabinName.setValue(cabinName);
+		}
+		
+		public void setEmail(String email){
+			this.email.setValue(email);
+		}
+		
+		public void setDescription(String description){
+			this.description.setValue(description);
+		}
 	}
-	
-	public StringProperty getDescriptionProperty(){
-		return this.description;
-	}
-	
-	public StringProperty getEmailProperty(){
-		return this.email;
-	}
-	
-	public int getId(){
-		return this.id;
-	}
-	
-	
-	//String getters starts here ----------------
-	
-	public String getCabinName(){
-		return this.cabinName.toString();
-	}
-	
-	public String getDescription(){
-		return this.description.toString();
-	}
-	
-	public String getEmail(){
-		return this.email.toString();
-	}
-}

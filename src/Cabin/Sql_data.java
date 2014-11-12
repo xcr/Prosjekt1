@@ -191,9 +191,9 @@ public class Sql_data {
 	 * @return an ObservableList which contains the Destroyed objects.
 	 */
 	
-	public ObservableList<Destroyed> getDestroyedData(){
+	public ObservableList<MailInterface> getDestroyedData(){
 
-		ObservableList<Destroyed> destroyed =  FXCollections.observableArrayList();
+		ObservableList<MailInterface> destroyed =  FXCollections.observableArrayList();
 		Destroyed d;
 
 		if(connection != null){
@@ -222,8 +222,8 @@ public class Sql_data {
 	 * @return an ObservableList which contains the Forgotten objects.
 	 */
 
-	public ObservableList<Forgotten> getForgottenData(){
-		ObservableList<Forgotten> forgotten = FXCollections.observableArrayList();
+	public ObservableList<MailInterface> getForgottenData(){
+		ObservableList<MailInterface> forgotten = FXCollections.observableArrayList();
 		Forgotten f;
 		ResultSet fi = getTableInformation("Forgotten");
 
