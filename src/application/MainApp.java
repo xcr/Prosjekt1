@@ -2,6 +2,7 @@ package application;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -17,6 +18,7 @@ import javafx.stage.Stage;
 import Cabin.Cabin;
 import Cabin.Forgotten;
 import Cabin.Item;
+import Cabin.ItemType;
 import Cabin.Reservation;
 import Cabin.Sql_data;
 
@@ -51,6 +53,7 @@ public class MainApp extends Application{
  fix wood css
  sort greia til wood
  fix kart markers,embed
+ lagre meldinger
  hente emails fra gmail
  add threading til email
  flytt ting fra about cabin til items(i mysql)
@@ -71,6 +74,7 @@ public class MainApp extends Application{
     private ObservableList<Forgotten> forgottenData = FXCollections.observableArrayList();
     private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
     private ObservableList<Item> itemData = FXCollections.observableArrayList();
+    private ObservableList<ItemType> itemTypeData = FXCollections.observableArrayList();
     
     /**
      * Constructor
@@ -86,37 +90,51 @@ public class MainApp extends Application{
 		sql.closeConnection();
 		
 		//test data
-		reservationData.add(new Reservation(1,"Fosenkoia","amail@rofl.copter","2014-10-4","2014-10-4", "David"));
-		reservationData.add(new Reservation(1,"Heinfjordstua","bmail@rofl.copter","2014-10-4","2014-10-4", "Magnus"));
-		reservationData.add(new Reservation(1,"Heinfjordstua","cmail@rofl.copter","2014-10-1","2014-10-4", "Eirik"));
-		reservationData.add(new Reservation(1,"Fosenkoia","dmail@rofl.copter","2014-10-4","2014-10-7", "Gabriel"));
-		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-25","2014-11-28", "Ola"));
+		reservationData.add(new Reservation(1,"Fosenkoia","amail@rofl.copter","2014-10-4","2014-10-4", "David","Bakke"));
+		reservationData.add(new Reservation(1,"Heinfjordstua","bmail@rofl.copter","2014-10-4","2014-10-4", "Magnus","Blomlie"));
+		reservationData.add(new Reservation(1,"Heinfjordstua","cmail@rofl.copter","2014-10-1","2014-10-4", "Eirik","Bertelsen"));
+		reservationData.add(new Reservation(1,"Fosenkoia","dmail@rofl.copter","2014-10-4","2014-10-7", "Gabriel","Et eller annet"));
+		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-25","2014-11-28", "Ola","Nordmann"));
 		reservationSorting();
 		
-		itemData.add(new Item("Guitar", "1","Heinfjordstua:1"));
-		itemData.add(new Item("Guitar", "5","Heinfjordstua:3 Fosenkoia:2"));
-		itemData.add(new Item("Grill", "1","Heinfjordstua:1"));
-		itemData.add(new Item("Sykkel", "1", "Heinfjordstua:1"));
-		itemData.add(new Item("Sykkel", "1", "Fosenkoia:1"));
+		itemData.add(new Item("Guitar", "4","Heinfjordstua"));
+		itemData.add(new Item("Guitar","5","Fosenkoia"));
+		itemData.add(new Item("Grill", "1","Heinfjordstua"));
+		itemData.add(new Item("Sykkel", "1", "Heinfjordstua"));
+		itemData.add(new Item("Sykkel", "1", "Fosenkoia"));
 		itemHandeling();
     }
     
     public void itemHandeling(){
+
     	for(Cabin c : cabinData){
     		for(Item i : itemData){
-    			String[] nameNumber = i.getCabinName().split(" ");
-    			for(int k = 0;k < nameNumber.length; k++){
-    				String[] nameOrNumber = nameNumber[k].split(":");
-    					if(c.getName().toLowerCase().equals(nameOrNumber[0].toLowerCase())){
-    						c.addItem(new Item(i.getItemName(),nameOrNumber[1],nameOrNumber[0] ));
-    						System.out.println("it worked\n\n\n\n\n");
-    					}
-    	
-    				
+    			if(c.getName().equals(i.getCabinName())){
+    				c.addItem(i);
     			}
-    			
     		}
     	}
+    	
+    	ArrayList<String> names = new ArrayList<String>();
+		for(Item i : itemData){
+			if(!names.contains(i.getItemName())){
+				names.add(i.getItemName());
+			}
+		}
+		for(String s : names){
+			
+				itemTypeData.add(new ItemType(s));
+
+		}
+		for(ItemType i : itemTypeData){
+			for(Item j : itemData){
+				if(i.getItemName().equals(j.getItemName())){
+					i.addItem(j);
+				}
+			}
+		}
+			
+    	
     	
     }
     
@@ -152,6 +170,9 @@ public class MainApp extends Application{
     	return itemData;
     }
     
+    public ObservableList<ItemType> getItemTypeData(){
+    	return itemTypeData;
+    }
     
 
     // ... THE REST OF THE CLASS ...

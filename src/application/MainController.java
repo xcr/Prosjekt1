@@ -20,6 +20,7 @@ import javafx.scene.image.ImageView;
 import Cabin.Cabin;
 import Cabin.Forgotten;
 import Cabin.Item;
+import Cabin.ItemType;
 import Cabin.Reservation;
 
 
@@ -27,11 +28,14 @@ import Cabin.Reservation;
 public class MainController{
 	
 	
-	
 	@FXML
-	private TableView<Item> itemTable, cabinItemTable;
+	private TableView<ItemType> itemTable;
 	@FXML
-	private TableColumn<Item, String> itemNameColumn, itemCabinNamesColumn, itemAmountColumn, cabinItemName, cabinItemAmount;
+	private TableColumn<ItemType, String> itemNameColumn, itemCabinNamesColumn, itemAmountColumn;
+	@FXML
+	private TableView<Item> cabinItemTable;
+	@FXML
+	private TableColumn<Item, String> cabinItemName, cabinItemAmount;
 	@FXML
 	private TableView<Cabin> woodTable;
 	@FXML
@@ -97,7 +101,7 @@ public class MainController{
     	sendTable.setItems(mainApp.getReservationData());
     	mainResTable.setItems(mainApp.getReservationData());
     	woodTable.setItems(mainApp.getCabinData());
-    	itemTable.setItems(mainApp.getItemData());
+    	itemTable.setItems(mainApp.getItemTypeData());
     	
     }
 
@@ -122,7 +126,7 @@ public class MainController{
     	mainResFirstName.setCellValueFactory(cellData -> cellData.getValue().getEmailProperty());
     	
     	itemNameColumn.setCellValueFactory(cellData -> cellData.getValue().getItemNameProperty());
-    	itemCabinNamesColumn.setCellValueFactory(cellData -> cellData.getValue().getCabinNameProperty());
+    	itemCabinNamesColumn.setCellValueFactory(cellData -> cellData.getValue().getCabinNamesProperty());
     	itemAmountColumn.setCellValueFactory(cellData -> cellData.getValue().getAmountProperty());
     	
 
