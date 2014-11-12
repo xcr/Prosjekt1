@@ -90,19 +90,13 @@ public class MainApp extends Application{
 		sql.closeConnection();
 		
 		//test data
-<<<<<<< Updated upstream
+
 		reservationData.add(new Reservation(1,"Fosenkoia","amail@rofl.copter","2014-10-4","2014-10-4", "David","Bakke"));
 		reservationData.add(new Reservation(1,"Heinfjordstua","bmail@rofl.copter","2014-10-4","2014-10-4", "Magnus","Blomlie"));
 		reservationData.add(new Reservation(1,"Heinfjordstua","cmail@rofl.copter","2014-10-1","2014-10-4", "Eirik","Bertelsen"));
 		reservationData.add(new Reservation(1,"Fosenkoia","dmail@rofl.copter","2014-10-4","2014-10-7", "Gabriel","Et eller annet"));
 		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-25","2014-11-28", "Ola","Nordmann"));
-=======
-		reservationData.add(new Reservation(1,"Fosenkoia","amail@rofl.copter","2014-10-4","2014-10-4", "David", "a"));
-		reservationData.add(new Reservation(1,"Heinfjordstua","bmail@rofl.copter","2014-10-4","2014-10-4", "Magnus", "b"));
-		reservationData.add(new Reservation(1,"Heinfjordstua","cmail@rofl.copter","2014-10-1","2014-10-4", "Eirik", "c"));
-		reservationData.add(new Reservation(1,"Fosenkoia","dmail@rofl.copter","2014-10-4","2014-10-7", "Gabriel", "d"));
-		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-25","2014-11-28", "Ola", "e"));
->>>>>>> Stashed changes
+
 		reservationSorting();
 		
 		itemData.add(new Item("Guitar", "4","Heinfjordstua"));
