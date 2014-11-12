@@ -64,7 +64,7 @@ public class MainController{
     private TableColumn<Reservation, String> mainResFrom, mainResTo;
     //cabin lables
     @FXML
-    private Label beds, tables, yearBuilt, terrain, reachableByBike, trip, guitar, waffleIron, hunting, fishing, specialties, woodStatus;
+    private Label woodLabelName, woodLabelLevel, woodLevelDugnad, beds, tables, yearBuilt, terrain, reachableByBike, trip, guitar, waffleIron, hunting, fishing, specialties, woodStatus;
     @FXML
     private TextField to, subject;
     @FXML
@@ -196,7 +196,27 @@ public class MainController{
     //showDetails klassene som s�rger for at riktig info vises i tabellene/labelene
     
     private void showWoodStatus(Cabin cab){
- 
+    	String wood = cab.getWood();
+    	if(wood.equals("Full")){
+    		woodLevelDugnad.setText("40");
+		}
+		else if(wood.equals("High")){
+			woodLevelDugnad.setText("30");
+		}
+		else if(wood.equals("Medium")){
+			woodLevelDugnad.setText("20");
+		}
+		else if(wood.equals("Empty")){
+			woodLevelDugnad.setText("immediately");
+		}
+		else if(wood.equals("Low")){
+			woodLevelDugnad.setText("10");
+		}
+    	
+    	
+    	woodLabelName.setText(cab.getName());
+    	woodLabelLevel.setText(wood);
+    	
     }
     
     private void showMessagingDetail(Reservation res) {
@@ -388,8 +408,13 @@ public class MainController{
 		
 		
 	}
+	
+	@FXML
+	private void handleOpenMap(){
+	
+	}
 
-
+	
 
 
 }

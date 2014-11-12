@@ -1,5 +1,5 @@
 package application;
- 
+
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
@@ -11,16 +11,16 @@ import com.lynden.gmapsfx.javascript.object.MapOptions;
 import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
 import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
- 
+
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.stage.Stage;
- 
 import netscape.javascript.JSObject;
- 
+
 public class Map extends Application implements MapComponentInitializedListener {
+	
 
 	GoogleMapView mapView;
 	GoogleMap map;
@@ -199,26 +199,22 @@ public class Map extends Application implements MapComponentInitializedListener 
 		map.addMarker(kamtjonnkoiaMarker);
 		
 		InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-        infoWindowOptions.content("<h2>Fred Wilkie</h2>"
-                                + "Current Location: Safeway<br>"
-                                + "ETA: 45 minutes");
+		infoWindowOptions.content("<h2>Fred Wilkie</h2>"
+				+ "Current Location: Safeway<br>"
+				+ "ETA: 45 minutes");
 
-			MarkerOptions testMarkerOptions = new MarkerOptions();
-			Marker hytteMarker = new Marker(testMarkerOptions);
-			
-			infoWindowOptions.content("<h2>lulzdfsfsd<h2>");
-			InfoWindow hytteInfoWindow = new InfoWindow(infoWindowOptions);
-			
-			map.addUIEventHandler(fosenkoiaMarker, UIEventType.click, (JSObject obj) -> hytteInfoWindow.open(map, fosenkoiaMarker));
-			
 		
-		
+		MarkerOptions testMarkerOptions = new MarkerOptions();
+		Marker hytteMarker = new Marker(testMarkerOptions);
+
+		infoWindowOptions.content("<h2>lulzdfsfsd</h2>");
+		InfoWindow hytteInfoWindow = new InfoWindow(infoWindowOptions);
+
+		map.addUIEventHandler(fosenkoiaMarker, UIEventType.click, (JSObject obj) -> hytteInfoWindow.open(map, fosenkoiaMarker));
+
 	}
-
-	public static void main(String[] args) {
-		launch(args);
-	}
-
- 
-
+		public static void main(String[] args) {
+			launch(args);
+		}
+	
 }
