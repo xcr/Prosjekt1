@@ -35,7 +35,9 @@ public class Sql_data {
 	private Connection connection = null;
 	private java.sql.Statement statement = null;
 	private ResultSet resultSet = null;
-	private ObservableList<Cabin> cabinList = null; 
+	private ObservableList<Cabin> cabinList = null;
+	private ObservableList<Item> itemList = null; 
+
 
 	public Sql_data(String sqlURL, String username,String passwd){
 
@@ -56,7 +58,7 @@ public class Sql_data {
 	 * Opens a connection to the database with the information given in the contructor.
 	 *<p>Remember to close the connection after use</p>
 	 */
-	
+
 	public void connect(){
 
 		try {
@@ -70,11 +72,11 @@ public class Sql_data {
 		}
 	}
 
-	
+
 	/**
 	 * Closes the connection to the database, the resultset and the statement.
 	 */
-	
+
 	public void closeConnection(){
 
 		if(connection != null){
@@ -97,7 +99,7 @@ public class Sql_data {
 			System.out.println("Connection closed!");
 		}
 	}
-	
+
 	/**
 	 * Retrieves information from the sql database.
 	 * Will only get information if the connection is established with connect()
@@ -126,7 +128,7 @@ public class Sql_data {
 		}
 		return resultSet;
 	}
-	
+
 	/**
 	 * Updates the specified table in the sql database with a new value.
 	 * <p>
@@ -160,7 +162,7 @@ public class Sql_data {
 	 * <p>
 	 * @return an ObservableList which contains the cabins
 	 */
-	
+
 	public ObservableList<Cabin> getCabinData(){
 		ResultSet cabin = getTableInformation("Cabin");
 		Cabin c;
@@ -182,7 +184,32 @@ public class Sql_data {
 		}
 		return cabinList;
 	}
-	
+	/**
+	 * Retrieves the tableinformation for Item table in the sql database, and makes an array with Item objects.
+	 * Only works if a connection has been established. 
+	 * The observable List is being used by JAVAFX in the GUI.
+	 * <p>
+	 * @return an ObservableList which contains the Item objects.
+	 */
+
+	public ObservableList<Item> getItemData(){
+		ResultSet item = getTableInformation("Item");
+		Item i;
+		itemList = FXCollections.observableArrayList();
+		if(connection != null){
+			try {
+				while(item.next()){
+					i = new Item(item.getString("cabinname"), item.getString("itemname"), item.getString("amount"));
+					itemList.add(i);
+				}
+			} catch (SQLException e) {
+				System.out.println("failed to retrieve data from table: Item in database");
+				e.printStackTrace();
+			}
+		}
+		return itemList;
+	}
+
 	/**
 	 * Retrieves the tableinformation for the Destroyed items in the sql database, and makes an array with Destroyed objects.
 	 * Only works if a connection has been established. 
@@ -190,7 +217,7 @@ public class Sql_data {
 	 * <p>
 	 * @return an ObservableList which contains the Destroyed objects.
 	 */
-	
+
 	public ObservableList<MailInterface> getDestroyedData(){
 
 		ObservableList<MailInterface> destroyed =  FXCollections.observableArrayList();
@@ -213,7 +240,7 @@ public class Sql_data {
 		}
 		return destroyed;
 	}
-	
+
 	/**
 	 * Retrieves the tableinformation for the Forgotten items in the sql database, and makes an array with Forgotten objects.
 	 * Only works if a connection has been established. 
@@ -254,7 +281,7 @@ public class Sql_data {
 		try {
 			statement = connection.createStatement();
 			res  = statement.executeQuery("SELECT * FROM Reservation, User WHERE Reservation.email = User.email");
-			
+
 			while(res.next()){
 				r = new Reservation(res.getInt("rnr"), res.getString("cabinname"), res.getString("email"), res.getString("startdate"),
 						res.getString("enddate"), res.getString("firstname"), res.getString("lastname"));
@@ -287,7 +314,22 @@ public class Sql_data {
 	}
 
 	public void updateReservationData(){
-		
+
 	}
 	
+	//This is going to be the functin for updating Items, not adding
+	public void addItems(){
+	}
+	
+	public void addItemToDatabase(String cabinName, String itemName, String value){
+		try {
+			statement.execute("INSERT INTO Item (cabinname, itemname, amount) VALUES "
+					+ "('" +cabinName+ "','" + itemName+ "','" + value + "')" );
+			System.out.println("added item:" + itemName + "to: " + cabinName + " value: "+ value);
+		} catch (SQLException e) {
+			System.out.println("could not add item to database");
+			e.printStackTrace();
+		}
+	}
+
 }

@@ -1,5 +1,7 @@
 package Cabin;
 
+import java.util.HashMap;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -7,13 +9,15 @@ import javafx.beans.property.StringProperty;
 
 public class Item {
 	
-	private StringProperty cabinName, itemName, amount;  
+	private StringProperty cabinName, itemName, amount;
+	
 	
 	
 	public Item(String itemName, String amount, String cabinName){
 		this.cabinName = new SimpleStringProperty(cabinName);
 		this.itemName = new SimpleStringProperty(itemName);
 		this.amount = new SimpleStringProperty(amount);
+	
 	}
 	
 	public Item(){
@@ -46,7 +50,6 @@ public class Item {
 	public void setAmount(String amount) {
 		this.amount.set(amount);
 	}
-
 	
 	//property getters her
 	public StringProperty getItemNameProperty(){
@@ -60,8 +63,4 @@ public class Item {
 	public StringProperty getAmountProperty(){
 		return this.amount;
 	}
-
-	
-	
-	
 }

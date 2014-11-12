@@ -10,11 +10,9 @@ public class Test {
 		Sql_data sql = new Sql_data("jdbc:mysql://mysql.stud.ntnu.no/gabrielb_gruppe2", "gabrielb_guest", "guest");
 		sql.connect();
 		ObservableList<Reservation> reservations =sql.getReservationData();
+		sql.addItemToDatabase("AddTodatabasetest", "waffleiron", "1");
 		
-		for(Reservation r : reservations){
-			if(r.getId() == 11 ){
-				System.out.println(r.getfirstname());
-			}
-		}
+		
+		
 	}
 }
