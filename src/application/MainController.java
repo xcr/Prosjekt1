@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
 //import application.MainApp;
 import Cabin.Cabin;
 import Cabin.Forgotten;
+import Cabin.Item;
 import Cabin.Reservation;
 
 
@@ -27,6 +28,10 @@ public class MainController{
 	
 	
 	
+	@FXML
+	private TableView<Item> itemTable, cabinItemTable;
+	@FXML
+	private TableColumn<Item, String> itemNameColumn, itemCabinNamesColumn, itemAmountColumn, cabinItemName, cabinItemAmount;
 	@FXML
 	private TableView<Cabin> woodTable;
 	@FXML
@@ -52,7 +57,7 @@ public class MainController{
     sendFirstName, sendLastName,mainResName, mainResFirstName, mainResLastName;
     
     @FXML
-    private TableColumn<Reservation, LocalDate> mainResFrom, mainResTo;
+    private TableColumn<Reservation, String> mainResFrom, mainResTo;
     //cabin lables
     @FXML
     private Label beds, tables, yearBuilt, terrain, reachableByBike, trip, guitar, waffleIron, hunting, fishing, specialties, woodStatus;
@@ -92,6 +97,7 @@ public class MainController{
     	sendTable.setItems(mainApp.getReservationData());
     	mainResTable.setItems(mainApp.getReservationData());
     	woodTable.setItems(mainApp.getCabinData());
+    	itemTable.setItems(mainApp.getItemData());
     	
     }
 
@@ -111,9 +117,15 @@ public class MainController{
     	sendFirstName.setCellValueFactory(cellData -> cellData.getValue().getEmailProperty());
     	
     	mainResName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-    	mainResFrom.setCellValueFactory(cellData -> cellData.getValue().getStartProperty());
-    	mainResTo.setCellValueFactory(cellData -> cellData.getValue().getEndProperty());
+    	mainResFrom.setCellValueFactory(cellData -> cellData.getValue().getStartDateProperty());
+    	mainResTo.setCellValueFactory(cellData -> cellData.getValue().getEndDateProperty());
     	mainResFirstName.setCellValueFactory(cellData -> cellData.getValue().getEmailProperty());
+    	
+    	itemNameColumn.setCellValueFactory(cellData -> cellData.getValue().getItemNameProperty());
+    	itemCabinNamesColumn.setCellValueFactory(cellData -> cellData.getValue().getCabinNameProperty());
+    	itemAmountColumn.setCellValueFactory(cellData -> cellData.getValue().getAmountProperty());
+    	
+
     	woodLevel.setCellValueFactory(cellData -> cellData.getValue().getWoodProperty());
     	woodCabinName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
     	woodLevel.setCellFactory(column -> {
@@ -212,6 +224,10 @@ public class MainController{
         	fishing.setText(cabin.getFishing());
         	specialties.setText(cabin.getSpecialities());
         	woodStatus.setText(cabin.getWood());
+        	cabinItemTable.setItems(cabin.getItemList());
+        	cabinItemName.setCellValueFactory(cellData -> cellData.getValue().getItemNameProperty());
+        	cabinItemAmount.setCellValueFactory(cellData -> cellData.getValue().getAmountProperty());
+        	    	
         } else {
             // cabin is null, remove all the text.
         	beds.setText("");
@@ -247,7 +263,7 @@ public class MainController{
     	}
     }
     
-    
+
 
 	@FXML
     private void handleDeleteCabin() {
@@ -272,16 +288,25 @@ public class MainController{
 	@FXML
 	private void handleAddReservation(){
 		Reservation res = new Reservation();
-		boolean okClicked = mainApp.showCabinEditDialog(res);
+		boolean okClicked = mainApp.showReservationEditDialog(res);
 		if(okClicked){
 			mainApp.getReservationData().add(res);
+			for (Cabin c : mainApp.getCabinData()){
+				System.out.println(c.getName());
+				if(c.getName().toLowerCase().equals(res.getName().toLowerCase())){
+					c.addReservation(res);
+					System.out.println(c.getReservationList());
+				}
+			}
+			
 		}
 	}
+	
 	@FXML
 	private void handleEditReservation(){
 		Reservation selected = mainResTable.getSelectionModel().getSelectedItem();
 		if (selected != null){
-			boolean okClicked = mainApp.showCabinEditDialog(selected);
+			boolean okClicked = mainApp.showReservationEditDialog(selected);
 			if(okClicked){
 
 			}

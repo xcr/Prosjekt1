@@ -17,12 +17,15 @@ public class Cabin {
 	// hunting, fishing;
 	private StringProperty name, bedNumber, tableNumber, year, terrain, bike,
 			trip, guitar, waffleIron, hunting, fishing, specialities, wood, cnr;
+	
 	private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
-
+	private ObservableList<Item> itemData = FXCollections.observableArrayList();
+	
 	private HashMap<String, String> changedItems;
 	private HashMap<String, String> oldItems;
 	private String id;
 
+	
 	public Cabin(int cnr, String name, String bedNumber, String tableNumber, int year,
 
 			String terrain, String bike, String trip, String guitar, String waffleIron,
@@ -177,10 +180,16 @@ public class Cabin {
 		return reservationData;
 	}
 	
-	public void setReservation(Reservation r){
+	public void addReservation(Reservation r){
 		reservationData.add(r);
-		
-
+	}
+	
+	public ObservableList<Item> getItemList(){
+		return itemData;
+	}
+	
+	public void addItem(Item i){
+		itemData.add(i);
 	}
 	//Setters go here..........................
 	public void setName(String name){

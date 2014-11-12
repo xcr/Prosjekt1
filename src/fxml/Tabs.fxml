@@ -135,7 +135,33 @@
                                                 </AnchorPane>
                                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                                    <children>
-                                                      <VBox layoutX="10.0" layoutY="25.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                                      <HBox layoutX="5.0" layoutY="5.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <HBox spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
+                                                         <children>
+                                                            <Button layoutX="310.0" layoutY="366.0" mnemonicParsing="false" text="New Item" />
+                                                            <Button layoutX="362.0" layoutY="366.0" mnemonicParsing="false" text="Edit" />
+                                                            <Button layoutX="414.0" layoutY="366.0" mnemonicParsing="false" text="Delete" />
+                                                         </children>
+                                                      </HBox>
+                                                      <TableView fx:id="cabinItemTable" prefHeight="554.0" prefWidth="250.0" AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                                         <columnResizePolicy>
+                                                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                         </columnResizePolicy>
+                                                         <columns>
+                                                            <TableColumn fx:id="cabinItemName" prefWidth="75.0" text="Item Name" />
+                                                            <TableColumn fx:id="cabinItemAmount" prefWidth="75.0" text="Amount" />
+                                                         </columns>
+                                                      </TableView>
+                                                      <VBox prefHeight="554.0" prefWidth="250.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="255.0" AnchorPane.topAnchor="5.0">
+                                                         <children>
+                                                            <Label alignment="CENTER" layoutX="344.0" layoutY="14.0" prefHeight="17.0" prefWidth="229.0" text="Wood Status">
+                                                               <font>
+                                                                  <Font name="System Bold" size="12.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox prefWidth="250.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="0.0">
                                                          <children>
                                                             <Label alignment="CENTER" layoutX="39.0" layoutY="14.0" prefHeight="20.0" prefWidth="180.0" text="About the Cabin" AnchorPane.leftAnchor="38.0" AnchorPane.topAnchor="25.0">
                                                                <font>
@@ -143,24 +169,6 @@
                                                                </font>
                                                             </Label>
                                                             <GridPane hgap="10.0" prefWidth="250.0" vgap="4.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="50.0">
-                                                              <columnConstraints>
-                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
-                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
-                                                              </columnConstraints>
-                                                              <rowConstraints>
-                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                              </rowConstraints>
                                                                <children>
                                                                   <Label text="Number of beds" />
                                                                   <Label text="Number of tables" GridPane.rowIndex="1" />
@@ -187,26 +195,27 @@
                                                                   <Label fx:id="specialties" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                                                                   <Label fx:id="woodStatus" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                                                                </children>
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
+                                                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                               </rowConstraints>
                                                             </GridPane>
                                                          </children>
                                                       </VBox>
-                                                      <HBox spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
-                                                         <children>
-                                                            <Button layoutX="310.0" layoutY="366.0" mnemonicParsing="false" text="New Item" />
-                                                            <Button layoutX="362.0" layoutY="366.0" mnemonicParsing="false" text="Edit" />
-                                                            <Button layoutX="414.0" layoutY="366.0" mnemonicParsing="false" text="Delete" />
-                                                         </children>
-                                                      </HBox>
-                                                      <Label layoutX="344.0" layoutY="14.0" text="Wood Status" />
-                                                      <TableView layoutX="500.0" layoutY="38.0" prefHeight="554.0" prefWidth="246.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
-                                                        <columns>
-                                                          <TableColumn prefWidth="75.0" text="Item Name" />
-                                                          <TableColumn prefWidth="75.0" text="Amount" />
-                                                        </columns>
-                                                         <columnResizePolicy>
-                                                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                                         </columnResizePolicy>
-                                                      </TableView>
                                                    </children>
                                                 </AnchorPane>
                                             </items>
@@ -340,7 +349,26 @@
             </Tab>
             <Tab text="Items">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="itemTable" layoutX="255.0" layoutY="64.0" prefHeight="625.0" prefWidth="1000.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn fx:id="itemNameColumn" prefWidth="75.0" text="Item" />
+                            <TableColumn fx:id="itemAmountColumn" prefWidth="75.0" text="Amount" />
+                              <TableColumn fx:id="itemCabinNamesColumn" prefWidth="75.0" text="Cabins with this item" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <HBox layoutX="714.0" layoutY="586.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
+                           <children>
+                              <Button layoutX="714.0" layoutY="586.0" mnemonicParsing="false" text="Add" />
+                              <Button layoutX="805.0" layoutY="586.0" mnemonicParsing="false" text="Edit" />
+                              <Button layoutX="903.0" layoutY="586.0" mnemonicParsing="false" text="Remove" />
+                           </children>
+                        </HBox>
+                     </children></AnchorPane>
               </content>
             </Tab>
         </tabs>

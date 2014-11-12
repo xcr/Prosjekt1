@@ -16,6 +16,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import Cabin.Cabin;
 import Cabin.Forgotten;
+import Cabin.Item;
 import Cabin.Reservation;
 import Cabin.Sql_data;
 
@@ -29,18 +30,44 @@ public class MainApp extends Application{
     
     
 
-    
+
 /*
  * 2. Administratorer i koiestyret skal kunne ta ut status for utstyr pï¿½ en eller alle koiene, samt legge inn nï¿½r nytt utstyr er innkjï¿½pt.
 3. Administrator i koiestyret skal kunne ta ut status for ved pï¿½ en eller alle koiene, og fï¿½ anslag pï¿½ hvor lenge det vil vare fï¿½r det er nï¿½dvendig med veddugnad.
 4. Administrator i koiestyret skal kunne melde til brukere som har reservert koie at det er utstyr som mï¿½ fraktes til koia.
 5. Administrator i koiestyret skal kunne se et kart hvor koiene er plottet inn, og hvor klikk pï¿½ en koie gir administrativ informasjon.
+ 
+ toDo:
+ *lage items klasse
+ *integrer item i gui
+ lag kode som håndterer logikken med item amount osv
+ add editorer for de gjennværende feltene.
+ fix wood per koie
+ fix set conditions for datoer
+ fix så datoan står riktig vei
+ add destroyed
+ lag wood algorithme
+ fix wood css
+ fix kart markers,embed
+ add threading til email
+ flytt ting fra about cabin til items(i mysql)
+ lag undo(hotkey?)
+ fix på alle tabellene så de ikke har overflødige felt osv
+ save og load funksjoner(david)
+ sette cabin reservation og cabin info til samme colonne listener(lav prio)
+ add about page(lav prio)
+ adde masse throws osv(noe av det siste som kan gjøres)
+ comment all koden
+ 
+ 
+
  */
     
     //listene som hentes fra mysql som Observable List
     private ObservableList<Cabin> cabinData = FXCollections.observableArrayList();
     private ObservableList<Forgotten> forgottenData = FXCollections.observableArrayList();
     private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
+    private ObservableList<Item> itemData = FXCollections.observableArrayList();
     
     /**
      * Constructor
@@ -62,24 +89,47 @@ public class MainApp extends Application{
 		reservationData.add(new Reservation(1,"Fosenkoia","dmail@rofl.copter","2014-10-4","2014-10-7", "Gabriel"));
 		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-25","2014-11-28", "Ola"));
 		reservationSorting();
-
 		
-		
+		itemData.add(new Item("Guitar", "1","Heinfjordstua 1"));
+		itemData.add(new Item("Guitar", "5","Heinfjordstua 3 Fosenkoia 2"));
+		itemData.add(new Item("Grill", "1","Heinfjordstua 1"));
+		itemData.add(new Item("Sykkel", "1", "Heinfjordstua 1"));
+		itemData.add(new Item("Sykkel", "1", "Fosenkoia 1"));
+		itemHandeling();
+    }
+    
+    public void itemHandeling(){
+    	for(Cabin c : cabinData){
+    		for(Item i : itemData){
+    			String[] names = i.getCabinName().split(" ");
+    			
+	    			for (int j = 0; j < names.length; j = j + 2) {
+	    				if(c.getName().toLowerCase().equals(names[j].toLowerCase())){
+	    					c.addItem(new Item(i.getItemName(),names[j+1],names[j] ));
+	    					System.out.println("it worked\n\n\n\n\n");
+	    				}
+				}
+    		}
+    	}
+    	
     }
     
     //sorterer reservasjonene og legger de til riktig koie.
+    //c.getName().toLowerCase().equals(r.getName().toLowerCase())
     public void reservationSorting(){
     	for(Cabin c : cabinData){
 			for(Reservation r : reservationData){
 			//	System.out.println("cabin name = "+c.getName()+"   reservation name = "+r.getName());
 				if(c.getName().toLowerCase().equals(r.getName().toLowerCase())){
-					c.setReservation(r);
+					c.addReservation(r);
+					
 				}
 			}
 
 		}
-    	
     }
+    
+    
     //getters for observable listene
     public ObservableList<Cabin> getCabinData() {
         return cabinData;
@@ -91,6 +141,9 @@ public class MainApp extends Application{
     
     public ObservableList<Reservation> getReservationData(){
     	return reservationData;
+    }
+    public ObservableList<Item> getItemData(){
+    	return itemData;
     }
     
     
@@ -165,11 +218,11 @@ public class MainApp extends Application{
      * @param Cabin the Cabin object to be edited
      * @return true if the user clicked OK, false otherwise.
      */
-    public boolean showCabinEditDialog(Reservation res) {
+    public boolean showReservationEditDialog(Reservation res) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/fxml/EditCabin.fxml"));
+            loader.setLocation(MainApp.class.getResource("/fxml/ReservationEditor.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
@@ -181,7 +234,7 @@ public class MainApp extends Application{
             dialogStage.setScene(scene);
 
             // Set the Cabin into the controller.
-            ReservationController controller = loader.getController();
+            ReservationEditController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setChanges(res);
 

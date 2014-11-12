@@ -20,13 +20,15 @@ public class Reservation {
 		this.firstname = new SimpleStringProperty(firstname);
 		this.startDate = new SimpleStringProperty(startDate);
 		this.endDate = new SimpleStringProperty(endDate);
+		/* local date stuff om man skal omgjøre
 		String[] temp = startDate.split("-");
 		this.start = new SimpleObjectProperty<LocalDate>(
 				LocalDate.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2])));
 		temp = endDate.split("-");
 		this.end = new SimpleObjectProperty<LocalDate>(
 				LocalDate.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2])));
-		
+
+		*/
 		this.changedFields = new HashMap<String, String>();
 		this.id = id;
 		
