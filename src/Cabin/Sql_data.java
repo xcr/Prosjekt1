@@ -1,5 +1,4 @@
 package Cabin;
-import java.awt.List;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -151,7 +150,7 @@ public class Sql_data {
 			}
 		}
 	}
-	
+
 	//Cabin database variables: cnr-name-bednumber-tablenumber-year-terrain-bike-trip-guitar-waffleiron-hunting-fishing-specialities-wood
 
 	/**
@@ -286,24 +285,9 @@ public class Sql_data {
 			System.out.println("Can not updateCabinList when cabinList is empty. Use getCabinData() first.");
 		}
 	}
-	
+
 	public void updateReservationData(){
-		//TODO
-	}
-	
-	public void addItem(){
-		if(cabinList != null){
-			HashMap<String, String> temp = new HashMap<String, String>();
-			for (Cabin cabin : cabinList) {
-				temp = cabin.getNewitems();
-				for(Map.Entry<String, String> e : temp.entrySet()){
-					//TODO!!!!!Dont forget this shit
-				}
-			}
-		}
-	}
-	
-	public void addReservation(){
 		
 	}
+	
 }

@@ -1,5 +1,5 @@
 package application;
-
+ 
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
@@ -11,15 +11,16 @@ import com.lynden.gmapsfx.javascript.object.MapOptions;
 import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
 import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
-
+ 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.stage.Stage;
-
-
+ 
+ 
 public class Map extends Application implements MapComponentInitializedListener {
+
 
 	GoogleMapView mapView;
 	GoogleMap map;
@@ -208,14 +209,12 @@ public class Map extends Application implements MapComponentInitializedListener 
         InfoWindow fredWilkeInfoWindow = new InfoWindow(infoWindowOptions);
         fredWilkeInfoWindow.open(map, fosenkoiaMarker);
         
-        map.addUIEventHandler(fosenkoiaMarker, UIEventType.click, fredWilkeInfoWindow.open(map, fosenkoiaMarker));
-		map.addMarker(fosenkoiaMarker);
+       // map.addUIEventHandler(fosenkoiaMarker, UIEventType.click, fredWilkeInfoWindow.open(map, fosenkoiaMarker));
+		//map.addMarker(fosenkoiaMarker);
 		
 	}
 
-	public static void main(String[] args) {
-		launch(args);
-	}
 
+ 
 
 }

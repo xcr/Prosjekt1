@@ -148,7 +148,7 @@ public class MainController{
     						setStyle("-fx-background-color: green");
     					}
     					else if(item.equals("High")){
-    						setStyle("-fx-background-color: #00AA00");
+    						setStyle("-fx-background-color: #11CC11");
     					}
     					else if(item.equals("Medium")){
     						setStyle("-fx-background-color: yellow");
@@ -235,9 +235,10 @@ public class MainController{
         	specialties.setText(cabin.getSpecialities());
         	woodStatus.setText(cabin.getWood());
         	cabinItemTable.setItems(cabin.getItemList());
+        	cabinItemTable.getSelectionModel().clearSelection();
         	cabinItemName.setCellValueFactory(cellData -> cellData.getValue().getItemNameProperty());
         	cabinItemAmount.setCellValueFactory(cellData -> cellData.getValue().getAmountProperty());
-        	    	
+    	
         } else {
             // cabin is null, remove all the text.
         	beds.setText("");
@@ -291,6 +292,62 @@ public class MainController{
     }
 
 	@FXML
+	private void handleCabinItemRemove(){
+		
+	}
+	
+	@FXML
+	private void handleCabinItemAdd(){
+		
+	}
+	
+	@FXML
+	private void handleCabinItemEdit(){
+		Item selected = cabinItemTable.getSelectionModel().getSelectedItem();
+		if(selected != null){
+			boolean okClicked = mainApp.showItemEditDialog(selected);
+		}
+		System.out.println("NULL");
+	}
+	
+	
+	@FXML
+	private void handleItemRemove(){
+		
+	}
+	
+	@FXML
+	private void handleItemAdd(){
+		
+	}
+	
+	@FXML
+	private void handleItemEdit(){
+		ItemType selected = itemTable.getSelectionModel().getSelectedItem();
+		if(selected != null){
+			boolean okClicked = mainApp.showItemTypeEditDialog(selected);
+		}
+	}
+	
+	@FXML
+	private void handleEditReservation(){
+		Reservation selected = mainResTable.getSelectionModel().getSelectedItem();
+		if (selected != null){
+			boolean okClicked = mainApp.showReservationEditDialog(selected);
+			if(okClicked){
+				
+			}
+		}else {
+			// Nothing selected.
+			Dialogs.create()
+			.title("No Selection")
+			.masthead("No cabin Selected")
+			.message("Please select a cabin in the table.")
+			.showWarning();
+		}
+	}
+	
+	@FXML
 	private void handleReservationOk(){
 		 System.out.println(reservationDateFrom.getValue());
 	}
@@ -312,23 +369,6 @@ public class MainController{
 		}
 	}
 	
-	@FXML
-	private void handleEditReservation(){
-		Reservation selected = mainResTable.getSelectionModel().getSelectedItem();
-		if (selected != null){
-			boolean okClicked = mainApp.showReservationEditDialog(selected);
-			if(okClicked){
-
-			}
-		}else {
-            // Nothing selected.
-            Dialogs.create()
-                .title("No Selection")
-                .masthead("No cabin Selected")
-                .message("Please select a cabin in the table.")
-                .showWarning();
-        }
-	}
 
 	@FXML
 	private void handleMouseOver(Event evt){
