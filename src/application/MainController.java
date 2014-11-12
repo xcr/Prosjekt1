@@ -21,6 +21,7 @@ import Cabin.Cabin;
 import Cabin.Forgotten;
 import Cabin.Item;
 import Cabin.ItemType;
+import Cabin.MailInterface;
 import Cabin.Reservation;
 
 
@@ -50,9 +51,9 @@ public class MainController{
     private Button reservationAdd, reservationRemove, reservationEdit;
     
     @FXML
-    private TableView<Forgotten> forgottenTable;
+    private TableView<MailInterface> forgottenTable;
     @FXML
-    private TableColumn<Forgotten, String> forgottenMailColumn;
+    private TableColumn<MailInterface, String> forgottenMailColumn;
     
     @FXML
     private TableView<Reservation> reservationTable,sendTable,mainResTable;
@@ -231,9 +232,9 @@ public class MainController{
     	reservationFirstName.setCellValueFactory(cellData -> cellData.getValue().getEmailProperty());
     }
     
-    private void showForgottenDetails(Forgotten forgotten){
-    	if(forgotten != null){
-    		mailBody.setText(forgotten.getDescription());
+    private void showForgottenDetails(MailInterface newValue){
+    	if(newValue != null){
+    		mailBody.setText(newValue.getDescription());
     	}
     	else{
     		mailBody.setText("");

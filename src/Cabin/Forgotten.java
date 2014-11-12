@@ -2,14 +2,14 @@ package Cabin;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Forgotten {
+public class Forgotten implements MailInterface {
 	
-	private StringProperty name, description, email;
+	private StringProperty cabinName, description, email;
 	private int id;
 	
-	public Forgotten(int id, String name, String description, String email){
+	public Forgotten(int id, String cabinName, String description, String email){
 		
-		this.name = new SimpleStringProperty(name);
+		this.cabinName = new SimpleStringProperty(cabinName);
 		this.description = new SimpleStringProperty(description);
 		this.email = new SimpleStringProperty(email);
 		this.id = id;
@@ -17,8 +17,8 @@ public class Forgotten {
 	
 	//Property getters starts here --->
 	
-	public StringProperty getNameProperty(){
-		return this.name;
+	public StringProperty getCabinNameProperty(){
+		return this.cabinName;
 	}
 	
 	public StringProperty getDescriptionProperty(){
@@ -32,7 +32,7 @@ public class Forgotten {
 	//String getters starts here --->
 	
 	public String getName(){
-		return this.name.get();
+		return this.cabinName.get();
 	}
 	
 	public String getDescription(){
@@ -44,8 +44,8 @@ public class Forgotten {
 	}
 	
 	//String setters start here-------------
-	public void setName(String name){
-		this.name.setValue(name);
+	public void setName(String cabinName){
+		this.cabinName.setValue(cabinName);
 	}
 	
 	public void setEmail(String email){
