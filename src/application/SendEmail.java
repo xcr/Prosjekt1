@@ -5,12 +5,17 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import javax.mail.PasswordAuthentication;
 
-public class SendEmail
-{
-	public SendEmail() {
-		// TODO Auto-generated constructor stub
+public class SendEmail extends Thread{	
+	
+	private String to, subject, messageBody;
+	
+	public SendEmail(String to, String subject, String messageBody) {
+		this.to = to;
+		this.subject = subject;
+		this.messageBody = messageBody;
 	}
-	public static boolean sendEmail(String to, String subject, String messageBody){
+	
+	public boolean sendEmail(String to, String subject, String messageBody){
 		System.out.println(to);
 		System.out.println(subject);
 		System.out.println(messageBody);
@@ -51,15 +56,21 @@ public class SendEmail
 	         Transport.send(message);
 	         System.out.println("Sent message successfully....");
 	         return true;
+	         
 	      }catch (MessagingException mex) {
 	    	  System.out.println(mex);
 	         mex.printStackTrace();
 	    	  return false;
-	      }
+	      } 
 	}
-   public static void main(String [] args)
-   {    
+	
+	private void closeThread(){
+		this.stop();
+	}
 
-      
-   }
+	@Override
+	public void run() {
+		sendEmail(to, subject, messageBody);
+		closeThread();
+	}
 }

@@ -16,23 +16,23 @@ public class Cabin {
 	// private int bednumber, tablenumber, year, bike, trip, guitar, waffleiron,
 	// hunting, fishing;
 	private StringProperty name, bedNumber, tableNumber, year, terrain, bike,
-			trip, guitar, waffleIron, hunting, fishing, specialities, wood, cnr;
-	
+	trip, guitar, waffleIron, hunting, fishing, specialities, wood, cnr;
+
 	private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
 	private ObservableList<Item> itemData = FXCollections.observableArrayList();
-	
+
 	private HashMap<String, String> changedItems;
-	private HashMap<String, String> oldItems;
+	private HashMap<String, String> newItems;
 	private String id;
 
-	
+
 	public Cabin(int cnr, String name, String bedNumber, String tableNumber, int year,
 
 			String terrain, String bike, String trip, String guitar, String waffleIron,
 			String hunting, String fishing, String specialities, String wood) {
 
 		this.id = Integer.toString(cnr);
-		
+
 		this.name = new SimpleStringProperty(name);
 		this.bedNumber = new SimpleStringProperty(bedNumber);
 		this.tableNumber = new SimpleStringProperty(tableNumber);
@@ -46,9 +46,9 @@ public class Cabin {
 		this.fishing = new SimpleStringProperty(fishing);
 		this.specialities = new SimpleStringProperty(specialities);
 		this.wood = new SimpleStringProperty(wood);
-		
+
 		changedItems = new HashMap<String, String>();
-		oldItems = new HashMap<String, String>();
+		newItems = new HashMap<String, String>();
 	}
 
 	public Cabin(){
@@ -57,11 +57,14 @@ public class Cabin {
 
 	}
 	// Property getters starts here --->
-	
+
 	public HashMap<String, String> getChangedItems(){
 		return this.changedItems;
 	}
-	
+	public HashMap<String, String> getNewitems(){
+		return this.newItems;
+	}
+
 
 	public StringProperty getBednumberProperty() {
 		return bedNumber;
@@ -168,26 +171,26 @@ public class Cabin {
 	public String getTerrain() {
 		return this.terrain.get();
 	}
-	
+
 	public String getId(){
 		return this.id;
 	}
 
-	
+
 	// liste getter
-	
+
 	public ObservableList<Reservation> getReservationList(){
 		return reservationData;
 	}
-	
+
 	public void addReservation(Reservation r){
 		reservationData.add(r);
 	}
-	
+
 	public ObservableList<Item> getItemList(){
 		return itemData;
 	}
-	
+
 	public void addItem(Item i){
 		itemData.add(i);
 	}
@@ -195,47 +198,47 @@ public class Cabin {
 	public void setName(String name){
 		this.name.setValue(name);
 	}
-	
+
 	public void setBedNumber(String bedNumber){
 		this.bedNumber.setValue(bedNumber);	
 		this.changedItems.put("bednumber", bedNumber);
 	}
-	
+
 	public void setTableNumber(String tableNumber){		
 		this.tableNumber.setValue(tableNumber);
 		this.changedItems.put("tablenumber", tableNumber);
 	}
-	
+
 	public void setYear(String year){	
 		this.year.setValue(year);
 		this.changedItems.put("year", year);
 	}
-	
+
 	public void setTerrain(String terrain){
 		this.terrain.setValue(terrain);
 		this.changedItems.put("terrain", terrain);
 	}
-	
+
 	public void setBike(String bike){
 		this.bike.setValue(bike);
 		this.changedItems.put("bike", bike);
 	}
-	
+
 	public void setTrip(String trip){
 		this.trip.setValue(trip);
 		this.changedItems.put("trip", trip);
 	}
-	
+
 	public void setGuitar(String guitar){
 		this.guitar.setValue(guitar);
 		this.changedItems.put("guitar", guitar);
 	}
-	
+
 	public void setWaffleIron(String waffleIron){
 		this.waffleIron.setValue(waffleIron);
 		this.changedItems.put("waffleiron", waffleIron);
 	}
-	
+
 	public void setHunting(String hunting){
 		this.hunting.setValue(hunting);
 		this.changedItems.put("hunting", hunting);
@@ -244,15 +247,19 @@ public class Cabin {
 	public void setFishing(String fishing){
 		this.fishing.setValue(fishing);
 		this.changedItems.put("fishing", fishing);
-		
+
 	}
 	public void setSpecialities(String specialities){		
 		this.specialities.setValue(specialities);
 		this.changedItems.put("specialities", specialities);
 	}
-	
+
 	public void setWood(String wood){		
 		this.wood.setValue(wood);
 		this.changedItems.put("wood", wood);
+	}
+
+	public void addItem(String key, String value){
+		this.newItems.put(key, value);
 	}
 }

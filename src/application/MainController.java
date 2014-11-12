@@ -342,7 +342,11 @@ public class MainController{
 	}
 	@FXML
 	private void handleSendMail(){
-		SendEmail.sendEmail(to.getText(), subject.getText(), body.getText());
+		
+		SendEmail email = new SendEmail(to.getText(), subject.getText(), body.getText());
+		email.start();
+		
+		
 	}
 
 
