@@ -43,7 +43,7 @@ public class MainApp extends Application{
  *lage items klasse
  *integrer item i gui
  *lag kode som håndterer logikken med item amount osv
- add editorer for de gjennværende feltene.
+ *add editorer for de gjennværende feltene.
  fix wood per koie
  fix dato felt greia for reservasjoner
  fix set conditions for datoer
@@ -52,10 +52,10 @@ public class MainApp extends Application{
  lag wood algorithme
  fix wood css
  sort greia til wood
- fix kart markers,embed
+ *fix kart markers,embed
  lagre meldinger
  hente emails fra gmail
- add threading til email
+ *add threading til email
  flytt ting fra about cabin til items(i mysql)
  lag undo(hotkey?)
  fix på alle tabellene så de ikke har overflødige felt osv
@@ -76,9 +76,7 @@ public class MainApp extends Application{
     private ObservableList<Item> itemData = FXCollections.observableArrayList();
     private ObservableList<ItemType> itemTypeData = FXCollections.observableArrayList();
     
-    /**
-     * Constructor
-     */
+
     public MainApp() {
     	
     	//Main constructor, loader data fra mysql inn i programmet.

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.web.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
@@ -320,7 +321,24 @@
             </Tab>
             <Tab fx:id="Map" text="Map">
                <content>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Button layoutX="249.0" layoutY="101.0" mnemonicParsing="false" onAction="#handleOpenMap" prefHeight="347.0" prefWidth="502.0" text="DAVID SIN KNAPP">
+                           <font>
+                              <Font name="System Bold Italic" size="46.0" />
+                           </font>
+                           <textFill>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop color="#ff00c1" />
+                                    <Stop color="#5000ff" offset="0.9961685823754789" />
+                                    <Stop color="#5000ff" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </textFill>
+                        </Button>
+                     </children>
+                  </AnchorPane>
                </content>
             </Tab>
             <Tab text="Wood Status">

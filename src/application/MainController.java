@@ -388,6 +388,11 @@ public class MainController{
 		
 		
 	}
+	
+	@FXML
+	private void handleOpenMap(){
+	
+	}
 
 
 
