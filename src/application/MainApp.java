@@ -44,6 +44,7 @@ public class MainApp extends Application{
  *integrer item i gui
  *lag kode som håndterer logikken med item amount osv
  *add editorer for de gjennværende feltene.
+ fix reservasjonsbuttons
  fix wood per koie
  fix dato felt greia for reservasjoner
  fix set conditions for datoer
