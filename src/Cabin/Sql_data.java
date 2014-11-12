@@ -271,7 +271,7 @@ public class Sql_data {
 	 * Checks if the cabin has had any changes, and updates all the changes in the sql database.
 	 */
 	public void updateCabindata(){
-		//checks the cabinlist to ensure that getCabindata() has been used first
+		//checks if the cabinlist is not null to ensure that getCabindata() has been used first 
 		if(cabinList != null){
 			HashMap<String, String> temp = new HashMap<String, String>();
 			for (Cabin cabin : cabinList) {
@@ -287,7 +287,7 @@ public class Sql_data {
 	}
 
 	public void updateReservationData(){
-
+		
 	}
 	
 }
