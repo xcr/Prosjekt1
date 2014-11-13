@@ -1,5 +1,6 @@
 package application;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -80,10 +81,12 @@ public class Map extends Application implements MapComponentInitializedListener 
 		coor.put("Sonvasskoia", new LatLong(63.39030, 11.41852));
 		coor.put("Ovensenget", new LatLong(62.41219, 11.18655));
 
-		Sql_data sql = new Sql_data("jdbc:mysql://mysql.stud.ntnu.no/gabrielb_gruppe2", "gabrielb_guest", "guest");
-		sql.connect();
-		cabins = sql.getCabinData();
-		sql.closeConnection();
+		try {
+			this.cabins = Sql_data.getCabinData();
+		} catch (SQLException e) {
+			System.out.println("kunne ikke hente data til å bruke i kartapplikasjon");
+			e.printStackTrace();
+		}
 
 	}
 
@@ -111,7 +114,7 @@ public class Map extends Application implements MapComponentInitializedListener 
 			MarkerOptions markerOptions = new MarkerOptions().position(coor.get(c.getName()));
 			Marker cabinMarker = new Marker(markerOptions);
 			InfoWindowOptions infoOpts = new InfoWindowOptions();
-			infoOpts.content("<h3>" + c.getName() + "</h3>" + "<br>" +"<h5>"+ "Vedstatus: " + c.getWood()+ "</h5><br>" + "<h5>reservasjoner: " + c.getReservationList() + "</h5>");
+			infoOpts.content("<h3>" + c.getName() + "</h3>" +"<p>"+ "Vedstatus: " + c.getWood()+ "</p>" + "<p>reservasjoner: " + c.getReservationList() + "</p>");
 			InfoWindow cabinInfoWindow = new InfoWindow(infoOpts);
 			map.addUIEventHandler(cabinMarker, UIEventType.click, (JSObject obj) -> cabinInfoWindow.open(map, cabinMarker));
 			map.addMarker(cabinMarker);		

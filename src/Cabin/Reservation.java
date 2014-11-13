@@ -1,4 +1,5 @@
 package Cabin;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.HashMap;
 
@@ -11,8 +12,9 @@ public class Reservation {
 	
 	private StringProperty name, email, startDate, endDate, firstname, lastname;
 	private int id;
-	private ObjectProperty<LocalDate> start, end;
+	private ObjectProperty<Date> start, end;
 	private HashMap<String, String> changedFields;
+	private Date d;
 	
 	public Reservation(int id, String name, String email, String startDate, String endDate, String firstname, String lastname){
 		this.name = new SimpleStringProperty(name); 
@@ -23,6 +25,8 @@ public class Reservation {
 		this.endDate = new SimpleStringProperty(endDate);
 		this.firstname = new SimpleStringProperty(firstname);
 		this.lastname = new SimpleStringProperty(lastname);
+		
+		
 		/* local date stuff om man skal omgj�re
 		String[] temp = startDate.split("-");
 		this.start = new SimpleObjectProperty<LocalDate>(
@@ -40,26 +44,26 @@ public class Reservation {
 		this(0,null, null, null, null,null, null);
 	}
 	
-	public ObjectProperty<LocalDate> getStartProperty(){
-		return this.start;
-	}
-	public ObjectProperty<LocalDate> getEndProperty(){
-		return this.end;
-	}
+//	public ObjectProperty<LocalDate> getStartProperty(){
+//		return this.start;
+//	}
+//	public ObjectProperty<LocalDate> getEndProperty(){
+//		return this.end;
+//	}
 	
 	
-	public void setStart(LocalDate ld){
-		start.set(ld);
-	}
-	public void setEnd(LocalDate ld){
-		end.set(ld);
-	}
-	public LocalDate getStart(){
-		return start.get();
-	}
-	public LocalDate getEnd(){
-		return end.get();
-	}
+//	public void setStart(LocalDate ld){
+//		start.set(ld);
+//	}
+//	public void setEnd(LocalDate ld){
+//		end.set(ld);
+//	}
+//	public LocalDate getStart(){
+//		return start.get();
+//	}
+//	public LocalDate getEnd(){
+//		return end.get();
+//	}
 	
 	//StringProperty getters starts here ---------
 	

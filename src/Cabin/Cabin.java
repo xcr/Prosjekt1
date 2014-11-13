@@ -184,6 +184,8 @@ public class Cabin {
 		reservationData.add(r);
 	}
 	
+	
+	
 	public ObservableList<Item> getItemList(){
 		return itemData;
 	}
@@ -191,6 +193,8 @@ public class Cabin {
 	public void addItem(Item i){
 		itemData.add(i);
 	}
+	
+	
 	//Setters go here..........................
 	public void setName(String name){
 		this.name.setValue(name);

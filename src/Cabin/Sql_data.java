@@ -29,21 +29,17 @@ import com.mysql.jdbc.Statement;
 
 public class Sql_data {
 
-	private String url = null;
-	private String username = null;
-	private String passwd = null;
-	private Connection connection = null;
-	private java.sql.Statement statement = null;
-	private ResultSet resultSet = null;
-	private ObservableList<Cabin> cabinList = null;
-	private ObservableList<Item> itemList = null; 
+	private static String url = "jdbc:mysql://mysql.stud.ntnu.no/gabrielb_gruppe2";
+	private static String username = "gabrielb_guest";
+	private static String passwd = "guest";
+	private static Connection connection = null;
+	private static java.sql.Statement statement = null;
+	private static ResultSet resultSet = null;
+	private static ObservableList<Cabin> cabinList = null;
+	private static ObservableList<Item> itemList = null; 
 
 
-	public Sql_data(String sqlURL, String username,String passwd){
-
-		this.url = sqlURL;
-		this.username = username;
-		this.passwd = passwd;
+	public Sql_data(){
 
 		try {
 			System.out.println("Loading driver...");
@@ -59,31 +55,23 @@ public class Sql_data {
 	 *<p>Remember to close the connection after use</p>
 	 */
 
-	public void connect(){
-
-		try {
+	public static void connect() throws SQLException {
 			System.out.println("Connecting to SQLdatabase...");  
 			connection = DriverManager.getConnection(url, username, passwd);
 			System.out.println("connection established");	
-		}
-
-		catch (SQLException e) {
-			throw new RuntimeException("Cannot connect to the database!", e);
-		}
 	}
-
 
 	/**
 	 * Closes the connection to the database, the resultset and the statement.
 	 */
 
-	public void closeConnection(){
+	public static void closeConnection(){
 
 		if(connection != null){
 
 			try {
 				System.out.println("Closing connection...");
-				this.connection.close();
+				connection.close();
 
 				if(resultSet != null){
 					resultSet.close();
@@ -107,7 +95,7 @@ public class Sql_data {
 	 * @param table the sql table you want to retrieve information from
 	 * @return Returns a Resultset which is holding all the information
 	 */
-	public ResultSet getTableInformation(String table){
+	private static ResultSet getTableInformation(String table){
 
 		if(connection != null){
 
@@ -139,7 +127,7 @@ public class Sql_data {
 	 * @param id The id unique id for the row
 	 */
 
-	public void updateSqlTable(String dbName, String columnName, String newValue, String columnIDname, String id  ){
+	public static void updateSqlTable(String dbName, String columnName, String newValue, String columnIDname, String id  ){
 
 		if(connection != null){
 			try {
@@ -157,13 +145,14 @@ public class Sql_data {
 
 	/**
 	 * Retrieves the tableinformation for the Cabins in the sql database, and makes an array with Cabin objects.
-	 * Only works if a connection has been established. 
+	 *  . 
 	 * The observable List is being used by JAVAFX in the GUI.
 	 * <p>
 	 * @return an ObservableList which contains the cabins
 	 */
 
-	public ObservableList<Cabin> getCabinData(){
+	public static  ObservableList<Cabin> getCabinData() throws SQLException{
+		connect();
 		ResultSet cabin = getTableInformation("Cabin");
 		Cabin c;
 		cabinList = FXCollections.observableArrayList();
@@ -180,31 +169,39 @@ public class Sql_data {
 				}
 			} catch (SQLException e) {
 				System.out.println("failed to retrieve CabinData from sql server" + e);
-			}	
+			}
+			finally{
+				closeConnection();
+			}
 		}
 		return cabinList;
 	}
 	/**
 	 * Retrieves the tableinformation for Item table in the sql database, and makes an array with Item objects.
-	 * Only works if a connection has been established. 
+	 *  . 
 	 * The observable List is being used by JAVAFX in the GUI.
 	 * <p>
 	 * @return an ObservableList which contains the Item objects.
 	 */
 
-	public ObservableList<Item> getItemData(){
+	public static ObservableList<Item> getItemData() throws SQLException{
+		connect();
 		ResultSet item = getTableInformation("Item");
 		Item i;
 		itemList = FXCollections.observableArrayList();
 		if(connection != null){
 			try {
 				while(item.next()){
-					i = new Item(item.getString("cabinname"), item.getString("itemname"), item.getString("amount"));
+					i = new Item(item.getString("cabinname"), item.getString("itemname"), item.getString("amount"), item.getString("inr"));
 					itemList.add(i);
 				}
 			} catch (SQLException e) {
 				System.out.println("failed to retrieve data from table: Item in database");
 				e.printStackTrace();
+			}
+
+			finally{
+				closeConnection();
 			}
 		}
 		return itemList;
@@ -212,13 +209,15 @@ public class Sql_data {
 
 	/**
 	 * Retrieves the tableinformation for the Destroyed items in the sql database, and makes an array with Destroyed objects.
-	 * Only works if a connection has been established. 
+	 *  . 
 	 * The observable List is being used by JAVAFX in the GUI.
 	 * <p>
 	 * @return an ObservableList which contains the Destroyed objects.
 	 */
 
-	public ObservableList<MailInterface> getDestroyedData(){
+	public static ObservableList<MailInterface> getDestroyedData() throws SQLException{
+
+		connect();
 
 		ObservableList<MailInterface> destroyed =  FXCollections.observableArrayList();
 		Destroyed d;
@@ -237,19 +236,24 @@ public class Sql_data {
 				System.out.println("Failed to read from ResultSet");
 				e.printStackTrace();
 			}
+			finally{
+				closeConnection();
+			}
 		}
 		return destroyed;
 	}
 
 	/**
-	 * Retrieves the tableinformation for the Forgotten items in the sql database, and makes an array with Forgotten objects.
-	 * Only works if a connection has been established. 
+	 * Retrieves the tableinformation for the Forgotten items in the sql database, and makes an O with Forgotten objects.
+	 *  . 
 	 * The observable List is being used by JAVAFX in the GUI.
 	 * <p>
 	 * @return an ObservableList which contains the Forgotten objects.
 	 */
 
-	public ObservableList<MailInterface> getForgottenData(){
+	public static ObservableList<MailInterface> getForgottenData() throws SQLException{
+
+		connect();
 		ObservableList<MailInterface> forgotten = FXCollections.observableArrayList();
 		Forgotten f;
 		ResultSet fi = getTableInformation("Forgotten");
@@ -263,17 +267,21 @@ public class Sql_data {
 			System.out.println("Failed to retrieve forgotten items from ResultSet");
 			e.printStackTrace();
 		}
+		finally{
+			closeConnection();
+		}
 		return forgotten;
 	}
 
 	/**
 	 * Retrieves the tableinformation for the Reservations in the sql database, and makes an array with Reservation objects.
-	 * Only works if a connection has been established. 
+	 *  
 	 * The observable List is being used by JAVAFX in the GUI.
 	 * <p>
 	 * @return an ObservableList which contains the Reservation objects.
 	 */
-	public ObservableList<Reservation> getReservationData(){
+	public static ObservableList<Reservation> getReservationData() throws SQLException{
+		connect();
 		ObservableList<Reservation> reservations = FXCollections.observableArrayList();
 		Reservation r;
 		ResultSet res = null;
@@ -291,45 +299,27 @@ public class Sql_data {
 			System.out.println("failed to retrieve reservationdata from resultSet in getReservationdata()");
 			e.printStackTrace();
 		}
+		finally{
+			closeConnection();
+		}
 		return reservations;
 	}
 
 	/**
 	 * Checks if the cabin has had any changes, and updates all the changes in the sql database.
 	 */
-	public void updateCabindata(){
-		//checks if the cabinlist is not null to ensure that getCabindata() has been used first 
-		if(cabinList != null){
-			HashMap<String, String> temp = new HashMap<String, String>();
-			for (Cabin cabin : cabinList) {
-				temp = cabin.getChangedItems();
-				for(Map.Entry<String, String> e : temp.entrySet()){
-					updateSqlTable("Cabin", e.getKey(), e.getValue(), "cnr", cabin.getId());
-				}
-			}
-		}
-		else{
-			System.out.println("Can not updateCabinList when cabinList is empty. Use getCabinData() first.");
-		}
+	public static void updateCabindata(String itemName, String value, String id) throws SQLException{
+		connect();
+		updateSqlTable("Cabin", itemName, value, "cnr", id);
+		closeConnection();
 	}
 
-	public void updateReservationData(){
-
+	public static void addItemToDatabase(String cabinName, String itemName, String amount) throws SQLException{
+		connect();
+		statement = connection.createStatement();
+		statement.execute("INSERT INTO Item (cabinname, itemname, amount) VALUES "
+				+ "('" +cabinName+ "','" + itemName+ "','" + amount + "')" );
+		closeConnection();
+		System.out.println("Item Successfully added to database");
 	}
-	
-	//This is going to be the functin for updating Items, not adding
-	public void addItems(){
-	}
-	
-	public void addItemToDatabase(String cabinName, String itemName, String value){
-		try {
-			statement.execute("INSERT INTO Item (cabinname, itemname, amount) VALUES "
-					+ "('" +cabinName+ "','" + itemName+ "','" + value + "')" );
-			System.out.println("added item:" + itemName + "to: " + cabinName + " value: "+ value);
-		} catch (SQLException e) {
-			System.out.println("could not add item to database");
-			e.printStackTrace();
-		}
-	}
-
 }

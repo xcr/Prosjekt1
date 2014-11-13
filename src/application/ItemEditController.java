@@ -1,13 +1,15 @@
 package application;
 
+import java.sql.SQLException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
 import org.controlsfx.dialog.Dialogs;
 
 import Cabin.Item;
-
 import Cabin.Reservation;
+import Cabin.Sql_data;
 
 public class ItemEditController extends AbstractEditor {
 
@@ -34,7 +36,9 @@ public class ItemEditController extends AbstractEditor {
         	item.setAmount(amount.getText());
         	item.setCabinName(cabinName.getText());
         	item.setItemName(itemName.getText());
-
+        	
+        	
+        	
            
 
             okClicked = true;

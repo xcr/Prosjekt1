@@ -9,11 +9,13 @@ import javafx.beans.property.StringProperty;
 
 public class Item {
 	
+	
 	private StringProperty cabinName, itemName, amount;
+	private String id;
 	
 	
 	
-	public Item(String itemName, String amount, String cabinName){
+	public Item(String cabinName, String itemName, String amount, String id){
 		this.cabinName = new SimpleStringProperty(cabinName);
 		this.itemName = new SimpleStringProperty(itemName);
 		this.amount = new SimpleStringProperty(amount);
@@ -21,7 +23,7 @@ public class Item {
 	}
 	
 	public Item(){
-		this(null,null,null);
+		this(null, null,null,null);
 	}
 	
 	

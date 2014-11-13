@@ -33,6 +33,8 @@ public class CabinEditController extends AbstractEditor {
            res.setStartDate(this.from.getText());
            res.setName(this.cabinName.getText());
            
+           
+           
 
             okClicked = true;
             dialogStage.close();

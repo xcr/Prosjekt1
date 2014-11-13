@@ -2,6 +2,7 @@ package application;
 
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -29,10 +30,6 @@ public class MainApp extends Application{
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-    
-    
-    
-
 
 /*
  * 2. Administratorer i koiestyret skal kunne ta ut status for utstyr pï¿½ en eller alle koiene, samt legge inn nï¿½r nytt utstyr er innkjï¿½pt.
@@ -60,7 +57,7 @@ public class MainApp extends Application{
  fix sï¿½ datoan stï¿½r riktig vei
  sort greia til wood
  lagre meldinger
- hente emails fra gmail(denne kan noen andre gjøre)
+ hente emails fra gmail(denne kan noen andre gjï¿½re)
  lag undo(hotkey?)
  fix pï¿½ alle tabellene sï¿½ de ikke har overflï¿½dige felt osv
  save og load funksjoner(david)
@@ -69,6 +66,8 @@ public class MainApp extends Application{
  add about page(lav prio)
  adde masse throws osv(noe av det siste som kan gjï¿½res)
  comment all koden
+ 
+Ok for legg til knappen fungerer ikke nÃ¥r internett forsvinner i utstyrtabben
  
  
 
@@ -85,33 +84,40 @@ public class MainApp extends Application{
     public MainApp() {
     	
     	//Main constructor, loader data fra mysql inn i programmet.
-    	Sql_data sql = new Sql_data("jdbc:mysql://mysql.stud.ntnu.no/gabrielb_gruppe2", "gabrielb_guest", "guest");
-		sql.connect();
-		cabinData = sql.getCabinData();
-		forgottenData = sql.getForgottenData();
-		forgottenData.addAll(sql.getDestroyedData());
+    	
+		try {
+			cabinData = Sql_data.getCabinData();
+			forgottenData = Sql_data.getForgottenData();
+			forgottenData.addAll(Sql_data.getDestroyedData());
+			reservationData = Sql_data.getReservationData();
+			itemData = Sql_data.getItemData();
+		} catch (SQLException e) {
+			System.out.println("Kunne ikke hente all data fra database" + e);
+			e.printStackTrace();
+		}
 		
 		
-		reservationData = sql.getReservationData();
-		sql.closeConnection();
+//		//test data
+//		reservationData.add(new Reservation(1,"Fosenkoia","amail@rofl.copter","2014-10-4","2014-10-4", "David","Bakke"));
+//		reservationData.add(new Reservation(1,"Heinfjordstua","bmail@rofl.copter","2014-10-4","2014-10-4", "Magnus","Blomlie"));
+//		reservationData.add(new Reservation(1,"Heinfjordstua","cmail@rofl.copter","2014-10-1","2014-10-4", "Eirik","Bertelsen"));
+//		reservationData.add(new Reservation(1,"Fosenkoia","dmail@rofl.copter","2014-10-4","2014-10-7", "Gabriel","Et eller annet"));
+//		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-25","2014-11-28", "Ola","Nordmann"));
+//		reservationSorting();
 		
-		//test data
-		reservationData.add(new Reservation(1,"Fosenkoia","amail@rofl.copter","2014-10-4","2014-10-4", "David","Bakke"));
-		reservationData.add(new Reservation(1,"Heinfjordstua","bmail@rofl.copter","2014-10-4","2014-10-4", "Magnus","Blomlie"));
-		reservationData.add(new Reservation(1,"Heinfjordstua","cmail@rofl.copter","2014-10-1","2014-10-4", "Eirik","Bertelsen"));
-		reservationData.add(new Reservation(1,"Fosenkoia","dmail@rofl.copter","2014-10-4","2014-10-7", "Gabriel","Et eller annet"));
-		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-25","2014-11-28", "Ola","Nordmann"));
-		reservationSorting();
+//		itemData.add(new Item("Guitar", "4","Heinfjordstua"));
+//		itemData.add(new Item("Guitar","5","Fosenkoia"));
+//		itemData.add(new Item("Grill", "1","Heinfjordstua"));
+//		itemData.add(new Item("Sykkel", "1", "Heinfjordstua"));
+//		itemData.add(new Item("Sykkel", "1", "Fosenkoia"));
 		
-		itemData.add(new Item("Guitar", "4","Heinfjordstua"));
-		itemData.add(new Item("Guitar","5","Fosenkoia"));
-		itemData.add(new Item("Grill", "1","Heinfjordstua"));
-		itemData.add(new Item("Sykkel", "1", "Heinfjordstua"));
-		itemData.add(new Item("Sykkel", "1", "Fosenkoia"));
-		itemHandeling();
+		
+		itemHandling();
+		
+		
     }
     
-    public void itemHandeling(){
+    public void itemHandling(){
 
     	for(Cabin c : cabinData){
     		for(Item i : itemData){
@@ -139,6 +145,8 @@ public class MainApp extends Application{
 			}
 		}
     }
+    
+    
     
     //sorterer reservasjonene og legger de til riktig koie.
     //c.getName().toLowerCase().equals(r.getName().toLowerCase())
@@ -230,13 +238,9 @@ public class MainApp extends Application{
         }
     }
 
-
     public Stage getPrimaryStage() {
         return primaryStage;
     }
-
- 
-  
     
     public boolean showItemEditDialog(Item selected) {
    	 try {
@@ -257,10 +261,11 @@ public class MainApp extends Application{
             ItemEditController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setChanges(selected);
-
+            
+            
    
             dialogStage.showAndWait();
-
+            
             return controller.isOkClicked();
         } catch (IOException e) {
             e.printStackTrace();
