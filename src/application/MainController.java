@@ -1,9 +1,12 @@
 package application;
 
+
 import java.time.LocalDate;
 
 import org.controlsfx.dialog.Dialogs;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,9 +14,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 //import application.MainApp;
@@ -48,7 +53,7 @@ public class MainController{
     private TableColumn<Cabin, String> cabinNameColumn, cabinNameColumn2;
     
     @FXML
-    private Button reservationAdd, reservationRemove, reservationEdit;
+    private Button reservationAdd, reservationRemove, reservationEdit, map;
     
     @FXML
     private TableView<MailInterface> forgottenTable;
@@ -65,7 +70,7 @@ public class MainController{
     private TableColumn<Reservation, String> mainResFrom, mainResTo;
     //cabin lables
     @FXML
-    private Label woodLabelName, woodLabelLevel, woodLevelDugnad, beds, tables, yearBuilt, terrain, reachableByBike, trip, guitar, waffleIron, hunting, fishing, specialties, woodStatus;
+    private Label woodLabelLevel1,woodLabelName, woodLabelLevel, woodLevelDugnad, beds, tables, yearBuilt, terrain, reachableByBike, trip, guitar, waffleIron, hunting, fishing, specialties, woodStatus;
     @FXML
     private TextField to, subject;
     @FXML
@@ -77,7 +82,7 @@ public class MainController{
     Selbukaaten, Sonvasskoia, Stabburet, Stakkslettbua, Telin, Taagaabu, Vekvessaetra, Ovensenget;
     //skriv om testing pï¿½ forskjellige os osv
     @FXML
-    private DatePicker reservationDateFrom, reservationDateTo;
+    private DatePicker reservationDateFrom, reservationDateTo, reservationDateFrom1, reservationDateTo1;
     
     
     // referanse til main classen.
@@ -103,6 +108,7 @@ public class MainController{
     	mainResTable.setItems(mainApp.getReservationData());
     	woodTable.setItems(mainApp.getCabinData());
     	itemTable.setItems(mainApp.getItemTypeData());
+       	woodLevelAverage();
     	
     }
 
@@ -119,12 +125,14 @@ public class MainController{
     	//reservationTo.setCellValueFactory(cellData -> cellData.getValue().getReservationList().get);
     	cabinNameColumn2.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
     	//change this later to name
-    	sendFirstName.setCellValueFactory(cellData -> cellData.getValue().getEmailProperty());
+    	sendFirstName.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
+    	sendLastName.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
     	
     	mainResName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
     	mainResFrom.setCellValueFactory(cellData -> cellData.getValue().getStartDateProperty());
     	mainResTo.setCellValueFactory(cellData -> cellData.getValue().getEndDateProperty());
-    	mainResFirstName.setCellValueFactory(cellData -> cellData.getValue().getEmailProperty());
+    	mainResFirstName.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
+    	mainResLastName.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
     	
     	itemNameColumn.setCellValueFactory(cellData -> cellData.getValue().getItemNameProperty());
     	itemCabinNamesColumn.setCellValueFactory(cellData -> cellData.getValue().getCabinNamesProperty());
@@ -139,26 +147,51 @@ public class MainController{
     			protected void updateItem(String item, boolean empty){
     				super.updateItem(item, empty);
     				setText(item);
+    				TableRow currentRow = getTableRow();
+    				currentRow.getStylesheets().add(getClass().getResource("/css/tableviewgreen.css").toExternalForm());
+    				currentRow.getStyleClass().clear();
     				if(item == null || empty){
     					setText(null);
     					setStyle("");
     				}
-    				
+    			
     				else{
     					if(item.equals("Full")){
-    						setStyle("-fx-background-color: green");
+    						//setStyle("-fx-background-color: green");
+    						//getStylesheets().add(getClass().getResource("/css/tableviewgreen.css").toExternalForm());
+    						currentRow.getStyleClass().add("test1");
+    						currentRow.getStyleClass().add("table-view");
+    						currentRow.getStyleClass().add("table-row-cell");
+
+    						
     					}
     					else if(item.equals("High")){
-    						setStyle("-fx-background-color: #11CC11");
+    						//setStyle("-fx-background-color: #11CC11");
+    						currentRow.getStyleClass().add("test5");
+    						currentRow.getStyleClass().add("table-view");
+    						currentRow.getStyleClass().add("table-row-cell");
+
     					}
     					else if(item.equals("Medium")){
-    						setStyle("-fx-background-color: yellow");
+    						//setStyle("-fx-background-color: yellow");
+    						currentRow.getStyleClass().add("test3");
+    						currentRow.getStyleClass().add("table-view");
+    						currentRow.getStyleClass().add("table-row-cell");
+
     					}
     					else if(item.equals("Empty")){
-    						setStyle("-fx-background-color: #FF5555");
+    						//setStyle("-fx-background-color: #FF5555");
+    						currentRow.getStyleClass().add("test2");
+    						currentRow.getStyleClass().add("table-view");
+    						currentRow.getStyleClass().add("table-row-cell");
+
     					}
     					else if(item.equals("Low")){
-    						setStyle("-fx-background-color: #FFA000");
+    						//setStyle("-fx-background-color: #FFA000");
+    						currentRow.getStyleClass().add("test4");
+    						currentRow.getStyleClass().add("table-view");
+    						currentRow.getStyleClass().add("table-row-cell");
+
     					}
     				}
     			}
@@ -166,9 +199,10 @@ public class MainController{
     	});
 
 
-    	
-    	
+    	Image img = new Image(getClass().getResourceAsStream("/resources/map.png"));
+    	map.setGraphic(new ImageView(img));
         // Clear cabin details.
+
         showCabinDetails(null);
         showForgottenDetails(null);
         // Listen for selection changes and show the cabin details when changed.
@@ -186,12 +220,38 @@ public class MainController{
        woodTable.getSelectionModel().selectedItemProperty().addListener(
          		(observable, oldValue, newValue) -> showWoodStatus(newValue));
 
-       
+
        
     }
 
+  
+    @FXML
+    private void DateReservation(){
+    	/*System.out.println(reservationDateTo1);
+    	System.out.println(reservationDateFrom1);
+    	System.out.println(reservationDateTo1.getValue());
+    	System.out.println(reservationDateFrom1.getValue());
+    	if(!reservationDateTo1.getValue().toString().equals("null") && !reservationDateFrom1.getValue().toString().equals("null")){
 
-    
+    		String[] to = reservationDateTo1.getValue().toString().split("-");
+    		String[] from = reservationDateFrom1.getValue().toString().split("-");
+    		
+    		ObservableList<Reservation> currentRes = FXCollections.observableArrayList();
+    		for(Reservation r : mainApp.getReservationData()){
+    			r.getStartDate();
+    			String[] rTo = r.getEndDate().split("-");
+    			String[] rFrom = r.getStartDate().split("-");
+    			if(Integer.parseInt(rFrom[0]) >= Integer.parseInt(from[0]) || Integer.parseInt(rFrom[1]) >= Integer.parseInt(from[1]) 
+    					|| Integer.parseInt(rFrom[2]) >= Integer.parseInt(from[2]) || Integer.parseInt(rTo[0]) <= Integer.parseInt(to[0]) || 
+    					Integer.parseInt(rTo[0]) <= Integer.parseInt(to[0]) || Integer.parseInt(rTo[0]) <= Integer.parseInt(to[0])){
+    				currentRes.add(r);
+    			}
+    		}
+    		mainResTable.setItems(currentRes);
+    		System.out.println(currentRes);
+    	}
+*/
+    }
 
     
     //showDetails klassene som sï¿½rger for at riktig info vises i tabellene/labelene
@@ -199,19 +259,19 @@ public class MainController{
     private void showWoodStatus(Cabin cab){
     	String wood = cab.getWood();
     	if(wood.equals("Full")){
-    		woodLevelDugnad.setText("40");
+    		woodLevelDugnad.setText("40 dager");
 		}
 		else if(wood.equals("High")){
-			woodLevelDugnad.setText("30");
+			woodLevelDugnad.setText("30 dager");
 		}
 		else if(wood.equals("Medium")){
-			woodLevelDugnad.setText("20");
+			woodLevelDugnad.setText("20 dager");
 		}
 		else if(wood.equals("Empty")){
-			woodLevelDugnad.setText("immediately");
+			woodLevelDugnad.setText("Så fort som mulig");
 		}
 		else if(wood.equals("Low")){
-			woodLevelDugnad.setText("10");
+			woodLevelDugnad.setText("10 dager");
 		}
     	
     	
@@ -221,7 +281,7 @@ public class MainController{
     }
     
     private void showMessagingDetail(Reservation res) {
-    	to.setText(res.getEmail());
+    
 		
 	}
     
@@ -229,7 +289,8 @@ public class MainController{
     	reservationTable.setItems(cab.getReservationList());
     	reservationTo.setCellValueFactory(cellData -> cellData.getValue().getEndDateProperty());
     	reservationFrom.setCellValueFactory(cellData -> cellData.getValue().getStartDateProperty());
-    	reservationFirstName.setCellValueFactory(cellData -> cellData.getValue().getEmailProperty());
+    	reservationFirstName.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
+    	reservationLastName.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
     }
     
     private void showForgottenDetails(MailInterface newValue){
@@ -249,8 +310,8 @@ public class MainController{
         	terrain.setText(cabin.getTerrain());
         	reachableByBike.setText(cabin.getBike());     	
         	trip.setText(cabin.getTrip());
-        	guitar.setText(cabin.getGuitar());
-        	waffleIron.setText(cabin.getWaffleiron());
+        	//guitar.setText(cabin.getGuitar());
+        	//waffleIron.setText(cabin.getWaffleiron());
         	hunting.setText(cabin.getHunting());
         	fishing.setText(cabin.getFishing());
         	specialties.setText(cabin.getSpecialities());
@@ -268,8 +329,8 @@ public class MainController{
         	terrain.setText("");
         	reachableByBike.setText("");
         	trip.setText("");
-        	guitar.setText("");
-        	waffleIron.setText("");
+        	//guitar.setText("");
+        	//waffleIron.setText("");
         	hunting.setText("");
         	fishing.setText("");
         	specialties.setText("");
@@ -339,7 +400,27 @@ public class MainController{
 	
 	@FXML
 	private void handleItemAdd(){
-		
+		ItemType item = new ItemType();
+		boolean okClicked = mainApp.showItemTypeEditDialog(item);
+		if(okClicked){
+			mainApp.getItemTypeData().add(item);
+			for (Cabin c : mainApp.getCabinData()){
+				//System.out.println(c.getName());
+				if(c.getName().toLowerCase().equals(item.getCabinNames().toLowerCase())){
+					for(Item i : c.getItemList()){
+						if(i.getItemName().toLowerCase().equals(item.getItemName().toLowerCase())){
+							i.setAmount(""+(Integer.parseInt(i.getAmount()) + Integer.parseInt(item.getAmount())));
+							System.out.println(i.getItemName().toLowerCase());
+						}
+					else{						
+						c.addItem(new Item(item.getItemName(),item.getAmount(), item.getCabinNames()));
+					}					
+					}
+					System.out.println(c.getItemList());
+				}
+			}
+			
+		}
 	}
 	
 	@FXML
@@ -388,6 +469,7 @@ public class MainController{
 			}
 			
 		}
+		System.out.println(res.getlastname());
 	}
 	
 
@@ -423,6 +505,45 @@ public class MainController{
 		}
   }
 
+	
+	private void woodLevelAverage(){
+		int lol = 0;
+		for(Cabin c : mainApp.getCabinData()){
+			String woodLevel = c.getWood();
+			if(woodLevel.equals("Full")){
+				lol += 4;
+			}
+			else if(woodLevel.equals("High")){
+				lol += 3;
+			}
+			else if(woodLevel.equals("Medium")){
+				lol += 2;
+			}
+			else if(woodLevel.equals("Low")){
+				lol += 1;
+			}
+			else if(woodLevel.equals("Empty")){
+				lol += 0;
+			}
+		}
+		double average = ((double) lol / (double) mainApp.getCabinData().size());
+		System.out.println(average);
+		if(average > 4){
+			woodLabelLevel1.setText("Full");
+		}
+		else if(average > 3){
+			woodLabelLevel1.setText("High");
+		}
+		else if(average > 2){
+			woodLabelLevel1.setText("Medium");
+		}
+		else if(average > 1){
+			woodLabelLevel1.setText("Low");
+		}
+		else{
+			woodLabelLevel1.setText("Empty");
+		}
+	}
 	
 
 

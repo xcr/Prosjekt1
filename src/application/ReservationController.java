@@ -27,20 +27,25 @@ import application.DateUtil;
 
 	    public void setChanges(Reservation res) {
 	        this.res = res;
+	    	System.out.println("jkjkjk\n\n\n\n\n\n");
 	        System.out.println(res.getName());
 	        this.cabinName.setText(res.getName());
 	        this.from.setText(res.getStartDate());
 	        this.to.setText(res.getEndDate());
-	        this.firstName.setText(res.getEmail());
+	        this.firstName.setText(res.getfirstname());
+	        this.lastName.setText(res.getlastname());
 	    }
 
 	    @FXML
 		protected void handleOk() {
+	    
 	        if (isInputValid()) {
-	           res.setEmail(this.firstName.getText());
 	           res.setEndDate(this.to.getText());
 	           res.setStartDate(this.from.getText());
 	           res.setName(this.cabinName.getText());
+	           res.setFirstName(this.firstName.getText());
+	           res.setLastName(this.lastName.getText());
+	   		
 	           
 
 	            okClicked = true;

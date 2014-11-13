@@ -21,6 +21,8 @@ public class Reservation {
 		this.lastname = new SimpleStringProperty(lastname);
 		this.startDate = new SimpleStringProperty(startDate);
 		this.endDate = new SimpleStringProperty(endDate);
+		this.firstname = new SimpleStringProperty(firstname);
+		this.lastname = new SimpleStringProperty(lastname);
 		/* local date stuff om man skal omgj�re
 		String[] temp = startDate.split("-");
 		this.start = new SimpleObjectProperty<LocalDate>(
@@ -81,7 +83,10 @@ public class Reservation {
 		return this.firstname;
 	}
 	
-	public StringProperty getLastnameProperty(){
+	public StringProperty getFirstNameProperty(){
+		return this.firstname;
+	}
+	public StringProperty getLastNameProperty(){
 		return this.lastname;
 	}
 	
@@ -132,6 +137,13 @@ public class Reservation {
 		this.changedFields.put("enddate", date);
 	}
 	
+	public void setLastName(String name){
+		this.lastname.setValue(name);
+	}
+	public void setFirstName(String name){
+
+		this.firstname.setValue(name);
+	}
 	public int getId(){
 		return this.id;
 	}

@@ -54,6 +54,7 @@ public class Map extends Application implements MapComponentInitializedListener 
 
 
 	public void initVars(){
+
 		coor = new HashMap<String, LatLong>();
 		coor.put("Fosenkoia", new LatLong(63.56813, 10.29541));
 		coor.put("Holvassgamma" ,new LatLong(63.82745, 10.37133));
@@ -83,6 +84,7 @@ public class Map extends Application implements MapComponentInitializedListener 
 		sql.connect();
 		cabins = sql.getCabinData();
 		sql.closeConnection();
+
 	}
 
 	@Override
@@ -104,9 +106,8 @@ public class Map extends Application implements MapComponentInitializedListener 
 		map = mapView.createMap(mapOptions);
 
 		initVars();
-		
-		for(Cabin c : cabins){
 
+		for(Cabin c : cabins){
 			MarkerOptions markerOptions = new MarkerOptions().position(coor.get(c.getName()));
 			Marker cabinMarker = new Marker(markerOptions);
 			InfoWindowOptions infoOpts = new InfoWindowOptions();
@@ -115,6 +116,7 @@ public class Map extends Application implements MapComponentInitializedListener 
 			map.addUIEventHandler(cabinMarker, UIEventType.click, (JSObject obj) -> cabinInfoWindow.open(map, cabinMarker));
 			map.addMarker(cabinMarker);		
 		}
+
 	}
 	/*
 	public static void main(String[] args) {

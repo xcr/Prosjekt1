@@ -1,6 +1,6 @@
 package application;
 
-import javafx.fxml.FXML;
+	import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -11,7 +11,11 @@ import javafx.stage.Stage;
 import Cabin.Reservation;
 import application.DateUtil;
 
-
+	/**
+	 * Dialog to edit details of a cabin.
+	 * 
+	 * @author Marco Jakob
+	 */
 	public class ReservationEditController extends AbstractEditor {
 		@FXML
 		TextField  cabinName, firstName, lastName, from, to;
@@ -23,28 +27,31 @@ import application.DateUtil;
 
 	    public void setChanges(Reservation res) {
 	        this.res = res;
+	    	System.out.println("jkjkjk\n\n\n\n\n\n");
 	        System.out.println(res.getName());
 	        this.cabinName.setText(res.getName());
 	        this.from.setText(res.getStartDate());
 	        this.to.setText(res.getEndDate());
-	        this.firstName.setText(res.getEmail());
+	        this.firstName.setText(res.getfirstname());
+	        this.lastName.setText(res.getlastname());
 	    }
 
 	    @FXML
 		protected void handleOk() {
+	    
 	        if (isInputValid()) {
-	           res.setEmail(this.firstName.getText());
 	           res.setEndDate(this.to.getText());
 	           res.setStartDate(this.from.getText());
 	           res.setName(this.cabinName.getText());
+	           res.setFirstName(this.firstName.getText());
+	           res.setLastName(this.lastName.getText());
+	   		
 	           
 
 	            okClicked = true;
 	            dialogStage.close();
 	        }
 	    }
-	    
-	   
 
 	    protected boolean isInputValid() {
 	        String errorMessage = "";

@@ -18,9 +18,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Item Name" />
-            <Label text="Amount" GridPane.rowIndex="1" />
-            <Label text="CabinName" GridPane.rowIndex="2" />
+            <Label text="Navn" />
+            <Label text="Antall" GridPane.rowIndex="1" />
+            <Label text="Koie Navn" GridPane.rowIndex="2" />
             <TextField fx:id="itemName" GridPane.columnIndex="1" />
             <TextField fx:id="amount" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="cabinName" GridPane.columnIndex="1" GridPane.rowIndex="2" />

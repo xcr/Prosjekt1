@@ -50,15 +50,17 @@ public class MainApp extends Application{
  *add threading til email 
  *flytt ting fra about cabin til items(i mysql)
  *add destroyed
+ *fix wood css
+ *add map button til coie status
+ *fix wood per koie
+ center tables
  fix reservasjonsbuttons
- fix wood per koie
  fix dato felt greia for reservasjoner
  fix set conditions for datoer
  fix sï¿½ datoan stï¿½r riktig vei
- fix wood css
  sort greia til wood
  lagre meldinger
- hente emails fra gmail
+ hente emails fra gmail(denne kan noen andre gjøre)
  lag undo(hotkey?)
  fix pï¿½ alle tabellene sï¿½ de ikke har overflï¿½dige felt osv
  save og load funksjoner(david)
@@ -78,7 +80,7 @@ public class MainApp extends Application{
     private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
     private ObservableList<Item> itemData = FXCollections.observableArrayList();
     private ObservableList<ItemType> itemTypeData = FXCollections.observableArrayList();
-    private ObservableList<MailInterface> destroyedData = FXCollections.observableArrayList();
+   
 
     public MainApp() {
     	
@@ -199,6 +201,7 @@ public class MainApp extends Application{
             
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
+            //scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
