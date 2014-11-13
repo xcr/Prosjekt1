@@ -15,7 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-
+import javafx.stage.Stage;
 //import application.MainApp;
 import Cabin.Cabin;
 import Cabin.Forgotten;
@@ -412,10 +412,16 @@ public class MainController{
 	
 	@FXML
 	private void handleOpenMap(){
-		
-		Map map = new Map();
-		
-	}
+		System.out.println("lol");
+
+	  	  Stage dialogStage = new Stage();
+	  	  try {
+			Map lol = new Map(dialogStage);
+		} catch (Exception e) {
+			System.out.println("FAIL");
+			e.printStackTrace();
+		}
+  }
 
 	
 

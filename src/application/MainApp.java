@@ -232,7 +232,8 @@ public class MainApp extends Application{
         return primaryStage;
     }
 
-    
+ 
+  
     
     public boolean showItemEditDialog(Item selected) {
    	 try {

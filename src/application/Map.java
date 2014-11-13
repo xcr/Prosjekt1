@@ -33,6 +33,11 @@ public class Map extends Application implements MapComponentInitializedListener 
 	private ObservableList<Cabin> cabins;
 	private HashMap<String, LatLong> coor;
 
+
+	public Map(Stage stage) throws Exception{
+		start(stage);
+		
+	}
 	@Override
 	public void start(Stage stage) throws Exception {
 
@@ -46,6 +51,7 @@ public class Map extends Application implements MapComponentInitializedListener 
 		stage.setScene(scene);
 		stage.show();
 	}
+
 
 	public void initVars(){
 		coor = new HashMap<String, LatLong>();
@@ -110,8 +116,12 @@ public class Map extends Application implements MapComponentInitializedListener 
 			map.addMarker(cabinMarker);		
 		}
 	}
+	/*
 	public static void main(String[] args) {
 
 		launch(args);
 	}
+	*/
+
+
 }
