@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 
 import org.controlsfx.dialog.Dialogs;
 
+import Cabin.Item;
 import Cabin.ItemType;
 import Cabin.Reservation;
 import Cabin.Sql_data;
@@ -16,6 +17,7 @@ public class ItemTypeEditController extends AbstractEditor {
 	@FXML
 	private TextField  itemName, amount, cabinName;
 	private ItemType itemT;
+	private String id;
 
 	@FXML
 	protected void initialize() {
@@ -28,16 +30,26 @@ public class ItemTypeEditController extends AbstractEditor {
 		this.itemName.setText(i.getItemName());
 		this.amount.setText(i.getAmount());
 		this.cabinName.setText(i.getCabinNames());
+		
+		for(Item j : i.getItemData()){
+			this.id = j.getId();
+		}
 	}
-
 
 	@FXML
 	protected void handleOk() {
 		if (isInputValid()) {
 
-			itemT.setAmount(amount.getText());
-			itemT.setCabinNames(cabinName.getText());
-			itemT.setItemName(itemName.getText() );
+			try {
+				Sql_data.updateItemInDatabase(cabinName.getText(), itemName.getText(), amount.getText(), this.id);
+				itemT.setAmount(amount.getText());
+				itemT.setCabinNames(cabinName.getText());
+				itemT.setItemName(itemName.getText() );
+			} catch (SQLException e) {
+				System.out.println("Failed to update data in database");
+				e.printStackTrace();
+			}
+			
 		}
 
 		okClicked = true;

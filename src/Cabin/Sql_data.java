@@ -13,6 +13,7 @@ import java.util.Properties;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.ResultSetMetaData;
 import com.mysql.jdbc.Statement;
 
@@ -313,7 +314,14 @@ public class Sql_data {
 		updateSqlTable("Cabin", itemName, value, "cnr", id);
 		closeConnection();
 	}
-
+	/**
+	 * Adds a new item to the database
+	 * @param cabinName name of the cabin
+	 * @param itemName name of the new item
+	 * @param amount amount of the new item
+	 * @throws SQLException
+	 */
+	
 	public static void addItemToDatabase(String cabinName, String itemName, String amount) throws SQLException{
 		connect();
 		statement = connection.createStatement();
@@ -321,5 +329,39 @@ public class Sql_data {
 				+ "('" +cabinName+ "','" + itemName+ "','" + amount + "')" );
 		closeConnection();
 		System.out.println("Item Successfully added to database");
+	}
+	
+	/**
+	 * Removes the item with specified ID from the sql database
+	 * @param id the id of the item that is going to be removed
+	 * @throws SQLException
+	 */
+	
+	public static void removeItemsFromDatabase(String id) throws SQLException{
+			connect();
+			statement = connection.createStatement();
+			statement.execute("DELETE FROM Item WHERE inr =" + id);
+			closeConnection();
+	}
+	
+	/**
+	 * Updates the item table in the sql database
+	 * <br>
+	 * @param cabinName new name of the cabin	
+	 * @param itemName new itemname	
+	 * @param amount new amount
+	 * @param id id of the table to be changed
+	 * @throws SQLException
+	 */
+	
+	public static void updateItemInDatabase(String cabinName, String itemName, String amount, String id) throws SQLException{
+		connect();
+		java.sql.PreparedStatement update = connection.prepareStatement("UPDATE Item SET cabinname = ?, itemname = ?, amount = ? WHERE inr = ?");
+			update.setString(1, cabinName);
+			update.setString(2, itemName);
+			update.setString(3, amount);
+			update.setString(4, id);
+			update.executeUpdate();
+		closeConnection();
 	}
 }

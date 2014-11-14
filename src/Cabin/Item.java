@@ -19,6 +19,7 @@ public class Item {
 		this.cabinName = new SimpleStringProperty(cabinName);
 		this.itemName = new SimpleStringProperty(itemName);
 		this.amount = new SimpleStringProperty(amount);
+		this.id = id;
 	
 	}
 	
@@ -64,5 +65,9 @@ public class Item {
 	
 	public StringProperty getAmountProperty(){
 		return this.amount;
+	}
+	
+	public String getId(){
+		return this.id;
 	}
 }

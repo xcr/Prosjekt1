@@ -347,6 +347,7 @@ public class MainController{
 		if (selected >= 0){
 
 			mainResTable.getItems().remove(selected);
+			
 
 		}
 		else{
@@ -425,26 +426,26 @@ public class MainController{
 	}
 
 
-	//TODO
+	//TODO OBSOBSOBS HER VET JEG IKKE OM DET STEMMER. FORDI selected.getItemData() er et array,
+	//skal det flere verdier inn der som kanskje ikke skal slettes sammen med det som blir fjernet???
+	//kanskje det skal komme en feilmelding her? kanskjekanskje
+	//Det funker inntil videre, men ha det i bakhodet. 
 	@FXML
 	private void handleItemRemove(){
 		ItemType selected = itemTable.getSelectionModel().getSelectedItem();
-		
-		if(selected != null){
-			
-			for(Cabin c : mainApp.getCabinData()){
-				
-				for(Item i : c.getItemList()){
-					
-					if(i.getItemName().toLowerCase().equals(selected.getItemName().toLowerCase())){
-						
-					}
-						
+		if (selected != null){
+			for(Item i : selected.getItemData()){
+				try {
+					Sql_data.removeItemsFromDatabase(i.getId());
+					itemTable.getItems().remove(selected);
+				} catch (SQLException e) {
+					System.out.println("failed to remove items from database");
+					e.printStackTrace();
 				}
 			}
 		}
 		else{
-			System.out.println("NULL AS A FUCKER");
+			System.out.println("Nothing selected");
 		}
 	}
 
@@ -497,6 +498,7 @@ public class MainController{
 		ItemType selected = itemTable.getSelectionModel().getSelectedItem();
 		if(selected != null){
 			boolean okClicked = mainApp.showItemTypeEditDialog(selected);
+			
 		}
 	}
 
@@ -506,6 +508,7 @@ public class MainController{
 		if (selected != null){
 			boolean okClicked = mainApp.showReservationEditDialog(selected);
 			if(okClicked){
+				System.out.println("reservationEDIT whawhawha");
 
 			}
 		}else {

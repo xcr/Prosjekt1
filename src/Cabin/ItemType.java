@@ -9,8 +9,9 @@ public class ItemType {
 		
 	private StringProperty cabinNames, itemName, amount;
 	private ObservableList<Item> itemData = FXCollections.observableArrayList();
-	int am = 0;
-	String str = "";
+	private int am = 0;
+	private String str = "";
+	private String id;
 	
 	public ItemType(String name){
 		this.itemName = new SimpleStringProperty(name);

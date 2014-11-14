@@ -11,11 +11,8 @@ public class Test {
 	
 	public static void main(String Args[]){
 		
-		
-		ObservableList<Item> items;
 		try {
-			items = Sql_data.getItemData();
-			
+			Sql_data.updateItemInDatabase("Fosenkoia", "fiskeboller", "49", "71");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

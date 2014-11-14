@@ -333,12 +333,24 @@ Ok for legg til knappen fungerer ikke når internett forsvinner i utstyrtabben
         }
     }
     
-
+    /**
+     * Updates all the data from the sql database
+     */
+    public void updateAllData(){
+    	
+    	try {
+			cabinData = Sql_data.getCabinData();
+			forgottenData = Sql_data.getForgottenData();
+			forgottenData.addAll(Sql_data.getDestroyedData());
+			reservationData = Sql_data.getReservationData();
+			itemData = Sql_data.getItemData();
+		} catch (SQLException e) {
+			System.out.println("Kunne ikke hente all data fra database" + e);
+			e.printStackTrace();
+		}
+    }
     
     public static void main(String[] args) {
         launch(args);
     }
-
-
-
 }
