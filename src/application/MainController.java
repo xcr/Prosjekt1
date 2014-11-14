@@ -1,6 +1,9 @@
 package application;
 
 
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.controlsfx.dialog.Dialogs;
 
 import javafx.fxml.FXML;
@@ -40,7 +43,6 @@ public class MainController{
 	private TableView<Cabin> woodTable;
 	@FXML
 	private TableColumn<Cabin,String> woodCabinName, woodLevel;
-
 	@FXML
 	private TableView<Cabin> cabinTable,cabinTable2;
 	@FXML
@@ -72,6 +74,7 @@ public class MainController{
 	@FXML
 	private DatePicker reservationDateFrom, reservationDateTo, reservationDateFrom1, reservationDateTo1;
 
+    private int removing = 0;
 
 	// referanse til main classen.
 	private MainApp mainApp;
@@ -216,10 +219,12 @@ public class MainController{
 	}
 
     private void showItemDetail(ItemType it){
+        if(removing == 0){
+            itemSingleTable.setItems(it.getItemList());
+            itemSingleAmountColumn.setCellValueFactory(cellData -> cellData.getValue().getAmountProperty());
+            itemSingleNameColumn.setCellValueFactory(cellData -> cellData.getValue().getCabinNameProperty());
+        }
 
-        itemSingleTable.setItems(it.getItemList());
-        itemSingleAmountColumn.setCellValueFactory(cellData -> cellData.getValue().getAmountProperty());
-        itemSingleNameColumn.setCellValueFactory(cellData -> cellData.getValue().getCabinNameProperty());
 
     }
 	@FXML
@@ -396,9 +401,12 @@ public class MainController{
 
 	@FXML
 	private void handleItemAdd(){
+
     }
 	@FXML
 	private void handleItemCabinRemove(){
+
+        removing = 1;
         int selected = cabinItemTable.getSelectionModel().getSelectedIndex();
         Item item = cabinItemTable.getSelectionModel().getSelectedItem();
         if(selected >= 0){
@@ -415,16 +423,25 @@ public class MainController{
             }
 
             //fjærner fra itemType
+
             for(ItemType it : mainApp.getItemTypeData()){
                 if(it.getItemName().equals(item.getItemName())){
                     it.getItemList().remove(item);
                     it.updateAmount();
                 }
+                if(Integer.parseInt(it.getAmount()) <= 0){
+
+                    //  it.getItemList().clear();
+                   mainApp.getItemTypeData().remove(it);
+                   break;
+                }
             }
 
-
-
         }
+
+
+
+    removing = 0;
 
 	}
 

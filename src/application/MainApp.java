@@ -55,13 +55,15 @@ public class MainApp extends Application{
  lagre meldinger
  hente emails fra gmail(denne kan noen andre gj�re)
  lag undo(hotkey?)
- fix p� alle tabellene s� de ikke har overfl�dige felt osv
+ *fix p� alle tabellene s� de ikke har overfl�dige felt osv
  save og load funksjoner(david)
  sette cabin reservation og cabin info til samme colonne listener(lav prio)
  *embed kart(lav prio)
  add about page(lav prio)
  adde masse throws osv(noe av det siste som kan gj�res)
  comment all koden
+ fix email så email settes i til feltet
+ legg til subject på mottatte meldinger
  
 Ok for legg til knappen fungerer ikke når internett forsvinner i utstyrtabben
  
