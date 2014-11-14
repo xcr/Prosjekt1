@@ -65,9 +65,8 @@ public class MainApp extends Application{
  comment all koden
  fix email så email settes i til feltet
  legg til subject på mottatte meldinger
- 
-Ok for legg til knappen fungerer ikke når internett forsvinner i utstyrtabben
- 
+ fix så man ikke kan adde two instanser av samme item på en koie(lavprio)
+
  
 
  */

@@ -220,6 +220,7 @@ public class MainController{
 
     private void showItemDetail(ItemType it){
         if(removing == 0){
+            itemSingleTable.getSelectionModel().clearSelection();
             itemSingleTable.setItems(it.getItemList());
             itemSingleAmountColumn.setCellValueFactory(cellData -> cellData.getValue().getAmountProperty());
             itemSingleNameColumn.setCellValueFactory(cellData -> cellData.getValue().getCabinNameProperty());
@@ -396,12 +397,82 @@ public class MainController{
 	@FXML
 	private void handleItemRemove(){
 
+        removing = 1;
+        int selected = itemSingleTable.getSelectionModel().getSelectedIndex();
+        Item item = itemSingleTable.getSelectionModel().getSelectedItem();
+        if(selected >= 0){
+            //fjerner fra itemdata lista
+            mainApp.getItemData().remove(selected);
+
+
+
+            //fjærner fra cabin
+            for(Cabin c : mainApp.getCabinData()){
+                if(c.getName().equals(item.getCabinName())){
+                    c.getItemList().remove(item);
+                }
+            }
+
+            //fjærner fra itemType
+
+            for(ItemType it : mainApp.getItemTypeData()){
+                if(it.getItemName().equals(item.getItemName())){
+                    it.getItemList().remove(item);
+                    it.updateAmount();
+                }
+                if(Integer.parseInt(it.getAmount()) <= 0){
+                    itemTable.getSelectionModel().clearSelection();
+                    //  it.getItemList().clear();
+                    mainApp.getItemTypeData().remove(it);
+                    break;
+                }
+            }
+
+        }
+        else {
+            // Nothing selected.
+            Dialogs.create()
+                    .title("")
+                    .masthead("Ingen Koie Valgt")
+                    .message("Velg en koie du vil endre utstyret how i tabellen til høyre")
+                    .showWarning();
+        }
+
+
+        removing = 0;
+
 	}
 
 
 	@FXML
 	private void handleItemAdd(){
+        Item item = new Item();
+        boolean okClicked = mainApp.showItemEditDialog(item);
+        if(okClicked){
+            //legger til main lista
+            mainApp.getItemData().add(item);
 
+            //legger til cabin lista
+            for(Cabin c : mainApp.getCabinData()){
+                if(c.getName().equals(item.getCabinName())){
+                    c.addItem(item);
+                }
+
+            }
+            int test = 0;
+            //legger item til itemtype lista
+            for(ItemType it : mainApp.getItemTypeData()){
+                if(it.getItemName().equals(item.getItemName())){
+                    it.addItem(item);
+                    test = 1;
+                }
+            }
+            //lager nytt ItemType objekt om det ikke finnes et fra før
+            if(test == 0){
+                mainApp.getItemTypeData().add(new ItemType(item.getItemName(), item.getAmount(), item));
+
+            }
+        }
     }
 	@FXML
 	private void handleItemCabinRemove(){
@@ -458,8 +529,8 @@ public class MainController{
         }
         else{
             Dialogs.create()
-                    .title("No Selection")
-                    .masthead("No reservation was selected")
+                    .title("")
+                    .masthead("")
                     .message("Please select a reservation in the table.")
                     .showWarning();
         }
@@ -467,6 +538,25 @@ public class MainController{
 
     @FXML
 	private void handleItemEdit(){
+        System.out.println("handleitemedit called");
+        Item selected = itemSingleTable.getSelectionModel().getSelectedItem();
+        if(selected != null){
+            System.out.println("inside if");
+            boolean okClicked = mainApp.showItemEditDialog(selected);
+            if(okClicked){
+                for(ItemType it : mainApp.getItemTypeData()){
+                    it.updateAmount();
+                }
+            }
+        }
+            else {
+                // Nothing selected.
+                Dialogs.create()
+                        .title("")
+                        .masthead("Ingen Koie Valgt")
+                        .message("Velg en koie du vil endre utstyret how i tabellen til høyre")
+                        .showWarning();
+            }
 
 	}
 
