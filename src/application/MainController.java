@@ -298,6 +298,7 @@ public class MainController{
 			mailBody.setText("");
 		}
 	}
+
 	private void showCabinDetails(Cabin cabin) {
 		if (cabin != null) {
 			// Fill the labels with info from the cabin object.
@@ -399,9 +400,28 @@ public class MainController{
 	@FXML
 	private void handleItemCabinRemove(){
         int selected = cabinItemTable.getSelectionModel().getSelectedIndex();
+        Item item = cabinItemTable.getSelectionModel().getSelectedItem();
         if(selected >= 0){
+            //fjerner fra itemdata lista
             mainApp.getItemData().remove(selected);
-            mainApp.itemHandling();
+
+
+
+            //fjærner fra cabin
+            for(Cabin c : mainApp.getCabinData()){
+                if(c.getName().equals(item.getCabinName())){
+                    c.getItemList().remove(item);
+                }
+            }
+
+            //fjærner fra itemType
+            for(ItemType it : mainApp.getItemTypeData()){
+                if(it.getItemName().equals(item.getItemName())){
+                    it.getItemList().remove(item);
+                    it.updateAmount();
+                }
+            }
+
 
 
         }
@@ -480,8 +500,29 @@ public class MainController{
         Item item = new Item();
         boolean okClicked = mainApp.showItemEditDialog(item);
         if(okClicked){
+            //legger til main lista
             mainApp.getItemData().add(item);
-            mainApp.itemHandling();
+
+            //legger til cabin lista
+            for(Cabin c : mainApp.getCabinData()){
+               if(c.getName().equals(item.getCabinName())){
+                   c.addItem(item);
+               }
+
+            }
+            int test = 0;
+            //legger item til itemtype lista
+            for(ItemType it : mainApp.getItemTypeData()){
+                if(it.getItemName().equals(item.getItemName())){
+                    it.addItem(item);
+                    test = 1;
+                }
+            }
+            //lager nytt ItemType objekt om det ikke finnes et fra før
+            if(test == 0){
+                mainApp.getItemTypeData().add(new ItemType(item.getItemName(), item.getAmount(), item));
+
+            }
         }
 	}
 

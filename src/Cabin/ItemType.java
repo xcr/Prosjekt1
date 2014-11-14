@@ -20,6 +20,11 @@ public class ItemType {
         this.name = new SimpleStringProperty(name);
         this.amount = new SimpleStringProperty("0");
     }
+    public ItemType(String name, String amount, Item item){
+        this.name = new SimpleStringProperty(name);
+        this.amount = new SimpleStringProperty(amount);
+        this.items.add(item);
+    }
 
     public void amountIncrease(int am){
 

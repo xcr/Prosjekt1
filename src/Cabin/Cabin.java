@@ -187,14 +187,14 @@ public class Cabin {
 	
 	
 	public ObservableList<Item> getItemList(){
-		return itemData;
+		return this.itemData;
 	}
 	
 	public void addItem(Item i){
 		itemData.add(i);
 	}
-	
-	
+
+    public void removeItem(Item i ){ itemData.remove(i);}
 	//Setters go here..........................
 	public void setName(String name){
 		this.name.setValue(name);
