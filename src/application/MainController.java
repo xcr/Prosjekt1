@@ -216,6 +216,7 @@ public class MainController{
 	}
 
     private void showItemDetail(ItemType it){
+
         itemSingleTable.setItems(it.getItemList());
         itemSingleAmountColumn.setCellValueFactory(cellData -> cellData.getValue().getAmountProperty());
         itemSingleNameColumn.setCellValueFactory(cellData -> cellData.getValue().getCabinNameProperty());
@@ -335,25 +336,6 @@ public class MainController{
 	}
 
 
-	@FXML
-	private void handleReservationRemove(){
-		int selected = mainResTable.getSelectionModel().getSelectedIndex();
-        if (selected >= 0){
-
-
-            mainApp.getReservationData().remove(selected);
-            mainApp.reservationSorting();
-            // mainResTable.getItems().remove(selected);
-            //reservationTable.getItems().remove(selected);
-        }
-        else{
-            Dialogs.create()
-                    .title("No Selection")
-                    .masthead("No reservation was selected")
-                    .message("Please select a reservation in the table.")
-                    .showWarning();
-        }
-	}
 
     @FXML
     private void handleReservationCabinRemove(){
@@ -394,62 +376,133 @@ public class MainController{
 		}
 	}
 
-	@FXML
-	private void handleItemCabinRemove(){
-
-	}
-
-	@FXML
-	private void handleItemCabinAdd(){
-
-	}
 
 
 
 
-	@FXML
-	private void handleItemCabinEdit(){
 
-	}
 
 
 	//TODO OBSOBSOBS HER VET JEG IKKE OM DET STEMMER. FORDI selected.getItemData() er et array,
 	//skal det flere verdier inn der som kanskje ikke skal slettes sammen med det som blir fjernet???
 	//kanskje det skal komme en feilmelding her? kanskjekanskje
-	//Det funker inntil videre, men ha det i bakhodet. 
+	//Det funker inntil videre, men ha det i bakhodet.
 	@FXML
 	private void handleItemRemove(){
 
 	}
 
+
 	@FXML
 	private void handleItemAdd(){
+    }
+	@FXML
+	private void handleItemCabinRemove(){
+        int selected = cabinItemTable.getSelectionModel().getSelectedIndex();
+        if(selected >= 0){
+            mainApp.getItemData().remove(selected);
+            mainApp.itemHandling();
+
+
+        }
 
 	}
 
-	@FXML
+    @FXML
+    private void handleReservationRemove(){
+        int selected = mainResTable.getSelectionModel().getSelectedIndex();
+        if (selected >= 0){
+
+
+            mainApp.getReservationData().remove(selected);
+            mainApp.reservationSorting();
+            // mainResTable.getItems().remove(selected);
+            //reservationTable.getItems().remove(selected);
+        }
+        else{
+            Dialogs.create()
+                    .title("No Selection")
+                    .masthead("No reservation was selected")
+                    .message("Please select a reservation in the table.")
+                    .showWarning();
+        }
+    }
+
+    @FXML
 	private void handleItemEdit(){
 
 	}
 
+    @FXML
+    private void handleItemCabinEdit(){
+        Item selected = cabinItemTable.getSelectionModel().getSelectedItem();
+        if(selected != null){
+            boolean okClicked = mainApp.showItemEditDialog(selected);
+            if(okClicked){
+                for(ItemType it : mainApp.getItemTypeData()){
+                    it.updateAmount();
+                }
+            }
+            else {
+                // Nothing selected.
+                Dialogs.create()
+                        .title("No Selection")
+                        .masthead("No cabin Selected")
+                        .message("Please select a cabin in the table.")
+                        .showWarning();
+            }
+        }
+    }
+
 	@FXML
 	private void handleReservationEdit(){
 		Reservation selected = mainResTable.getSelectionModel().getSelectedItem();
-		if (selected != null){
-			boolean okClicked = mainApp.showReservationEditDialog(selected);
-			if(okClicked){
-				System.out.println("reservationEDIT whawhawha");
+		if (selected != null) {
+            boolean okClicked = mainApp.showReservationEditDialog(selected);
+            if (okClicked) {
 
-			}
-		}else {
-			// Nothing selected.
-			Dialogs.create()
-			.title("No Selection")
-			.masthead("No cabin Selected")
-			.message("Please select a cabin in the table.")
-			.showWarning();
-		}
+
+
+            }
+            else {
+                // Nothing selected.
+                Dialogs.create()
+                        .title("No Selection")
+                        .masthead("No cabin Selected")
+                        .message("Please select a cabin in the table.")
+                        .showWarning();
+            }
+        }
+
 	}
+	@FXML
+	private void handleItemCabinAdd(){
+        Item item = new Item();
+        boolean okClicked = mainApp.showItemEditDialog(item);
+        if(okClicked){
+            mainApp.getItemData().add(item);
+            mainApp.itemHandling();
+        }
+	}
+
+    @FXML
+    private void handleReservationAdd(){
+        Reservation res = new Reservation();
+        boolean okClicked = mainApp.showReservationEditDialog(res);
+        if(okClicked){
+            mainApp.getReservationData().add(res);
+            for (Cabin c : mainApp.getCabinData()){
+                System.out.println(c.getName());
+                if(c.getName().toLowerCase().equals(res.getName().toLowerCase())){
+                    c.addReservation(res);
+                    System.out.println(c.getReservationList());
+                }
+            }
+
+        }
+        System.out.println(res.getlastname());
+
+    }
 
 	@FXML
 	private void handleReservationOk(){
@@ -475,24 +528,7 @@ public class MainController{
         }
 
     }
-	@FXML
-	private void handleReservationAdd(){
-		Reservation res = new Reservation();
-		boolean okClicked = mainApp.showReservationEditDialog(res);
-		if(okClicked){
-			mainApp.getReservationData().add(res);
-            for (Cabin c : mainApp.getCabinData()){
-                System.out.println(c.getName());
-                if(c.getName().toLowerCase().equals(res.getName().toLowerCase())){
-                    c.addReservation(res);
-                    System.out.println(c.getReservationList());
-                }
-            }
 
-		}
-		System.out.println(res.getlastname());
-
-	}
 
 
 	@FXML

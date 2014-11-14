@@ -139,9 +139,9 @@
                                                       <HBox layoutX="5.0" layoutY="5.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                       <HBox spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
                                                          <children>
-                                                            <Button layoutX="310.0" layoutY="366.0" mnemonicParsing="false" text="Legg til utstyr" />
-                                                            <Button layoutX="362.0" layoutY="366.0" mnemonicParsing="false" onAction="#handleCabinItemEdit" text="endre" />
-                                                            <Button layoutX="414.0" layoutY="366.0" mnemonicParsing="false" text="fjern" />
+                                                            <Button layoutX="310.0" layoutY="366.0" mnemonicParsing="false" onAction="#handleItemCabinAdd" text="Legg til utstyr" />
+                                                            <Button layoutX="362.0" layoutY="366.0" mnemonicParsing="false" onAction="#handleItemCabinEdit" text="endre" />
+                                                            <Button layoutX="414.0" layoutY="366.0" mnemonicParsing="false" onAction="#handleItemCabinRemove" text="fjern" />
                                                          </children>
                                                       </HBox>
                                                       <TableView fx:id="cabinItemTable" prefHeight="544.0" prefWidth="292.0" AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">

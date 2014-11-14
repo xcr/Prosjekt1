@@ -47,7 +47,7 @@ public class MainApp extends Application{
  *add map button til coie status
  *fix wood per koie
  center tables
- fix reservasjonsbuttons
+ *fix reservasjonsbuttons
  fix dato felt greia for reservasjoner
  fix set conditions for datoer
  fix s� datoan st�r riktig vei
@@ -58,7 +58,7 @@ public class MainApp extends Application{
  fix p� alle tabellene s� de ikke har overfl�dige felt osv
  save og load funksjoner(david)
  sette cabin reservation og cabin info til samme colonne listener(lav prio)
- embed kart(lav prio)
+ *embed kart(lav prio)
  add about page(lav prio)
  adde masse throws osv(noe av det siste som kan gj�res)
  comment all koden
@@ -118,7 +118,9 @@ Ok for legg til knappen fungerer ikke når internett forsvinner i utstyrtabben
     
     public void itemHandling(){
 
+        itemTypeData.clear();
     	for(Cabin c : cabinData){
+            c.getItemList().clear();
     		for(Item i : itemData){
     			if(c.getName().equals(i.getCabinName())){
     				c.addItem(i);

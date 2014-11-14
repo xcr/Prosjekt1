@@ -54,5 +54,13 @@ public class ItemType {
         }
     }
 
+    public void updateAmount(){
+        int am = 0;
+        for(Item i : items){
+            am += Integer.parseInt(i.getAmount());
+        }
+        this.amount.set(""+am);
+    }
+
 
 }
