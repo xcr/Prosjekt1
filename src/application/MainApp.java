@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -210,7 +211,7 @@ Ok for legg til knappen fungerer ikke når internett forsvinner i utstyrtabben
     	
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Koie Admin Client");
-
+        this.primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/Resources/koiene_logo.gif")));
         initRootLayout();
         showCabinOverview();
     }
