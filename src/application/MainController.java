@@ -2,7 +2,7 @@ package application;
 
 
 
-import javafx.application.Platform;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,8 +12,7 @@ import java.time.format.DateTimeFormatter;
 
 import org.controlsfx.dialog.Dialogs;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
