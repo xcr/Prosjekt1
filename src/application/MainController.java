@@ -62,7 +62,7 @@ public class MainController{
 	@FXML
 	private TableView<MailInterface> forgottenTable;
 	@FXML
-	private TableColumn<MailInterface, String> forgottenMailColumn;
+	private TableColumn<MailInterface, String> forgottenMailColumn, forgottenSubjectColumn;
 
 	@FXML
 	private TableView<Reservation> reservationTable,sendTable,mainResTable;
@@ -125,7 +125,9 @@ public class MainController{
 
 
 		cabinNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+
 		forgottenMailColumn.setCellValueFactory(cellData -> cellData.getValue().getEmailProperty());
+        forgottenSubjectColumn.setCellValueFactory(cellData -> cellData.getValue().getSubject());
 
 		cabinNameColumn2.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
 		//change this later to name

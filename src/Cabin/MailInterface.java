@@ -9,4 +9,6 @@ public interface MailInterface {
 	public StringProperty getEmailProperty();
 
 	public String getDescription();
+
+    public StringProperty getSubject();
 }

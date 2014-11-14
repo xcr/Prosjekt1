@@ -6,6 +6,7 @@ public class Forgotten implements MailInterface {
 	
 	private StringProperty cabinName, description, email;
 	private int id;
+    private StringProperty subject = new SimpleStringProperty("Glemt");
 	
 	public Forgotten(int id, String cabinName, String description, String email){
 		
@@ -38,8 +39,13 @@ public class Forgotten implements MailInterface {
 	public String getDescription(){
 		return this.description.get();
 	}
-	
-	public String getEmail(){
+
+    @Override
+    public StringProperty getSubject() {
+       return this.subject;
+    }
+
+    public String getEmail(){
 		return this.email.get();
 	}
 	

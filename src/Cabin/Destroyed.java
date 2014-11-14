@@ -7,6 +7,7 @@ public class Destroyed implements MailInterface {
 	
 	private StringProperty cabinName, description, email;
 	private int id;
+    private StringProperty subject = new SimpleStringProperty("Ødelagt");
 	
 	public Destroyed(int id, String cabinName, String description, String email){
 		
@@ -39,8 +40,13 @@ public class Destroyed implements MailInterface {
 		public String getDescription(){
 			return this.description.get();
 		}
-		
-		public String getEmail(){
+
+
+    public StringProperty getSubject() {
+        return this.subject;
+    }
+
+    public String getEmail(){
 			return this.email.get();
 		}
 		

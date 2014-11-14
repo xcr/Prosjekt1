@@ -41,6 +41,7 @@
                                                          </columnResizePolicy>
                                                          <columns>
                                                             <TableColumn fx:id="forgottenMailColumn" prefWidth="75.0" text="Email" />
+                                                            <TableColumn fx:id="forgottenSubjectColumn" prefWidth="75.0" text="Emne" />
                                                          </columns>
                                                       </TableView>
                                                    </children>
