@@ -47,24 +47,27 @@ public class MainApp extends Application{
  *fix wood css
  *add map button til coie status
  *fix wood per koie
- center tables
  *fix reservasjonsbuttons
- fix dato felt greia for reservasjoner
- fix set conditions for datoer
- fix s� datoan st�r riktig vei
+ *fix dato felt greia for reservasjoner
+ *fix set conditions for datoer
+ *fix s� datoan st�r riktig vei
+ *fix p� alle tabellene s� de ikke har overfl�dige felt osv
+ *legg til subject på mottatte meldinger
+ *embed kart(lav prio)
+ * fix item knapper
+ * fix reservasjonsknapper
+ center tables
  sort greia til wood
+ ordentlig ved algorithme
  lagre meldinger
  hente emails fra gmail(denne kan noen andre gj�re)
  lag undo(hotkey?)
- *fix p� alle tabellene s� de ikke har overfl�dige felt osv
  save og load funksjoner(david)
  sette cabin reservation og cabin info til samme colonne listener(lav prio)
- *embed kart(lav prio)
  add about page(lav prio)
  adde masse throws osv(noe av det siste som kan gj�res)
  comment all koden
  fix email så email settes i til feltet
- legg til subject på mottatte meldinger
  fix så man ikke kan adde two instanser av samme item på en koie(lavprio)
 
  
