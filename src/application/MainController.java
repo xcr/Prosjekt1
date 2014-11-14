@@ -87,19 +87,19 @@ public class MainController{
 	// referanse til main classen.
 	private MainApp mainApp;
 
-	/**
-	 * The constructor.
-	 * The constructor is called before the initialize() method.
-	 */
 	public MainController() {
 
 
 	}
 
+    /**
+     * Lager en referanse til mainApp classen og legger observable listene til de riktige tabellene
+     * @param mainApp
+     */
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 
-		// Add observable list data to the table
+		//legger observable listene til i riktig tabell
 		cabinTable.setItems(mainApp.getCabinData());
 		forgottenTable.setItems(mainApp.getForgottenData());
 		cabinTable2.setItems(mainApp.getCabinData());
@@ -107,7 +107,7 @@ public class MainController{
 		mainResTable.setItems(mainApp.getReservationData());
 		woodTable.setItems(mainApp.getCabinData());
         itemTable.setItems(mainApp.getItemTypeData());
-
+        //denne skal nok flyttes
 		woodLevelAverage();
 
 	}
@@ -116,13 +116,17 @@ public class MainController{
 	 * Initializes the controller class. This method is automatically called
 	 * after the fxml file has been loaded.
 	 */
+
+    /**
+     * Initialiserer kolonnene og tabellene
+     */
 	@FXML
 	private void initialize() {
 
-		// Initialize the cabin table with the two columns.
+
 		cabinNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
 		forgottenMailColumn.setCellValueFactory(cellData -> cellData.getValue().getEmailProperty());
-		//reservationTo.setCellValueFactory(cellData -> cellData.getValue().getReservationList().get);
+
 		cabinNameColumn2.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
 		//change this later to name
 		sendFirstName.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
@@ -137,80 +141,23 @@ public class MainController{
 		itemNameColumn.setCellValueFactory(cellData -> cellData.getValue().getItemNameProperty());
         itemAmountColumn.setCellValueFactory(cellData -> cellData.getValue().getAmountProperty());
 
-
-
 		woodLevel.setCellValueFactory(cellData -> cellData.getValue().getWoodProperty());
 		woodCabinName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-		woodLevel.setCellFactory(column -> {
-			return new TableCell<Cabin, String>(){
-				@Override
-				protected void updateItem(String item, boolean empty){
-					super.updateItem(item, empty);
-					setText(item);
-					TableRow currentRow = getTableRow();
-					currentRow.getStylesheets().add(getClass().getResource("/css/tableviewgreen.css").toExternalForm());
-					currentRow.getStyleClass().clear();
-					if(item == null || empty){
-						setText(null);
-						setStyle("");
-					}
-
-					else{
-						if(item.equals("Full")){
-							//setStyle("-fx-background-color: green");
-							//getStylesheets().add(getClass().getResource("/css/tableviewgreen.css").toExternalForm());
-							currentRow.getStyleClass().add("test1");
-							currentRow.getStyleClass().add("table-view");
-							currentRow.getStyleClass().add("table-row-cell");
+        initWoodTable();
 
 
-						}
-						else if(item.equals("High")){
-							//setStyle("-fx-background-color: #11CC11");
-							currentRow.getStyleClass().add("test5");
-							currentRow.getStyleClass().add("table-view");
-							currentRow.getStyleClass().add("table-row-cell");
-
-						}
-						else if(item.equals("Medium")){
-							//setStyle("-fx-background-color: yellow");
-							currentRow.getStyleClass().add("test3");
-							currentRow.getStyleClass().add("table-view");
-							currentRow.getStyleClass().add("table-row-cell");
-
-						}
-						else if(item.equals("Empty")){
-							//setStyle("-fx-background-color: #FF5555");
-							currentRow.getStyleClass().add("test2");
-							currentRow.getStyleClass().add("table-view");
-							currentRow.getStyleClass().add("table-row-cell");
-
-						}
-						else if(item.equals("Low")){
-							//setStyle("-fx-background-color: #FFA000");
-							currentRow.getStyleClass().add("test4");
-							currentRow.getStyleClass().add("table-view");
-							currentRow.getStyleClass().add("table-row-cell");
-
-						}
-					}
-				}
-			};
-		});
-
-
+        //setter kartet på kart knappen
 		Image img = new Image(getClass().getResourceAsStream("/resources/map.png"));
 		map.setGraphic(new ImageView(img));
-		// Clear cabin details.
 
+
+        //clearer verdier når det starer og når ingenting er targeta
 		showCabinDetails(null);
 		showForgottenDetails(null);
-		// Listen for selection changes and show the cabin details when changed.
+
+		// kjører endringsmethodene når rader i tabellene blir trykket på
 		cabinTable.getSelectionModel().selectedItemProperty().addListener(
 				(observable, oldValue, newValue) -> showCabinDetails(newValue));
-
-		// reservationTable.getSelectionModel().selectedItemProperty().addListener(
-		//(observable, oldValue, newValue) -> showReservationDetail(newValue));
 		cabinTable2.getSelectionModel().selectedItemProperty().addListener(
 				(observable, oldValue, newValue) -> showReservationDetail(newValue));
 		sendTable.getSelectionModel().selectedItemProperty().addListener(
@@ -226,6 +173,63 @@ public class MainController{
 
 	}
 
+    /**
+     * Initializes the wood table with all the css it needs
+     */
+    private void initWoodTable(){
+        woodLevel.setCellFactory(column -> {
+            return new TableCell<Cabin, String>(){
+                @Override
+                protected void updateItem(String item, boolean empty){
+                    super.updateItem(item, empty);
+                    setText(item);
+                    TableRow currentRow = getTableRow();
+                    currentRow.getStylesheets().add(getClass().getResource("/css/tableviewgreen.css").toExternalForm());
+                    currentRow.getStyleClass().clear();
+                    if(item == null || empty){
+                        setText(null);
+                        setStyle("");
+                    }
+
+                    else{
+                        if(item.equals("Full")){
+                            currentRow.getStyleClass().add("test1");
+                            currentRow.getStyleClass().add("table-view");
+                            currentRow.getStyleClass().add("table-row-cell");
+                        }
+                        else if(item.equals("High")){
+                            currentRow.getStyleClass().add("test5");
+                            currentRow.getStyleClass().add("table-view");
+                            currentRow.getStyleClass().add("table-row-cell");
+                        }
+                        else if(item.equals("Medium")){
+                            currentRow.getStyleClass().add("test3");
+                            currentRow.getStyleClass().add("table-view");
+                            currentRow.getStyleClass().add("table-row-cell");
+                        }
+                        else if(item.equals("Empty")){
+                            currentRow.getStyleClass().add("test2");
+                            currentRow.getStyleClass().add("table-view");
+                            currentRow.getStyleClass().add("table-row-cell");
+
+                        }
+                        else if(item.equals("Low")){
+                            currentRow.getStyleClass().add("test4");
+                            currentRow.getStyleClass().add("table-view");
+                            currentRow.getStyleClass().add("table-row-cell");
+
+                        }
+                    }
+                }
+            };
+        });
+
+    }
+
+    /**
+     * Sets the item list equal to the items in the ItemType it gets as a parameter
+     * @param it
+     */
     private void showItemDetail(ItemType it){
         if(removing == 0){
             itemSingleTable.getSelectionModel().clearSelection();
@@ -236,6 +240,11 @@ public class MainController{
 
 
     }
+
+
+    /**
+     * Limit the reservations between the two dates that have been set by the user.
+     */
 	@FXML
 	private void DateReservation(){
 		
@@ -369,35 +378,14 @@ public class MainController{
 		
 		
 		
-		/*System.out.println(reservationDateTo1);
-    	System.out.println(reservationDateFrom1);
-    	System.out.println(reservationDateTo1.getValue());
-    	System.out.println(reservationDateFrom1.getValue());
-    	if(!reservationDateTo1.getValue().toString().equals("null") && !reservationDateFrom1.getValue().toString().equals("null")){
 
-    		String[] to = reservationDateTo1.getValue().toString().split("-");
-    		String[] from = reservationDateFrom1.getValue().toString().split("-");
-
-    		ObservableList<Reservation> currentRes = FXCollections.observableArrayList();
-    		for(Reservation r : mainApp.getReservationData()){
-    			r.getStartDate();
-    			String[] rTo = r.getEndDate().split("-");
-    			String[] rFrom = r.getStartDate().split("-");
-    			if(Integer.parseInt(rFrom[0]) >= Integer.parseInt(from[0]) || Integer.parseInt(rFrom[1]) >= Integer.parseInt(from[1]) 
-    					|| Integer.parseInt(rFrom[2]) >= Integer.parseInt(from[2]) || Integer.parseInt(rTo[0]) <= Integer.parseInt(to[0]) || 
-    					Integer.parseInt(rTo[0]) <= Integer.parseInt(to[0]) || Integer.parseInt(rTo[0]) <= Integer.parseInt(to[0])){
-    				currentRes.add(r);
-    			}
-    		}
-    		mainResTable.setItems(currentRes);
-    		System.out.println(currentRes);
-    	}
-		 */
 	}
 
 
-	//showDetails klassene som s�rger for at riktig info vises i tabellene/labelene
-
+    /**
+     * shows the wood level details for the cabin that is targeted.
+     * @param cab
+     */
 	private void showWoodStatus(Cabin cab){
 		String wood = cab.getWood();
 		if(wood.equals("Full")){
@@ -422,11 +410,20 @@ public class MainController{
 
 	}
 
+    /**
+     * sets the Til field in the send window to the email of the targeted reservation
+     * @param res
+     */
 	private void showMessagingDetail(Reservation res) {
-
+        to.setText(res.getEmail());
 
 	}
 
+
+    /**
+     * shows the reservations to the selected Cabin
+     * @param cab
+     */
 	private void showReservationDetail(Cabin cab){
 		reservationTable.setItems(cab.getReservationList());
 		reservationTo.setCellValueFactory(cellData -> cellData.getValue().getEndDateProperty());
@@ -436,6 +433,10 @@ public class MainController{
 		
 	}
 
+    /**
+     * Shows the forgotten and destroyed items in the mail list.
+     * @param newValue
+     */
 	private void showForgottenDetails(MailInterface newValue){
 		if(newValue != null){
 			mailBody.setText(newValue.getDescription());
@@ -445,6 +446,11 @@ public class MainController{
 		}
 	}
 
+
+    /**
+     * Show cabin info when the cabin is selected and nothing when its not.
+     * @param cabin
+     */
 	private void showCabinDetails(Cabin cabin) {
 		if (cabin != null) {
 			// Fill the labels with info from the cabin object.
@@ -473,8 +479,6 @@ public class MainController{
 			terrain.setText("");
 			reachableByBike.setText("");
 			trip.setText("");
-			//guitar.setText("");
-			//waffleIron.setText("");
 			hunting.setText("");
 			fishing.setText("");
 			specialties.setText("");
@@ -483,7 +487,9 @@ public class MainController{
 	}
 
 
-
+    /**
+     * Removes the selected reservation and makes sure that it get removed other places where its necessary.
+     */
     @FXML
     private void handleReservationCabinRemove(){
         int selected = reservationTable.getSelectionModel().getSelectedIndex();
@@ -505,6 +511,9 @@ public class MainController{
         }
     }
 
+    /**
+     * Delete the targeted cabin.
+     */
 	@FXML
 	private void handleCabinDelete() {
 		int selectedIndex = cabinTable.getSelectionModel().getSelectedIndex();
@@ -525,16 +534,9 @@ public class MainController{
 	}
 
 
-
-
-
-
-
-
-	//TODO OBSOBSOBS HER VET JEG IKKE OM DET STEMMER. FORDI selected.getItemData() er et array,
-	//skal det flere verdier inn der som kanskje ikke skal slettes sammen med det som blir fjernet???
-	//kanskje det skal komme en feilmelding her? kanskjekanskje
-	//Det funker inntil videre, men ha det i bakhodet.
+    /**
+     * Removes the targeted item and makes sure that it gets removed where it is neccessary.
+     */
 	@FXML
 	private void handleItemRemove(){
 
@@ -544,8 +546,6 @@ public class MainController{
         if(selected >= 0){
             //fjerner fra itemdata lista
             mainApp.getItemData().remove(selected);
-
-
 
             //fjærner fra cabin
             for(Cabin c : mainApp.getCabinData()){
@@ -584,7 +584,9 @@ public class MainController{
 
 	}
 
-
+    /**
+     * Adds a new item and makes sure it get added whereever neccessary.
+     */
 	@FXML
 	private void handleItemAdd(){
         Item item = new Item();
