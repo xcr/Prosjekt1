@@ -18,7 +18,7 @@ import application.DateUtil;
 	 */
 	public class ReservationEditController extends AbstractEditor {
 		@FXML
-		TextField  cabinName, firstName, lastName, from, to;
+		TextField  cabinName, firstName, lastName, from, to, email;
 		private Reservation res;
 		
 	    @FXML
@@ -34,6 +34,8 @@ import application.DateUtil;
 	        this.to.setText(res.getEndDate());
 	        this.firstName.setText(res.getfirstname());
 	        this.lastName.setText(res.getlastname());
+            this.email.setText(res.getEmail());
+
 	    }
 
 	    @FXML
@@ -45,6 +47,7 @@ import application.DateUtil;
 	           res.setName(this.cabinName.getText());
 	           res.setFirstName(this.firstName.getText());
 	           res.setLastName(this.lastName.getText());
+               res.setEmail(this.email.getText());
 	   		
 	           
 

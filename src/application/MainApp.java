@@ -25,7 +25,6 @@ import Cabin.Reservation;
 import Cabin.Sql_data;
 
 
-
 public class MainApp extends Application{
 
     private Stage primaryStage;
@@ -91,6 +90,7 @@ Ok for legg til knappen fungerer ikke når internett forsvinner i utstyrtabben
 			forgottenData.addAll(Sql_data.getDestroyedData());
 			reservationData = Sql_data.getReservationData();
 			itemData = Sql_data.getItemData();
+
 		} catch (SQLException e) {
 			System.out.println("Kunne ikke hente all data fra database" + e);
 			e.printStackTrace();
@@ -103,15 +103,15 @@ Ok for legg til knappen fungerer ikke når internett forsvinner i utstyrtabben
 //		reservationData.add(new Reservation(1,"Heinfjordstua","cmail@rofl.copter","2014-10-1","2014-10-4", "Eirik","Bertelsen"));
 //		reservationData.add(new Reservation(1,"Fosenkoia","dmail@rofl.copter","2014-10-4","2014-10-7", "Gabriel","Et eller annet"));
 //		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-25","2014-11-28", "Ola","Nordmann"));
-//		reservationSorting();
+
 		
 //		itemData.add(new Item("Guitar", "4","Heinfjordstua"));
 //		itemData.add(new Item("Guitar","5","Fosenkoia"));
 //		itemData.add(new Item("Grill", "1","Heinfjordstua"));
 //		itemData.add(new Item("Sykkel", "1", "Heinfjordstua"));
 //		itemData.add(new Item("Sykkel", "1", "Fosenkoia"));
-		
-		
+
+        reservationSorting();
 		itemHandling();
 		
 		
@@ -152,6 +152,7 @@ Ok for legg til knappen fungerer ikke når internett forsvinner i utstyrtabben
     //c.getName().toLowerCase().equals(r.getName().toLowerCase())
     public void reservationSorting(){
     	for(Cabin c : cabinData){
+            c.getReservationList().clear();
 			for(Reservation r : reservationData){
 			//	System.out.println("cabin name = "+c.getName()+"   reservation name = "+r.getName());
 				if(c.getName().toLowerCase().equals(r.getName().toLowerCase())){

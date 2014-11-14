@@ -78,12 +78,6 @@ public class MainController{
 	@FXML
 	private TextArea body, mailBody;
 	@FXML
-	//dottene p� kartet
-	private ImageView Flaakoia, Fosenkoia, Heinfjordstua, Hognabu, Holmsaakoia, Holvassgamma, Iglbu, 
-	Kamtjonnkoia, Kraaklikaaten, Kvernmovollen,	Kaasen, Lynhogen, Mortenskaaten, Nicokoia, Rindalsloa,
-	Selbukaaten, Sonvasskoia, Stabburet, Stakkslettbua, Telin, Taagaabu, Vekvessaetra, Ovensenget;
-	//skriv om testing p� forskjellige os osv
-	@FXML
 	private DatePicker reservationDateFrom, reservationDateTo, reservationDateFrom1, reservationDateTo1;
 
 
@@ -342,27 +336,47 @@ public class MainController{
 
 
 	@FXML
-	private void handleRemoveReservation(){
+	private void handleReservationRemove(){
 		int selected = mainResTable.getSelectionModel().getSelectedIndex();
-		if (selected >= 0){
+        if (selected >= 0){
 
-			mainResTable.getItems().remove(selected);
-			
 
-		}
-		else{
-			Dialogs.create()
-			.title("No Selection")
-			.masthead("No reservation was selected")
-			.message("Please select a reservation in the table.")
-			.showWarning();
-		}
+            mainApp.getReservationData().remove(selected);
+            mainApp.reservationSorting();
+            // mainResTable.getItems().remove(selected);
+            //reservationTable.getItems().remove(selected);
+        }
+        else{
+            Dialogs.create()
+                    .title("No Selection")
+                    .masthead("No reservation was selected")
+                    .message("Please select a reservation in the table.")
+                    .showWarning();
+        }
 	}
 
+    @FXML
+    private void handleReservationCabinRemove(){
+        int selected = reservationTable.getSelectionModel().getSelectedIndex();
+        if (selected >= 0){
+          //  mainResTable.getItems().remove(selected);
+        mainApp.getReservationData().remove(reservationTable.getSelectionModel().getSelectedItem());
+        mainApp.reservationSorting();
 
+           // mainResTable.getItems().remove(selected);
+            //reservationTable.getItems().remove(selected);
+        }
+        else{
+            Dialogs.create()
+                    .title("No Selection")
+                    .masthead("No reservation was selected")
+                    .message("Please select a reservation in the table.")
+                    .showWarning();
+        }
+    }
 
 	@FXML
-	private void handleDeleteCabin() {
+	private void handleCabinDelete() {
 		int selectedIndex = cabinTable.getSelectionModel().getSelectedIndex();
 		if (selectedIndex >= 0) {
 			cabinTable.getItems().remove(selectedIndex);
@@ -503,7 +517,7 @@ public class MainController{
 	}
 
 	@FXML
-	private void handleEditReservation(){
+	private void handleReservationEdit(){
 		Reservation selected = mainResTable.getSelectionModel().getSelectedItem();
 		if (selected != null){
 			boolean okClicked = mainApp.showReservationEditDialog(selected);
@@ -526,35 +540,45 @@ public class MainController{
 		System.out.println(reservationDateFrom.getValue());
 	}
 
+    @FXML
+    private void handleReservationCabinEdit(){
+        Reservation selected = reservationTable.getSelectionModel().getSelectedItem();
+        if (selected != null){
+            boolean okClicked = mainApp.showReservationEditDialog(selected);
+            if(okClicked){
+                System.out.println("reservationEDIT whawhawha");
+
+            }
+        }else {
+            // Nothing selected.
+            Dialogs.create()
+                    .title("No Selection")
+                    .masthead("No cabin Selected")
+                    .message("Please select a cabin in the table.")
+                    .showWarning();
+        }
+
+    }
 	@FXML
-	private void handleAddReservation(){
+	private void handleReservationAdd(){
 		Reservation res = new Reservation();
 		boolean okClicked = mainApp.showReservationEditDialog(res);
 		if(okClicked){
 			mainApp.getReservationData().add(res);
-			for (Cabin c : mainApp.getCabinData()){
-				System.out.println(c.getName());
-				if(c.getName().toLowerCase().equals(res.getName().toLowerCase())){
-					c.addReservation(res);
-					System.out.println(c.getReservationList());
-				}
-			}
+            for (Cabin c : mainApp.getCabinData()){
+                System.out.println(c.getName());
+                if(c.getName().toLowerCase().equals(res.getName().toLowerCase())){
+                    c.addReservation(res);
+                    System.out.println(c.getReservationList());
+                }
+            }
 
 		}
 		System.out.println(res.getlastname());
+
 	}
 
 
-	@FXML
-	private void handleMouseOver(Event evt){
-		ImageView lol = (ImageView) evt.getSource();
-		System.out.println(lol.getId());
-
-	}
-	@FXML
-	private void handleMoveRemoved(Event evt){
-		System.out.println("hade");
-	}
 	@FXML
 	private void handleSendMail(){
 

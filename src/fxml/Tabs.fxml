@@ -249,9 +249,9 @@
                                                       </TableView>
                                                       <HBox layoutX="538.0" layoutY="543.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
                                                          <children>
-                                                            <Button layoutX="538.0" layoutY="555.0" mnemonicParsing="false" text="Legg til" />
-                                                            <Button layoutX="610.0" layoutY="555.0" mnemonicParsing="false" text="endre" />
-                                                            <Button layoutX="662.0" layoutY="543.0" mnemonicParsing="false" text="fjern" />
+                                                            <Button layoutX="538.0" layoutY="555.0" mnemonicParsing="false" onAction="#handleReservationAdd" text="Legg til" />
+                                                            <Button layoutX="610.0" layoutY="555.0" mnemonicParsing="false" onAction="#handleReservationCabinEdit" text="endre" />
+                                                            <Button layoutX="662.0" layoutY="543.0" mnemonicParsing="false" onAction="#handleReservationCabinRemove" text="fjern" />
                                                          </children>
                                                       </HBox>
                                                       <HBox layoutX="10.0" layoutY="560.0" spacing="10.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0">
@@ -302,9 +302,9 @@
                         </HBox>
                         <HBox spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
                            <children>
-                              <Button fx:id="reservationAdd" layoutX="538.0" layoutY="555.0" mnemonicParsing="false" onAction="#handleAddReservation" text="Legg til" />
-                              <Button fx:id="handleEditReservation" layoutX="610.0" layoutY="555.0" mnemonicParsing="false" onAction="#handleEditReservation" text="Endre" />
-                              <Button fx:id="reservationRemove" layoutX="662.0" layoutY="543.0" mnemonicParsing="false" onAction="#handleRemoveReservation" text="Fjern" />
+                              <Button fx:id="reservationAdd" layoutX="538.0" layoutY="555.0" mnemonicParsing="false" onAction="#handleReservationAdd" text="Legg til" />
+                              <Button fx:id="handleReservationEdit" layoutX="610.0" layoutY="555.0" mnemonicParsing="false" onAction="#handleReservationEdit" text="Endre" />
+                              <Button layoutX="662.0" layoutY="543.0" mnemonicParsing="false" onAction="#handleReservationRemove" text="Fjern" />
                            </children>
                         </HBox>
                      </children></AnchorPane>
