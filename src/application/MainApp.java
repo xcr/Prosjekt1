@@ -9,20 +9,17 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import Cabin.Cabin;
-import Cabin.Forgotten;
 import Cabin.Item;
-import Cabin.ItemType;
 import Cabin.MailInterface;
 import Cabin.Reservation;
 import Cabin.Sql_data;
+import Cabin.ItemType;
 
 
 public class MainApp extends Application{
@@ -78,6 +75,8 @@ Ok for legg til knappen fungerer ikke når internett forsvinner i utstyrtabben
     private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
     private ObservableList<Item> itemData = FXCollections.observableArrayList();
     private ObservableList<ItemType> itemTypeData = FXCollections.observableArrayList();
+
+
    
 
     public MainApp() {
@@ -97,7 +96,7 @@ Ok for legg til knappen fungerer ikke når internett forsvinner i utstyrtabben
 		}
 		
 		
-//		//test data
+		//test data
 //		reservationData.add(new Reservation(1,"Fosenkoia","amail@rofl.copter","2014-10-4","2014-10-4", "David","Bakke"));
 //		reservationData.add(new Reservation(1,"Heinfjordstua","bmail@rofl.copter","2014-10-4","2014-10-4", "Magnus","Blomlie"));
 //		reservationData.add(new Reservation(1,"Heinfjordstua","cmail@rofl.copter","2014-10-1","2014-10-4", "Eirik","Bertelsen"));
@@ -105,11 +104,11 @@ Ok for legg til knappen fungerer ikke når internett forsvinner i utstyrtabben
 //		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-25","2014-11-28", "Ola","Nordmann"));
 
 		
-//		itemData.add(new Item("Guitar", "4","Heinfjordstua"));
-//		itemData.add(new Item("Guitar","5","Fosenkoia"));
-//		itemData.add(new Item("Grill", "1","Heinfjordstua"));
-//		itemData.add(new Item("Sykkel", "1", "Heinfjordstua"));
-//		itemData.add(new Item("Sykkel", "1", "Fosenkoia"));
+	itemData.add(new Item("Heinfjordstua","Guitar", "4","1"));
+	itemData.add(new Item("Fosenkoia","Guitar","5","2"));
+	itemData.add(new Item("Heinfjordstua","Grill", "1","3"));
+	itemData.add(new Item("Heinfjordstua","Sykkel", "1","4"));
+	itemData.add(new Item("Fosenkoia","Sykkel", "1","5"));
 
         reservationSorting();
 		itemHandling();
@@ -126,24 +125,36 @@ Ok for legg til knappen fungerer ikke når internett forsvinner i utstyrtabben
     			}
     		}
     	}
-    	
-    	ArrayList<String> names = new ArrayList<String>();
-		for(Item i : itemData){
-			if(!names.contains(i.getItemName())){
-				names.add(i.getItemName());
-			}
-		}
-		for(String s : names){
-			
-				itemTypeData.add(new ItemType(s));
-		}
-		for(ItemType i : itemTypeData){
-			for(Item j : itemData){
-				if(i.getItemName().equals(j.getItemName())){
-					i.addItem(j);
-				}
-			}
-		}
+
+        ArrayList<String> names = new ArrayList<String>();
+        for(Item i : itemData){
+            if(!names.contains(i.getItemName())){
+
+                names.add(i.getItemName());
+
+            }
+        }
+
+        for(String s : names){
+
+            itemTypeData.add(new ItemType(s));
+        }
+
+        for(ItemType i : itemTypeData){
+            for(Item j : itemData){
+                if(i.getItemName().equals(j.getItemName())){
+                    i.addItem(j);
+
+                }
+            }
+
+        }
+        for( ItemType i : itemTypeData){
+            System.out.println("item typer: " + i.getItemName());
+            for(Item j : i.getItemList()){
+                System.out.println("den innholder: "+ j.getItemName());
+            }
+        }
     }
     
     
@@ -179,10 +190,11 @@ Ok for legg til knappen fungerer ikke når internett forsvinner i utstyrtabben
     public ObservableList<Item> getItemData(){
     	return itemData;
     }
-    
+
     public ObservableList<ItemType> getItemTypeData(){
-    	return itemTypeData;
+        return itemTypeData;
     }
+
     
 
     // ... THE REST OF THE CLASS ...
@@ -275,35 +287,7 @@ Ok for legg til knappen fungerer ikke når internett forsvinner i utstyrtabben
    }
     
     
-    public boolean showItemTypeEditDialog(ItemType selected) {
-    	 try {
-             // Load the fxml file and create a new stage for the popup dialog.
-             FXMLLoader loader = new FXMLLoader();
-             loader.setLocation(MainApp.class.getResource("/fxml/ItemTypeEditor.fxml"));
-             AnchorPane page = (AnchorPane) loader.load();
 
-             // Create the dialog Stage.
-             Stage dialogStage = new Stage();
-             dialogStage.setTitle("Edit Item");
-             dialogStage.initModality(Modality.WINDOW_MODAL);
-             dialogStage.initOwner(primaryStage);
-             Scene scene = new Scene(page);
-             dialogStage.setScene(scene);
-
-             
-             ItemTypeEditController controller = loader.getController();
-             controller.setDialogStage(dialogStage);
-             controller.setChanges(selected);
-
-    
-             dialogStage.showAndWait();
-
-             return controller.isOkClicked();
-         } catch (IOException e) {
-             e.printStackTrace();
-             return false;
-         }
-    }
     
     public boolean showReservationEditDialog(Reservation res) {
         try {

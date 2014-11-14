@@ -1,82 +1,58 @@
 package Cabin;
 
+import Cabin.Item;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+/**
+ * Created by Eirik on 14.11.2014.
+ */
 public class ItemType {
 
-		
-	private StringProperty cabinNames, itemName, amount;
-	private ObservableList<Item> itemData = FXCollections.observableArrayList();
-	private int am = 0;
-	private String str = "";
-	private String id;
-	
-	public ItemType(String name){
-		this.itemName = new SimpleStringProperty(name);
-		this.cabinNames = new SimpleStringProperty("");
-		this.amount = new SimpleStringProperty("");
-	}
-	
-	public ItemType(){
-		this(null);
-	}
-	public void addItem(Item i){
-		am += Integer.parseInt(i.getAmount());
-		str = i.getCabinName()+":"+i.getAmount()+" ";
-		itemData.add(i);
-		this.amount.set(""+am);
-		this.cabinNames.set(cabinNames.get() + str);
-	}
-	
-	
-	//setters
-	
-	public void setCabinNames(String names){
-		this.cabinNames.set(names);
-	}
-	
-	public void setItemName(String item){
-		this.itemName.set(item);
-	}
-	
-	public void setAmount(String amount){
-		this.amount.set(amount);
-	}
-	
-	
-	//getters
-	public String getCabinNames(){
-		return cabinNames.get();
-	}
-	
-	public String getItemName(){
-		return itemName.get();
-	}
-	
-	public String getAmount(){
-		return amount.get();
-	}
-	
-	
-//propertygetters
-	public StringProperty getCabinNamesProperty() {
-		return cabinNames;
-	}
+    private StringProperty name, amount;
+    private ObservableList<Item> items = FXCollections.observableArrayList();
 
-	public StringProperty getItemNameProperty() {
-		return itemName;
-	}
 
-	public StringProperty getAmountProperty() {
-		return amount;
-	}
+    public ItemType(String name){
+        this.name = new SimpleStringProperty(name);
+        this.amount = new SimpleStringProperty("0");
+    }
 
-	public ObservableList<Item> getItemData() {
-		return itemData;
-	}
-	
+    public void amountIncrease(int am){
+
+        int amt = Integer.parseInt(amount.get()) + am;
+        amount.set(""+amt);
+    }
+    public void amountDecrease(int am){
+        amount.set(""+(Integer.parseInt(amount.get()) - am));
+    }
+
+
+    public String getItemName(){return name.get();}
+    public String getAmount(){return amount.get();}
+    public ObservableList<Item> getItemList(){ return this.items;}
+    public StringProperty getItemNameProperty(){return this.name;}
+    public StringProperty getAmountProperty(){return this.amount;}
+
+
+    public void addItem(Item i){
+        int ammm = Integer.parseInt(i.getAmount());
+        amountIncrease(ammm);
+        items.add(i);
+
+    }
+
+    public void removeItem(Item i){
+        amountDecrease(Integer.parseInt(i.getAmount()));
+        for(Item j : items){
+            if(j.getCabinName().equals(i.getCabinName())){
+                items.remove(j);
+            }
+        }
+    }
 
 
 }

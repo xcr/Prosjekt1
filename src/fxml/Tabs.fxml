@@ -415,17 +415,37 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="itemTable" layoutX="255.0" layoutY="64.0" prefHeight="625.0" prefWidth="1000.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <columns>
-                            <TableColumn fx:id="itemNameColumn" prefWidth="75.0" text="Navn" />
-                            <TableColumn fx:id="itemAmountColumn" prefWidth="75.0" text="Antall" />
-                              <TableColumn fx:id="itemCabinNamesColumn" prefWidth="75.0" text="Koier som har denne tingen" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                        <HBox layoutX="714.0" layoutY="586.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
+                        <SplitPane dividerPositions="0.5" prefHeight="625.0" prefWidth="1000.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <TableView fx:id="itemTable" prefHeight="625.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn fx:id="itemNameColumn" prefWidth="75.0" text="Utstyr Navn" />
+                                          <TableColumn fx:id="itemAmountColumn" prefWidth="75.0" text="Total Antall" />
+                                      </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <TableView fx:id="itemSingleTable" layoutX="484.0" layoutY="31.0" prefHeight="573.0" prefWidth="280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn fx:id="itemSingleNameColumn" prefWidth="75.0" text="Koie Navn" />
+                                        <TableColumn fx:id="itemSingleAmountColumn" prefWidth="75.0" text="Antall" />
+                                      </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                        <HBox spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
                            <children>
                               <Button layoutX="714.0" layoutY="586.0" mnemonicParsing="false" onAction="#handleItemAdd" text="Legg til" />
                               <Button layoutX="805.0" layoutY="586.0" mnemonicParsing="false" onAction="#handleItemEdit" text="Endre" />

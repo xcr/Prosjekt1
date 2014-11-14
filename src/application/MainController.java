@@ -1,14 +1,8 @@
 package application;
 
 
-import java.sql.SQLException;
-import java.time.LocalDate;
-
 import org.controlsfx.dialog.Dialogs;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -24,26 +18,24 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 //import application.MainApp;
 import Cabin.Cabin;
-import Cabin.Forgotten;
 import Cabin.Item;
 import Cabin.ItemType;
 import Cabin.MailInterface;
 import Cabin.Reservation;
-import Cabin.Sql_data;
 
 
 @SuppressWarnings("deprecation")
 public class MainController{
 
 
+    @FXML
+    private TableView<ItemType> itemTable;
+    @FXML
+    private TableColumn<ItemType, String> itemNameColumn, itemAmountColumn;
 	@FXML
-	private TableView<ItemType> itemTable;
+	private TableView<Item> cabinItemTable, itemSingleTable;
 	@FXML
-	private TableColumn<ItemType, String> itemNameColumn, itemCabinNamesColumn, itemAmountColumn;
-	@FXML
-	private TableView<Item> cabinItemTable;
-	@FXML
-	private TableColumn<Item, String> cabinItemName, cabinItemAmount;
+	private TableColumn<Item, String> cabinItemName, cabinItemAmount,itemSingleAmountColumn, itemSingleNameColumn;
 	@FXML
 	private TableView<Cabin> woodTable;
 	@FXML
@@ -103,7 +95,8 @@ public class MainController{
 		sendTable.setItems(mainApp.getReservationData());
 		mainResTable.setItems(mainApp.getReservationData());
 		woodTable.setItems(mainApp.getCabinData());
-		itemTable.setItems(mainApp.getItemTypeData());
+        itemTable.setItems(mainApp.getItemTypeData());
+
 		woodLevelAverage();
 
 	}
@@ -131,8 +124,8 @@ public class MainController{
 		mainResLastName.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
 
 		itemNameColumn.setCellValueFactory(cellData -> cellData.getValue().getItemNameProperty());
-		itemCabinNamesColumn.setCellValueFactory(cellData -> cellData.getValue().getCabinNamesProperty());
-		itemAmountColumn.setCellValueFactory(cellData -> cellData.getValue().getAmountProperty());
+        itemAmountColumn.setCellValueFactory(cellData -> cellData.getValue().getAmountProperty());
+
 
 
 		woodLevel.setCellValueFactory(cellData -> cellData.getValue().getWoodProperty());
@@ -214,13 +207,20 @@ public class MainController{
 		forgottenTable.getSelectionModel().selectedItemProperty().addListener(
 				(observable, oldValue, newValue) -> showForgottenDetails(newValue));
 		woodTable.getSelectionModel().selectedItemProperty().addListener(
-				(observable, oldValue, newValue) -> showWoodStatus(newValue));
+                (observable, oldValue, newValue) -> showWoodStatus(newValue));
+        itemTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showItemDetail(newValue));
 
 
 
 	}
 
+    private void showItemDetail(ItemType it){
+        itemSingleTable.setItems(it.getItemList());
+        itemSingleAmountColumn.setCellValueFactory(cellData -> cellData.getValue().getAmountProperty());
+        itemSingleNameColumn.setCellValueFactory(cellData -> cellData.getValue().getCabinNameProperty());
 
+    }
 	@FXML
 	private void DateReservation(){
 		/*System.out.println(reservationDateTo1);
@@ -395,48 +395,21 @@ public class MainController{
 	}
 
 	@FXML
-	private void handleCabinItemRemove(){
+	private void handleItemCabinRemove(){
 
 	}
 
 	@FXML
-	private void handleCabinItemAdd(){
-		//creates a new ItemType
-		ItemType item = new ItemType();
+	private void handleItemCabinAdd(){
 
-		boolean okClicked = mainApp.showItemTypeEditDialog(item);
-		if(okClicked){
-			mainApp.getItemTypeData().add(item);
-			for (Cabin c : mainApp.getCabinData()){
-				//System.out.println(c.getName());
-				if(c.getName().toLowerCase().equals(item.getCabinNames().toLowerCase())){
-					for(Item i : c.getItemList()){
-						if(i.getItemName().toLowerCase().equals(item.getItemName().toLowerCase())){
-							i.setAmount(""+(Integer.parseInt(i.getAmount()) + Integer.parseInt(item.getAmount())));
-							System.out.println(i.getItemName().toLowerCase());
-						}
-						else{						
-							c.addItem(new Item(item.getItemName(),item.getAmount(), item.getCabinNames(), null));
-							//here
-						}					
-					}
-					System.out.println(c.getItemList());
-				}
-			}
-
-		}
 	}
 
 
 
 
 	@FXML
-	private void handleCabinItemEdit(){
-		Item selected = cabinItemTable.getSelectionModel().getSelectedItem();
-		if(selected != null){
-			boolean okClicked = mainApp.showItemEditDialog(selected);
-		}
-		System.out.println("NULL");
+	private void handleItemCabinEdit(){
+
 	}
 
 
@@ -446,74 +419,17 @@ public class MainController{
 	//Det funker inntil videre, men ha det i bakhodet. 
 	@FXML
 	private void handleItemRemove(){
-		ItemType selected = itemTable.getSelectionModel().getSelectedItem();
-		if (selected != null){
-			for(Item i : selected.getItemData()){
-				try {
-					Sql_data.removeItemsFromDatabase(i.getId());
-					itemTable.getItems().remove(selected);
-				} catch (SQLException e) {
-					System.out.println("failed to remove items from database");
-					e.printStackTrace();
-				}
-			}
-		}
-		else{
-			System.out.println("Nothing selected");
-		}
+
 	}
 
 	@FXML
 	private void handleItemAdd(){
-		ItemType item = new ItemType();
-		boolean okClicked = mainApp.showItemTypeEditDialog(item);
-		if(okClicked){
-			mainApp.getItemTypeData().add(item);
 
-			try {
-				Sql_data.addItemToDatabase(item.getCabinNames(), item. getItemName(), item.getAmount());
-
-			} catch (SQLException e) {
-
-
-				Dialogs.create()
-				.title("Tilkoblingsfeil")
-				.masthead("Tilkoblingsfeil")
-				.message("Kunne ikke oppdatere database")
-				.showError();
-
-				e.printStackTrace();
-			}
-			
-
-
-		for (Cabin c : mainApp.getCabinData()){
-			//System.out.println(c.getName());
-			if(c.getName().toLowerCase().equals(item.getCabinNames().toLowerCase())){
-				for(Item i : c.getItemList()){
-					System.out.println(i.getCabinName());
-					if(i.getItemName().toLowerCase().equals(item.getItemName().toLowerCase())){
-						i.setAmount(""+(Integer.parseInt(i.getAmount()) + Integer.parseInt(item.getAmount())));
-						System.out.println(i.getItemName().toLowerCase());
-					}
-					else{						
-						c.addItem(new Item(item.getCabinNames(),item.getItemName(), item.getAmount(), null));
-
-					}
-					System.out.println(c.getItemList());
-				}
-			}
-		}
-	}
 	}
 
 	@FXML
 	private void handleItemEdit(){
-		ItemType selected = itemTable.getSelectionModel().getSelectedItem();
-		if(selected != null){
-			boolean okClicked = mainApp.showItemTypeEditDialog(selected);
-			
-		}
+
 	}
 
 	@FXML
