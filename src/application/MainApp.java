@@ -213,7 +213,7 @@ public class MainApp extends Application{
     	
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Koie Admin Client");
-        //this.primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/Resources/koiene_logo.gif")));
+        this.primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/Resources/koiene_logo.gif")));
         initRootLayout();
         showCabinOverview();
     }
