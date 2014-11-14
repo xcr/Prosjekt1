@@ -556,7 +556,7 @@ public class MainController{
                 }
             }
 
-            //fjærner fra itemType
+            //fjerner fra itemType
 
             for(ItemType it : mainApp.getItemTypeData()){
                 if(it.getItemName().equals(item.getItemName())){
@@ -587,7 +587,7 @@ public class MainController{
 	}
 
     /**
-     * Adds a new item and makes sure it get added whereever neccessary.
+     * Adds a new item and makes sure it gets added whereever neccessary.
      */
 	@FXML
 	private void handleItemAdd(){
