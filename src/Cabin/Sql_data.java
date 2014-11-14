@@ -339,6 +339,7 @@ public class Sql_data {
 	
 	public static void removeItemsFromDatabase(String id) throws SQLException{
 			connect();
+			
 			statement = connection.createStatement();
 			statement.execute("DELETE FROM Item WHERE inr =" + id);
 			closeConnection();
@@ -347,7 +348,7 @@ public class Sql_data {
 	/**
 	 * Updates the item table in the sql database
 	 * <br>
-	 * @param cabinName new name of the cabin	
+	 * @param cabinName new name of the cabin
 	 * @param itemName new itemname	
 	 * @param amount new amount
 	 * @param id id of the table to be changed

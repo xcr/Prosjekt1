@@ -89,7 +89,7 @@ public class MainApp extends Application{
 			cabinData = Sql_data.getCabinData();
 			forgottenData = Sql_data.getForgottenData();
 			forgottenData.addAll(Sql_data.getDestroyedData());
-			reservationData = Sql_data.getReservationData();
+			//reservationData = Sql_data.getReservationData();
 			itemData = Sql_data.getItemData();
 
 		} catch (SQLException e) {
@@ -99,11 +99,14 @@ public class MainApp extends Application{
 		
 		
 		//test data
-//		reservationData.add(new Reservation(1,"Fosenkoia","amail@rofl.copter","2014-10-4","2014-10-4", "David","Bakke"));
-//		reservationData.add(new Reservation(1,"Heinfjordstua","bmail@rofl.copter","2014-10-4","2014-10-4", "Magnus","Blomlie"));
-//		reservationData.add(new Reservation(1,"Heinfjordstua","cmail@rofl.copter","2014-10-1","2014-10-4", "Eirik","Bertelsen"));
-//		reservationData.add(new Reservation(1,"Fosenkoia","dmail@rofl.copter","2014-10-4","2014-10-7", "Gabriel","Et eller annet"));
-//		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-25","2014-11-28", "Ola","Nordmann"));
+		reservationData.add(new Reservation(1,"Fosenkoia","amail@rofl.copter","2014-11-1","2014-11-10", "David","Bakke"));
+		reservationData.add(new Reservation(1,"Heinfjordstua","bmail@rofl.copter","2014-11-2","2014-11-10", "Magnus","Blomlie"));
+		reservationData.add(new Reservation(1,"Heinfjordstua","cmail@rofl.copter","2014-11-3","2014-11-10", "Eirik","Bertelsen"));
+		reservationData.add(new Reservation(1,"Fosenkoia","dmail@rofl.copter","2014-11-4","2014-10-7", "Gabriel","Et eller annet"));
+		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-5","2014-11-28", "Ola","Nordmann"));
+		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-6","2014-11-8", "Ola","Nordmann"));
+		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-7","2014-11-9", "Ola","Nordmann"));
+		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-8","2014-11-10", "Ola","Nordmann"));
 
 		
 	itemData.add(new Item("Heinfjordstua","Guitar", "4","1"));
@@ -210,7 +213,7 @@ public class MainApp extends Application{
     	
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Koie Admin Client");
-        this.primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/Resources/koiene_logo.gif")));
+        //this.primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/Resources/koiene_logo.gif")));
         initRootLayout();
         showCabinOverview();
     }

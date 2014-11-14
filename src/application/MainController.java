@@ -1,11 +1,19 @@
 package application;
 
 
+
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+
 import org.controlsfx.dialog.Dialogs;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -19,6 +27,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 //import application.MainApp;
 import Cabin.Cabin;
 import Cabin.Item;
@@ -230,6 +239,137 @@ public class MainController{
     }
 	@FXML
 	private void DateReservation(){
+		
+		System.out.println(reservationDateFrom1.getValue());
+		System.out.println(reservationDateTo1.getValue());
+		
+		String pattern = "yyyy-MM-dd";
+
+		reservationDateFrom1.setPromptText(pattern.toLowerCase());
+
+		reservationDateFrom1.setConverter(new StringConverter<LocalDate>() {
+		     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+
+		     @Override 
+		     public String toString(LocalDate date) {
+		         if (date != null) {
+		             return dateFormatter.format(date);
+		         } else {
+		             return "";
+		         }
+		     }
+
+		     @Override 
+		     public LocalDate fromString(String string) {
+		         if (string != null && !string.isEmpty()) {
+		             return LocalDate.parse(string, dateFormatter);
+		         } else {
+		             return null;
+		         }
+		     }
+		 });
+		
+		reservationDateTo1.setPromptText(pattern.toLowerCase());
+
+		reservationDateTo1.setConverter(new StringConverter<LocalDate>() {
+		     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+
+		     @Override 
+		     public String toString(LocalDate date) {
+		         if (date != null) {
+		             return dateFormatter.format(date);
+		         } else {
+		             return "";
+		         }
+		     }
+
+		     @Override 
+		     public LocalDate fromString(String string) {
+		         if (string != null && !string.isEmpty()) {
+		             return LocalDate.parse(string, dateFormatter);
+		         } else {
+		             return null;
+		         }
+		     }
+		 });
+		
+		ObservableList<Reservation> currentRes = FXCollections.observableArrayList();
+		ObservableList<Reservation> currentResFromTo = FXCollections.observableArrayList();
+
+		if(((!(reservationDateFrom1.getValue() == null)))){
+			
+			for(Reservation r : mainApp.getReservationData()){
+				LocalDate date = r.getStartLocalDate();
+				
+				if(((date.getYear()) > (reservationDateFrom1.getValue().getYear()))){
+//					System.out.println(r.getStartDate());
+					currentRes.add(r);
+				}
+				
+				else if(((date.getMonthValue()) > (reservationDateFrom1.getValue().getMonthValue()))){
+//					System.out.println(r.getStartDate());
+					currentRes.add(r);
+				}
+				
+				else if(((date.getDayOfMonth()) >= (reservationDateFrom1.getValue().getDayOfMonth()))){
+//					System.out.println(r.getStartDate());
+					currentRes.add(r);
+				}
+			}
+			mainResTable.setItems(currentRes);
+		}
+		
+		else if(!(reservationDateTo1.getValue() == null)){
+			for(Reservation r : mainApp.getReservationData()){
+				LocalDate date = r.getEndLocalDate();
+				
+				if(((date.getYear()) < (reservationDateTo1.getValue().getYear()))){
+//					System.out.println(r.getStartDate());
+					currentRes.add(r);
+				}
+				
+				else if(((date.getMonthValue()) < (reservationDateTo1.getValue().getMonthValue()))){
+//					System.out.println(r.getStartDate());
+					currentRes.add(r);
+				}
+				
+				else if(((date.getDayOfMonth()) <= (reservationDateTo1.getValue().getDayOfMonth()))){
+//					System.out.println(r.getStartDate());
+					currentRes.add(r);
+				}
+			}
+			mainResTable.setItems(currentRes);
+		}
+		
+		if((!(reservationDateFrom1.getValue() == null) && (!(reservationDateTo1.getValue() == null)))){
+			
+			for(Reservation r : currentRes){
+				
+				
+				LocalDate startdate = r.getStartLocalDate();
+				LocalDate enddate = r.getEndLocalDate();
+				System.out.println("startdate: " + startdate.getDayOfMonth());
+				System.out.println("enddate: " + enddate.getDayOfMonth());
+				System.out.println("reservationdateFROM1: " + reservationDateFrom1.getValue().getDayOfMonth());
+				System.out.println("reservationDateTo1: " + reservationDateTo1.getValue().getDayOfMonth());
+				
+				if((startdate.getYear() > reservationDateFrom1.getValue().getYear()) && (enddate.getYear() < reservationDateTo1.getValue().getYear())){
+					currentResFromTo.add(r);
+				}
+				
+				else if((startdate.getMonthValue() > reservationDateFrom1.getValue().getMonthValue()) && (enddate.getMonthValue() < reservationDateTo1.getValue().getMonthValue())){
+					currentResFromTo.add(r);
+				}
+				
+				else if((startdate.getDayOfMonth() >= reservationDateFrom1.getValue().getDayOfMonth()) && (enddate.getDayOfMonth() <= reservationDateTo1.getValue().getDayOfMonth())){
+					currentResFromTo.add(r);
+				}
+			}
+			mainResTable.setItems(currentResFromTo);
+		}
+		
+		
+		
 		/*System.out.println(reservationDateTo1);
     	System.out.println(reservationDateFrom1);
     	System.out.println(reservationDateTo1.getValue());
@@ -294,6 +434,7 @@ public class MainController{
 		reservationFrom.setCellValueFactory(cellData -> cellData.getValue().getStartDateProperty());
 		reservationFirstName.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
 		reservationLastName.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
+		
 	}
 
 	private void showForgottenDetails(MailInterface newValue){
@@ -351,6 +492,7 @@ public class MainController{
           //  mainResTable.getItems().remove(selected);
         mainApp.getReservationData().remove(reservationTable.getSelectionModel().getSelectedItem());
         mainApp.reservationSorting();
+        
 
            // mainResTable.getItems().remove(selected);
             //reservationTable.getItems().remove(selected);
