@@ -13,7 +13,7 @@ public class Reservation {
 	private StringProperty name, email, startDate, endDate, firstname, lastname;
 	private int id;
 	private ObjectProperty<LocalDate> start, end;
-	private HashMap<String, String> changedFields;
+	private HashMap<String, String> changedFields = new HashMap<String, String>();
 	
 	
 	public Reservation(int id, String name, String email, String startDate, String endDate, String firstname, String lastname){
@@ -28,6 +28,8 @@ public class Reservation {
 		
 		
 		//local date stuff om man skal omgj�re
+        if(startDate != null){
+
 		String[] temp = startDate.split("-");
 		this.start = new SimpleObjectProperty<LocalDate>(
 				LocalDate.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2])));
@@ -35,10 +37,11 @@ public class Reservation {
 		this.end = new SimpleObjectProperty<LocalDate>(
 				LocalDate.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2])));
 
-		
-		this.changedFields = new HashMap<String, String>();
+
+
 		this.id = id;
-		
+        }
+
 	}
 	public Reservation(){
 		this(0,null, null, null, null,null, null);

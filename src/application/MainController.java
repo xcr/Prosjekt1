@@ -183,7 +183,6 @@ public class MainController{
                 (observable, oldValue, newValue) -> showItemDetail(newValue));
         outboxTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showOutboxDetail(newValue));
-
         woodLevelBox.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> woodChoiceBox(newValue));
 
@@ -700,6 +699,9 @@ public class MainController{
 
             mainApp.getReservationData().remove(selected);
             mainApp.reservationSorting();
+
+            DateReservation();
+
             // mainResTable.getItems().remove(selected);
             //reservationTable.getItems().remove(selected);
         }
