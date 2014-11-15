@@ -21,6 +21,7 @@ import Cabin.MailInterface;
 import Cabin.Reservation;
 import Cabin.Sql_data;
 import Cabin.ItemType;
+import Cabin.Sendt;
 
 
 public class MainApp extends Application{
@@ -59,6 +60,7 @@ public class MainApp extends Application{
  center tables
  sort greia til wood
  ordentlig ved algorithme
+ fix date picker med add remove og edit
  lagre meldinger
  hente emails fra gmail(denne kan noen andre gj�re)
  lag undo(hotkey?)
@@ -80,6 +82,7 @@ public class MainApp extends Application{
     private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
     private ObservableList<Item> itemData = FXCollections.observableArrayList();
     private ObservableList<ItemType> itemTypeData = FXCollections.observableArrayList();
+    private ObservableList<Sendt> outBox = FXCollections.observableArrayList();
 
 
    
@@ -110,8 +113,11 @@ public class MainApp extends Application{
 		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-6","2014-11-8", "Ola","Nordmann"));
 		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-7","2014-11-9", "Ola","Nordmann"));
 		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-8","2014-11-10", "Ola","Nordmann"));
+        outBox.add(new Sendt("rofl@copter.com", "Your new rotor is on the way!!!!","HEllo!, we bought you " +
+                "a new rotor and we are sending it in the mail \n you're welcome! \n\n from ntnu koie"));
 
-		
+
+
 	itemData.add(new Item("Heinfjordstua","Guitar", "4","1"));
 	itemData.add(new Item("Fosenkoia","Guitar","5","2"));
 	itemData.add(new Item("Heinfjordstua","Grill", "1","3"));
@@ -160,9 +166,9 @@ public class MainApp extends Application{
 
         }
         for( ItemType i : itemTypeData){
-            System.out.println("item typer: " + i.getItemName());
+     //       System.out.println("item typer: " + i.getItemName());
             for(Item j : i.getItemList()){
-                System.out.println("den innholder: "+ j.getItemName());
+     //           System.out.println("den innholder: "+ j.getItemName());
             }
         }
     }
@@ -204,7 +210,7 @@ public class MainApp extends Application{
     public ObservableList<ItemType> getItemTypeData(){
         return itemTypeData;
     }
-
+    public ObservableList<Sendt> getOutBox(){return outBox;}
     
 
     // ... THE REST OF THE CLASS ...

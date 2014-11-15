@@ -3,6 +3,8 @@ package application;
 
 
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -10,19 +12,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+import javafx.util.Callback;
 import org.controlsfx.dialog.Dialogs;
 
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -33,12 +30,15 @@ import Cabin.Item;
 import Cabin.ItemType;
 import Cabin.MailInterface;
 import Cabin.Reservation;
+import Cabin.Sendt;
 
 
 @SuppressWarnings("deprecation")
 public class MainController{
 
 
+    @FXML
+    private ChoiceBox woodLevelBox;
     @FXML
     private TableView<ItemType> itemTable;
     @FXML
@@ -55,6 +55,11 @@ public class MainController{
 	private TableView<Cabin> cabinTable,cabinTable2;
 	@FXML
 	private TableColumn<Cabin, String> cabinNameColumn, cabinNameColumn2;
+    @FXML
+    private TableView<Sendt> outboxTable;
+    @FXML
+    private TableColumn<Sendt, String> outboxEmailColumn, outboxSubjectColumn;
+
 
 	@FXML
 	private Button reservationAdd, reservationRemove, reservationEdit, map;
@@ -78,7 +83,7 @@ public class MainController{
 	@FXML
 	private TextField to, subject;
 	@FXML
-	private TextArea body, mailBody;
+	private TextArea body, mailBody, outboxBody;
 	@FXML
 	private DatePicker reservationDateFrom, reservationDateTo, reservationDateFrom1, reservationDateTo1;
 
@@ -107,6 +112,7 @@ public class MainController{
 		mainResTable.setItems(mainApp.getReservationData());
 		woodTable.setItems(mainApp.getCabinData());
         itemTable.setItems(mainApp.getItemTypeData());
+        outboxTable.setItems(mainApp.getOutBox());
         //denne skal nok flyttes
 		woodLevelAverage();
 
@@ -133,6 +139,10 @@ public class MainController{
 		//change this later to name
 		sendFirstName.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
 		sendLastName.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
+        outboxEmailColumn.setCellValueFactory(cellData -> cellData.getValue().getToProperty());
+        outboxSubjectColumn.setCellValueFactory(cellData -> cellData.getValue().getSubjectProperty());
+
+
 
 		mainResName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
 		mainResFrom.setCellValueFactory(cellData -> cellData.getValue().getStartDateProperty());
@@ -152,6 +162,7 @@ public class MainController{
 		Image img = new Image(getClass().getResourceAsStream("/resources/map.png"));
 		map.setGraphic(new ImageView(img));
 
+        woodLevelBox.getItems().addAll("Full", "High", "Medium", "Low", "Empty");
 
         //clearer verdier når det starer og når ingenting er targeta
 		showCabinDetails(null);
@@ -170,10 +181,28 @@ public class MainController{
                 (observable, oldValue, newValue) -> showWoodStatus(newValue));
         itemTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showItemDetail(newValue));
+        outboxTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showOutboxDetail(newValue));
 
-
+        woodLevelBox.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> woodChoiceBox(newValue));
 
 	}
+
+    private void showOutboxDetail(Sendt newValue) {
+        outboxBody.setText(newValue.getBody());
+    }
+
+    private void woodChoiceBox(Object newValue) {
+        System.out.println(newValue);
+        woodTable.getSelectionModel().getSelectedItem().setWood(newValue.toString());
+        cabinTable.getSelectionModel().clearSelection();
+        showWoodStatus(woodTable.getSelectionModel().getSelectedItem());
+        woodLevelAverage();
+    }
+
+
+
 
     /**
      * Initializes the wood table with all the css it needs
@@ -389,9 +418,11 @@ public class MainController{
      * @param cab
      */
 	private void showWoodStatus(Cabin cab){
+        woodLevelBox.setValue(cab.getWood());
 		String wood = cab.getWood();
 		if(wood.equals("Full")){
 			woodLevelDugnad.setText("40 dager");
+
 		}
 		else if(wood.equals("High")){
 			woodLevelDugnad.setText("30 dager");
@@ -829,19 +860,19 @@ public class MainController{
 
 		SendEmail email = new SendEmail(to.getText(), subject.getText(), body.getText());
 		email.start();
-
+        mainApp.getOutBox().add(new Sendt(to.getText(), subject.getText(), body.getText()));
 
 	}
 
 	@FXML
 	private void handleOpenMap(){
-		System.out.println("lol");
+
 
 		Stage dialogStage = new Stage();
 		try {
 			Map lol = new Map(dialogStage);
 		} catch (Exception e) {
-			System.out.println("FAIL");
+
 			e.printStackTrace();
 		}
 	}

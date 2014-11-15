@@ -21,11 +21,11 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="First Name" />
-            <Label text="Last Name" GridPane.rowIndex="1" />
-            <Label text="CabinName" GridPane.rowIndex="2" />
-            <Label text="From" GridPane.rowIndex="3" />
-            <Label text="To" GridPane.rowIndex="4" />
+            <Label text="Fornavn" />
+            <Label text="Etternavn" GridPane.rowIndex="1" />
+            <Label text="Koie navn" GridPane.rowIndex="2" />
+            <Label text="Fra Dato" GridPane.rowIndex="3" />
+            <Label text="Til Dato" GridPane.rowIndex="4" />
             <Label text="Email" GridPane.rowIndex="5" />
             <TextField fx:id="firstName" GridPane.columnIndex="1" />
             <TextField fx:id="lastName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -38,7 +38,7 @@
       <HBox layoutX="201.0" layoutY="211.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="6.0">
          <children>
             <Button layoutX="201.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleOk" prefWidth="55.0" text="OK" />
-            <Button layoutX="275.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleCancel" prefWidth="55.0" text="Cancel" />
+            <Button layoutX="275.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleCancel" prefWidth="55.0" text="Avbryt" />
          </children>
       </HBox>
    </children>

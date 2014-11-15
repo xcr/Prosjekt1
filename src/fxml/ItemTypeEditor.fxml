@@ -29,7 +29,7 @@
       <HBox layoutX="201.0" layoutY="211.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="6.0">
          <children>
             <Button layoutX="201.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleOk" prefWidth="55.0" text="OK" />
-            <Button layoutX="275.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleCancel" prefWidth="55.0" text="Cancel" />
+            <Button layoutX="275.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleCancel" prefWidth="55.0" text="Avbryt" />
          </children>
       </HBox>
    </children>

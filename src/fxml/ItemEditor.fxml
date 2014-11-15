@@ -18,9 +18,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Item Name" />
-            <Label text="Amount" GridPane.rowIndex="1" />
-            <Label text="CabinName" GridPane.rowIndex="2" />
+            <Label text="Utstyr navn" />
+            <Label text="Antall" GridPane.rowIndex="1" />
+            <Label text="Koie navn" GridPane.rowIndex="2" />
             <TextField fx:id="itemName" GridPane.columnIndex="1" />
             <TextField fx:id="amount" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="cabinName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -29,7 +29,7 @@
       <HBox layoutX="201.0" layoutY="211.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="6.0">
          <children>
             <Button layoutX="201.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleOk" prefWidth="55.0" text="OK" />
-            <Button layoutX="275.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleCancel" prefWidth="55.0" text="Cancel" />
+            <Button layoutX="275.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleCancel" prefWidth="55.0" text="Avbryt" />
          </children>
       </HBox>
    </children>
