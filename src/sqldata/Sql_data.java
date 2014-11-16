@@ -1,21 +1,14 @@
 package sqldata;
 import java.sql.Connection;
-import java.sql.Driver;
+
 import java.sql.DriverManager;
-import java.sql.DriverPropertyInfo;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.ResultSetMetaData;
-import com.mysql.jdbc.Statement;
 
 //stmt.execute("INSERT INTO login (username, passwd) VALUES ('SomeUsername', '123')");
 /**
