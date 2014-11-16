@@ -1,0 +1,25 @@
+This backup was made on Sun Nov 16 14:34:32 CET 2014
+
+57-:-Flaakoia-:-11-:-14-:-1968-:-S-:-yes-:-no-:-yes-:-no-:-no-:-yes-:-sauna,boat,icedrill-:-Full
+59-:-Fosenkoia-:-10-:-12-:-1957-:-S/T-:-no-:-yes-:-yes-:-yes-:-no-:-no-:-none specified-:-Medium
+66-:-Heinfjordstua-:-25-:-25-:-1966-:-S-:-yes-:-no-:-yes-:-yes-:-no-:-yes-:-sauna,oven-:-Low
+67-:-Hognabu-:-6-:-6-:-1966-:-T-:-no-:-yes-:-yes-:-yes-:-no-:-no-:-national park-:-Medium
+68-:-Holmsaakoia-:-20-:-25-:-1974-:-S-:-yes-:-yes-:-yes-:-no-:-no-:-no-:-sauna,piano-:-Full
+75-:-Holvassgamma-:-8-:-16-:-1978-:-S-:-no-:-yes-:-yes-:-yes-:-yes-:-yes-:-boat-:-Empty
+76-:-Iglbu-:-8-:-14-:-1964-:-T-:-yes-:-yes-:-yes-:-no-:-yes-:-yes-:-none specified-:-Medium
+77-:-Kamtjonnkoia-:-6-:-10-:-1993-:-H-:-no-:-yes-:-no-:-no-:-yes-:-yes-:-icedrill-:-Low
+86-:-Kraaklikaaten-:-4-:-6-:-1963-:-S-:-yes-:-yes-:-no-:-no-:-no-:-no-:-none specified-:-Full
+87-:-Kvernmovollen-:-8-:-14-:-1975-:-T-:-no-:-yes-:-yes-:-yes-:-yes-:-no-:-two-seated toilet-:-Full
+88-:-Kaasen-:-8-:-12-:-2011-:-S-:-yes-:-no-:-yes-:-no-:-yes-:-yes-:-none specified-:-Full
+89-:-Lynhogen-:-4-:-8-:-1973-:-S/T-:-yes-:-yes-:-no-:-no-:-no-:-no-:-none specified-:-Empty
+90-:-Mortenskaaten-:-2-:-4-:-1961-:-T-:-yes-:-yes-:-no-:-yes-:-no-:-no-:-the beershed,hammock-:-Medium
+91-:-Nicokoia-:-8-:-12-:-1847-:-S/T-:-no-:-yes-:-yes-:-no-:-no-:-no-:-historic-:-Full
+92-:-Rindalsloa-:-4-:-6-:-1978-:-S-:-yes-:-yes-:-yes-:-yes-:-yes-:-no-:-none specified-:-High
+93-:-Selbukaaten-:-2-:-4-:-1959-:-S-:-yes-:-yes-:-no-:-no-:-no-:-no-:-skitracks-:-Full
+94-:-Sonvasskoia-:-8-:-12-:-1951-:-S-:-yes-:-yes-:-yes-:-no-:-yes-:-yes-:-canoe,icedrill-:-High
+95-:-Stabburet-:-2-:-4-:-1995-:-T-:-yes-:-yes-:-yes-:-no-:-yes-:-1-:-none specified-:-Medium
+96-:-Stakkslettbua-:-11-:-15-:-2013-:-T-:-yes-:-yes-:-yes-:-yes-:-yes-:-yes-:-4-stories bedroom-:-Full
+97-:-Telin-:-9-:-12-:-1991-:-T-:-yes-:-yes-:-yes-:-yes-:-yes-:-no-:-armchair-:-Medium
+98-:-Taagaabu-:-6-:-9-:-1970-:-T-:-yes-:-yes-:-yes-:-yes-:-yes-:-no-:-none specified-:-Medium
+99-:-Vekvessaetra-:-20-:-24-:-2011-:-T-:-yes-:-yes-:-yes-:-yes-:-yes-:-yes-:-3-seated sawhorse-:-Full
+100-:-Ovensenget-:-8-:-14-:-1992-:-S/T-:-yes-:-yes-:-yes-:-yes-:-no-:-no-:-sauna,Braakaaten-:-Empty
