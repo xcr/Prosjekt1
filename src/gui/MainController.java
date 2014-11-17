@@ -39,12 +39,15 @@ public class MainController{
     @FXML
     private TableView<ItemType> itemTable;
     @FXML
-    private TableColumn<ItemType, String> itemNameColumn, itemAmountColumn;
+    private TableColumn<ItemType, String> itemNameColumn;
 	@FXML
 	private TableView<Item> cabinItemTable, itemSingleTable;
 	@FXML
 	private TableColumn<Item, String> cabinItemName, itemSingleNameColumn;
+    @FXML
 	private TableColumn<Item, Number> itemSingleAmountColumn, cabinItemAmount;
+    @FXML
+    private TableColumn<ItemType, Number> itemAmountColumn;
     @FXML
 	private TableView<Cabin> woodTable;
 	@FXML

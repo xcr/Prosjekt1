@@ -1,5 +1,7 @@
 package sqldata;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -9,36 +11,36 @@ import javafx.collections.ObservableList;
  * Created by Eirik on 14.11.2014.
  */
 public class ItemType {
-
-    private StringProperty name, amount;
+    private IntegerProperty amount;
+    private StringProperty name;
     private ObservableList<Item> items = FXCollections.observableArrayList();
 
 
     public ItemType(String name){
         this.name = new SimpleStringProperty(name);
-        this.amount = new SimpleStringProperty("0");
+        this.amount = new SimpleIntegerProperty(0);
     }
     public ItemType(String name, String amount, Item item){
         this.name = new SimpleStringProperty(name);
-        this.amount = new SimpleStringProperty(amount);
+        this.amount = new SimpleIntegerProperty(Integer.parseInt(amount));
         this.items.add(item);
     }
 
     public void amountIncrease(int am){
 
-        int amt = Integer.parseInt(amount.get()) + am;
-        amount.set(""+amt);
+        int amt = amount.get() + am;
+        amount.set(amt);
     }
     public void amountDecrease(int am){
-        amount.set(""+(Integer.parseInt(amount.get()) - am));
+        amount.set(amount.get() - am);
     }
 
 
     public String getItemName(){return name.get();}
-    public String getAmount(){return amount.get();}
+    public String getAmount(){return ""+amount.get();}
     public ObservableList<Item> getItemList(){ return this.items;}
     public StringProperty getItemNameProperty(){return this.name;}
-    public StringProperty getAmountProperty(){return this.amount;}
+    public IntegerProperty getAmountProperty(){return this.amount;}
 
 
     public void addItem(Item i){
@@ -62,7 +64,7 @@ public class ItemType {
         for(Item i : items){
             am += Integer.parseInt(i.getAmount());
         }
-        this.amount.set(""+am);
+        this.amount.set(am);
     }
 
 

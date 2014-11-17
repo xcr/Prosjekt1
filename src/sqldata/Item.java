@@ -14,7 +14,12 @@ public class Item {
 	public Item(String cabinName, String itemName, String amount, String id){
 		this.cabinName = new SimpleStringProperty(cabinName);
 		this.itemName = new SimpleStringProperty(itemName);
-		this.amount = new SimpleIntegerProperty(Integer.parseInt(amount));
+        if(amount ==null){
+            this.amount = new SimpleIntegerProperty();
+        }else{
+
+        this.amount = new SimpleIntegerProperty(Integer.parseInt(amount));
+        }
 		this.id = id;
 	}
 	

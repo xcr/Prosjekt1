@@ -27,7 +27,12 @@ public class ItemEditController extends AbstractEditor {
         cabinName.getItems().addAll(MainApp.getCabinNames());
         System.out.println(i.getItemName() + " in editor");
         this.itemName.setText(i.getItemName());
+        if(i.getAmount().equals("0")){
+            this.amount.setText("");
+        }else{
+
         this.amount.setText(i.getAmount());
+        }
 
 
     }

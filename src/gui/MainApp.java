@@ -241,13 +241,13 @@ public class MainApp extends Application{
 
         this.primaryStage.setTitle("Koie Admin Client");
         this.primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/koiene_logo.gif")));
-         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+       /*  primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 		    @Override
 		    public void handle(WindowEvent event) {
 		        saveAllDataToDatabase();
 		    }
 		});
-
+*/
         initRootLayout();
         showCabinOverview();
     }
