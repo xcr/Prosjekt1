@@ -1,18 +1,20 @@
 package sqldata;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Item {
 	
-	
-	private StringProperty cabinName, itemName, amount;
+	private IntegerProperty amount;
+	private StringProperty cabinName, itemName;
 	private String id;
 	
 	public Item(String cabinName, String itemName, String amount, String id){
 		this.cabinName = new SimpleStringProperty(cabinName);
 		this.itemName = new SimpleStringProperty(itemName);
-		this.amount = new SimpleStringProperty(amount);
+		this.amount = new SimpleIntegerProperty(Integer.parseInt(amount));
 		this.id = id;
 	}
 	
@@ -40,11 +42,11 @@ public class Item {
 	}
 
 	public String getAmount() {
-		return amount.get();
+		return ""+amount.get();
 	}
 
 	public void setAmount(String amount) {
-		this.amount.set(amount);
+		this.amount.set(Integer.parseInt(amount));
 	}
 	
 	//property getters her
@@ -56,7 +58,7 @@ public class Item {
 		return this.cabinName;
 	}
 	
-	public StringProperty getAmountProperty(){
+	public IntegerProperty getAmountProperty(){
 		return this.amount;
 	}
 	

@@ -71,9 +71,18 @@ package gui;
 	    protected boolean isInputValid() {
 	        String errorMessage = "";
 
+            if(datePickerEnd.getValue() == null){
+                errorMessage += "Glemt å sette sluttdato\n";
+            }
+            if(datePickerStart.getValue() == null){
+                errorMessage += "Glemt å sette startdato\n";
+            }
+            if(cabinName.getValue() == null){
+                errorMessage += "Glemt å sette koie\n";
+            }
 
-	        if (firstName.getText() == null || firstName.getText().length() == 0) {
-	            errorMessage += "Did not set a first name\n"; 
+	        if (email.getText() == null ||!email.getText().contains("@") || !email.getText().contains(".")) {
+	            errorMessage += "Ugyldig email\n";
 	        } 
 
 	        if (errorMessage.length() == 0) {
@@ -81,8 +90,8 @@ package gui;
 	        } else {
 	            // Show the error message.
 	            Dialogs.create()
-	                .title("Invalid Fields")
-	                .masthead("Please correct invalid fields")
+	                .title("Ugyldig input")
+	                .masthead("Venligst fiks følgende feil")
 	                .message(errorMessage)
 	                .showError();
 	            return false;
