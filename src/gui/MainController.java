@@ -193,6 +193,10 @@ public class MainController{
         outboxBody.setText(newValue.getBody());
     }
 
+    /**
+     *
+     * @param newValue
+     */
     private void woodChoiceBox(Object newValue) {
       try{
 
@@ -511,8 +515,14 @@ public class MainController{
 			woodStatus.setText("");
 		}
 	}
+    @FXML
+    private void handleMessageDelete(){
+        int selected = forgottenTable.getSelectionModel().getSelectedIndex();
+        if (selected >= 0){
+            mainApp.getForgottenData().remove(forgottenTable.getSelectionModel().getSelectedItem());
 
-
+        }
+    }
     /**
      * Removes the selected reservation and makes sure that it get removed other places where its necessary.
      */
@@ -571,7 +581,7 @@ public class MainController{
         Item item = itemSingleTable.getSelectionModel().getSelectedItem();
         if(selected >= 0){
             //fjerner fra itemdata lista
-            mainApp.getItemData().remove(selected);
+            mainApp.getItemData().remove(item);
 
             //fjærner fra cabin
             for(Cabin c : mainApp.getCabinData()){
@@ -579,7 +589,7 @@ public class MainController{
                     c.getItemList().remove(item);
                 }
             }
-
+            System.out.println(mainApp.getItemData().size());
             //fjerner fra itemType
 
             for(ItemType it : mainApp.getItemTypeData()){
@@ -689,7 +699,7 @@ public class MainController{
         if (selected >= 0){
 
 
-            mainApp.getReservationData().remove(selected);
+            mainApp.getReservationData().remove(mainResTable.getSelectionModel().getSelectedItem());
             mainApp.reservationSorting();
 
             DateReservation();
@@ -716,7 +726,7 @@ public class MainController{
             if(okClicked){
                 updateCabinItems();
                 updateItemType();
-
+                System.out.println(mainApp.getItemData().size());
             }
         }
             else {
@@ -755,13 +765,14 @@ public class MainController{
 	private void handleReservationEdit(){
 		Reservation selected = mainResTable.getSelectionModel().getSelectedItem();
 		if (selected != null) {
-            boolean okClicked = mainApp.showReservationEditDialog(selected);
+            boolean okClicked = mainApp.showReservationEditDialog(mainResTable.getSelectionModel().getSelectedItem());
             if (okClicked) {
             mainApp.reservationSorting();
             }
 
 
 
+        }
             else {
                 // Nothing selected.
                 Dialogs.create()
@@ -770,7 +781,6 @@ public class MainController{
                         .message("Please select a cabin in the table.")
                         .showWarning();
             }
-        }
 
 	}
 	@FXML
@@ -817,7 +827,7 @@ public class MainController{
                     System.out.println(c.getReservationList());
                 }
             }
-
+            DateReservation();
         }
         System.out.println(res.getlastname());
 
@@ -852,6 +862,13 @@ public class MainController{
 
 	@FXML
 	private void handleSendMail(){
+        if(to.getText().length() == 0 || subject.getText().length() == 0 || body.getText().length() == 0){
+            Dialogs.create()
+                    .title("Tomme felt")
+                    .masthead("Venligst fyll ut alle feltene")
+
+                    .showWarning();
+        }
 
 		SendEmail email = new SendEmail(to.getText(), subject.getText(), body.getText());
 		email.start();
