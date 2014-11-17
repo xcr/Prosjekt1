@@ -19,11 +19,11 @@ package gui;
 	 */
 	public class ReservationEditController extends AbstractEditor {
 		@FXML
-		TextField   firstName, lastName, from, to, email;
+		TextField   firstName, lastName, email;
         @FXML
         ComboBox cabinName;
         @FXML
-        DatePicker datepicker;
+        DatePicker datePickerStart, datePickerEnd;
 
 		private Reservation res;
 		
@@ -38,14 +38,15 @@ package gui;
             System.out.println(res.getEndDate());
             System.out.println("jkjkjk\n\n\n\n\n\n");
 	        System.out.println(res.getName());
-	        this.from.setText(res.getStartDate());
-            this.from.setPromptText("yyyy-mm-dd");
-            this.to.setPromptText("yyyy-mm-dd");
-	        this.to.setText(res.getEndDate());
+
+            this.datePickerEnd.setPromptText("yyyy-mm-dd");
+            this.datePickerStart.setPromptText("yyyy-mm-dd");
+
 	        this.firstName.setText(res.getfirstname());
 	        this.lastName.setText(res.getlastname());
             this.email.setText(res.getEmail());
-          //  this.datepicker.setValue(res.getStartLocalDate());
+            this.datePickerStart.setValue(res.getStartLocalDate());
+            this.datePickerEnd.setValue(res.getEndLocalDate());
 
 
 	    }
@@ -54,17 +55,13 @@ package gui;
 		protected void handleOk() {
 	    
 	        if (isInputValid()) {
-	           res.setEndDate(this.to.getText());
-	           res.setStartDate(this.from.getText());
+
 	           res.setName((String)cabinName.getSelectionModel().getSelectedItem());
 	           res.setFirstName(this.firstName.getText());
 	           res.setLastName(this.lastName.getText());
                res.setEmail(this.email.getText());
-               String[] temp = to.getText().split("-");
-               res.setLocalEndDate(LocalDate.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2])));
-               // String[] temp = from.getText().split("-");
-                //res.setLocalStartDate(LocalDate.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2])));
-              //  res.setLocalStartDate(datepicker.getValue());
+               res.setLocalEndDate(datePickerEnd.getValue());
+               res.setLocalStartDate(datePickerStart.getValue());
 
                 okClicked = true;
 	            dialogStage.close();
@@ -73,14 +70,6 @@ package gui;
 
 	    protected boolean isInputValid() {
 	        String errorMessage = "";
-
-	        if (from.getText() == null || from.getText().length() != 9) {
-	            errorMessage += "Did not set a from date\n"; 
-	        }
-
-	        if (to.getText() == null || to.getText().length() == 0) {
-	            errorMessage += "Did not set a to date\n"; 
-	        }
 
 
 	        if (firstName.getText() == null || firstName.getText().length() == 0) {

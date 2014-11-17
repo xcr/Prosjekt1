@@ -29,10 +29,10 @@
             <Label text="Email" GridPane.rowIndex="5" />
             <TextField fx:id="firstName" GridPane.columnIndex="1" />
             <TextField fx:id="lastName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="from" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="to" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <ComboBox fx:id="cabinName" prefHeight="25.0" prefWidth="213.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <DatePicker fx:id="datePickerStart" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <DatePicker fx:id="datePickerEnd" prefHeight="25.0" prefWidth="222.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
       <HBox layoutX="201.0" layoutY="211.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="6.0">
@@ -41,6 +41,5 @@
             <Button layoutX="275.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleCancel" prefWidth="55.0" text="Avbryt" />
          </children>
       </HBox>
-      <DatePicker fx:id="datepicker" layoutX="49.0" layoutY="208.0" />
    </children>
 </AnchorPane>
