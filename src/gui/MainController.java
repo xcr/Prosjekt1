@@ -163,7 +163,7 @@ public class MainController{
 		Image img = new Image(getClass().getResourceAsStream("/resources/map.png"));
 		map.setGraphic(new ImageView(img));
 
-        woodLevelBox.getItems().addAll("Full", "High", "Medium", "Low", "Empty");
+        woodLevelBox.getItems().addAll("Fullt", "Høy", "Middels", "Lav", "Tomt");
 
         //clearer verdier når det starer og når ingenting er targeta
 		showCabinDetails(null);
@@ -256,28 +256,28 @@ public class MainController{
                     }
 
                     else{
-                        if(item.equals("Full")){
+                        if(item.equals("Fullt")){
                             currentRow.getStyleClass().add("test1");
                             currentRow.getStyleClass().add("table-view");
                             currentRow.getStyleClass().add("table-row-cell");
                         }
-                        else if(item.equals("High")){
+                        else if(item.equals("Høy")){
                             currentRow.getStyleClass().add("test5");
                             currentRow.getStyleClass().add("table-view");
                             currentRow.getStyleClass().add("table-row-cell");
                         }
-                        else if(item.equals("Medium")){
+                        else if(item.equals("Middels")){
                             currentRow.getStyleClass().add("test3");
                             currentRow.getStyleClass().add("table-view");
                             currentRow.getStyleClass().add("table-row-cell");
                         }
-                        else if(item.equals("Empty")){
+                        else if(item.equals("Tomt")){
                             currentRow.getStyleClass().add("test2");
                             currentRow.getStyleClass().add("table-view");
                             currentRow.getStyleClass().add("table-row-cell");
 
                         }
-                        else if(item.equals("Low")){
+                        else if(item.equals("Lav")){
                             currentRow.getStyleClass().add("test4");
                             currentRow.getStyleClass().add("table-view");
                             currentRow.getStyleClass().add("table-row-cell");
@@ -421,26 +421,26 @@ public class MainController{
 	private void showWoodStatus(Cabin cab){
         woodLevelBox.setValue(cab.getWood());
 		String wood = cab.getWood();
-		if(wood.equals("Full")){
+		if(wood.equals("Fullt")){
 			woodLevelDugnad.setText("40 dager");
 
 		}
-		else if(wood.equals("High")){
+		else if(wood.equals("Høy")){
 			woodLevelDugnad.setText("30 dager");
 		}
-		else if(wood.equals("Medium")){
+		else if(wood.equals("Middels")){
 			woodLevelDugnad.setText("20 dager");
 		}
-		else if(wood.equals("Empty")){
+		else if(wood.equals("Tomt")){
 			woodLevelDugnad.setText("S� fort som mulig");
 		}
-		else if(wood.equals("Low")){
+		else if(wood.equals("Lav")){
 			woodLevelDugnad.setText("10 dager");
 		}
 
 
-		woodLabelName.setText(cab.getName());
-		woodLabelLevel.setText(wood);
+		//woodLabelName.setText(cab.getName());
+		//woodLabelLevel.setText(wood);
 
 	}
 
@@ -848,15 +848,15 @@ public class MainController{
         if (selected != null){
             boolean okClicked = mainApp.showReservationEditDialog(selected);
             if(okClicked){
-                System.out.println("reservationEDIT whawhawha");
+
 
             }
         }else {
             // Nothing selected.
             Dialogs.create()
-                    .title("No Selection")
-                    .masthead("No cabin Selected")
-                    .message("Please select a cabin in the table.")
+                    .title("Ingen reservasjon valgt")
+                    .masthead("Velg en reservasjon i tabellen.")
+                    .message("")
                     .showWarning();
         }
 
@@ -883,7 +883,6 @@ public class MainController{
 	@FXML
 	private void handleOpenMap(){
 
-
 		Stage dialogStage = new Stage();
 		try {
 			Map lol = new Map(dialogStage);
@@ -898,38 +897,38 @@ public class MainController{
 		int lol = 0;
 		for(Cabin c : mainApp.getCabinData()){
 			String woodLevel = c.getWood();
-			if(woodLevel.equals("Full")){
+			if(woodLevel.equals("Fullt")){
 				lol += 4;
 			}
-			else if(woodLevel.equals("High")){
+			else if(woodLevel.equals("Høy")){
 				lol += 3;
 			}
-			else if(woodLevel.equals("Medium")){
+			else if(woodLevel.equals("Middels")){
 				lol += 2;
 			}
-			else if(woodLevel.equals("Low")){
+			else if(woodLevel.equals("Lav")){
 				lol += 1;
 			}
-			else if(woodLevel.equals("Empty")){
+			else if(woodLevel.equals("Tomt")){
 				lol += 0;
 			}
 		}
 		double average = ((double) lol / (double) mainApp.getCabinData().size());
 		System.out.println(average);
 		if(average > 4){
-			woodLabelLevel1.setText("Full");
+			woodLabelLevel1.setText("Fullt");
 		}
 		else if(average > 3){
-			woodLabelLevel1.setText("High");
+			woodLabelLevel1.setText("Høy");
 		}
 		else if(average > 2){
-			woodLabelLevel1.setText("Medium");
+			woodLabelLevel1.setText("Middels");
 		}
 		else if(average > 1){
-			woodLabelLevel1.setText("Low");
+			woodLabelLevel1.setText("Lav");
 		}
 		else{
-			woodLabelLevel1.setText("Empty");
+			woodLabelLevel1.setText("Tomt");
 		}
 	}
 
@@ -937,19 +936,19 @@ public class MainController{
     public class woodComp implements Comparator<String> {
 
         public int woodLVL(String s){
-            if (s.equals("Full")){
+            if (s.equals("Fullt")){
                 return 4;
             }
-            if (s.equals("High")){
+            if (s.equals("Høy")){
                 return 3;
             }
-            if (s.equals("Medium")){
+            if (s.equals("Middels")){
                 return 2;
             }
-            if (s.equals("Low")){
+            if (s.equals("Lav")){
                 return 1;
             }
-            if (s.equals("Empty")){
+            if (s.equals("Tomt")){
                 return 0;
             }
             return 0;

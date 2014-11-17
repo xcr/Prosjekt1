@@ -46,7 +46,7 @@ public class Map extends Application implements MapComponentInitializedListener 
 		mapView.addMapInializedListener(this);
 		Scene scene = new Scene(mapView);
 
-		stage.setTitle("JavaFX and Google Maps");
+		stage.setTitle("Oversiktskart");
 		stage.setScene(scene);
 		stage.show();
 	}

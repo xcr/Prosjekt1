@@ -107,9 +107,6 @@ public class MainApp extends Application{
 		
 		
 		//test data
-        forgottenData.add(new Forgotten(0,"jkjkljkl","LOOOOL","jkljkljkljl\n\n\n\n\n\n jkjkjkjkjkjk"));
-        forgottenData.add(new Forgotten(0,"jkjkljkl","LOOOOL","jkljkljkljl\n\n jkjkjkjkjkjk"));
-        forgottenData.add(new Forgotten(0,"jkjkljkl","LOOOOL","jkljkljkljl\n\n jkjkjkjkjkjk"));
 		reservationData.add(new Reservation(1,"Fosenkoia","amail@rofl.copter","2014-11-1","2014-11-10", "David","Bakke"));
 		reservationData.add(new Reservation(1,"Heinfjordstua","bmail@rofl.copter","2014-11-2","2014-11-10", "Magnus","Blomlie"));
 		reservationData.add(new Reservation(1,"Heinfjordstua","cmail@rofl.copter","2014-11-3","2014-11-10", "Eirik","Bertelsen"));
@@ -119,8 +116,7 @@ public class MainApp extends Application{
 		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-7","2014-11-9", "Ola","Nordmann"));
 		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-8","2014-11-10", "Ola","Nordmann"));
 
-        outBox.add(new Sent("rofl@copter.com", "Your new rotor is on the way!!!!","HEllo!, we bought you " +
-                "a new rotor and we are sending it in the mail \n you're welcome! \n\n from ntnu koie"));
+        outBox.add(new Sent("espen.d.hansen@gmail.com", "Frakting av utstyr til koia","Hei, \n\n vi har noe utstyr som skulle vært fraktet til koia som vi hopet at du kunne ta med deg \n\n Hilsen Ntnu koie systemet"));
         outBox.add(new Sent("rofl@copter.com", "Your new rotor is on the way!!!!","HEllo!, we bought you " +
                 "a new rotor and we are sending it in the mail \n you're welcome! \n\n from ntnu koie"));
         outBox.add(new Sent("rofl@copter.com", "Your new rotor is on the way!!!!","HEllo!, we bought you " +
@@ -141,7 +137,7 @@ public class MainApp extends Application{
         for(Cabin c : cabinData){
             cabinNames.add(c.getName());
         }
-
+        this.forgottenData = BackupHandler.readMailInterfaceBackup();
     }
 
     public static ArrayList<String> getCabinNames(){
