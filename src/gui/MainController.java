@@ -752,7 +752,7 @@ public class MainController{
             if(okClicked){
                 updateCabinItems();
                 updateItemType();
-
+            }
             }
             else {
                 // Nothing selected.
@@ -762,7 +762,7 @@ public class MainController{
                         .message("Velg et item fra listen")
                         .showWarning();
             }
-        }
+
     }
 
 	@FXML

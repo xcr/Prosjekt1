@@ -117,12 +117,11 @@ public class MainApp extends Application{
 		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-8","2014-11-10", "Ola","Nordmann"));
 
         outBox.add(new Sent("espen.d.hansen@gmail.com", "Frakting av utstyr til koia","Hei, \n\n vi har noe utstyr som skulle vært fraktet til koia som vi hopet at du kunne ta med deg \n\n Hilsen Ntnu koie systemet"));
-        outBox.add(new Sent("rofl@copter.com", "Your new rotor is on the way!!!!","HEllo!, we bought you " +
+        outBox.add(new Sent("morten.hansen@gmail.com", "Hei Morten! vi lurte på om","HEllo!, we bought you " +
                 "a new rotor and we are sending it in the mail \n you're welcome! \n\n from ntnu koie"));
-        outBox.add(new Sent("rofl@copter.com", "Your new rotor is on the way!!!!","HEllo!, we bought you " +
+        outBox.add(new Sent("Magnus Blomlie", "Hey Magnus! We were wondering if you the way!!!!","HEllo!, we bought you " +
                 "a new rotor and we are sending it in the mail \n you're welcome! \n\n from ntnu koie"));
-        outBox.add(new Sent("rofl@copter.com", "Your new rotor is on the way!!!!","HEllo!, we bought you " +
-                "a new rotor and we are sending it in the mail \n you're welcome! \n\n from ntnu koie"));
+
 
 
 	itemData.add(new Item("Heinfjordstua","Guitar", "4","1"));
