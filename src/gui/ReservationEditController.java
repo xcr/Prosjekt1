@@ -23,7 +23,7 @@ package gui;
         @FXML
         ComboBox cabinName;
         @FXML
-        DatePicker date;
+        DatePicker datepicker;
 
 		private Reservation res;
 		
@@ -45,6 +45,7 @@ package gui;
 	        this.firstName.setText(res.getfirstname());
 	        this.lastName.setText(res.getlastname());
             this.email.setText(res.getEmail());
+          //  this.datepicker.setValue(res.getStartLocalDate());
 
 
 	    }
@@ -59,11 +60,11 @@ package gui;
 	           res.setFirstName(this.firstName.getText());
 	           res.setLastName(this.lastName.getText());
                res.setEmail(this.email.getText());
-                String[] temp = to.getText().split("-");
-                res.setLocalEndDate(LocalDate.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2])));
-                temp = from.getText().split("-");
-                res.setLocalStartDate(LocalDate.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2])));
-
+               String[] temp = to.getText().split("-");
+               res.setLocalEndDate(LocalDate.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2])));
+               // String[] temp = from.getText().split("-");
+                //res.setLocalStartDate(LocalDate.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2])));
+              //  res.setLocalStartDate(datepicker.getValue());
 
                 okClicked = true;
 	            dialogStage.close();
@@ -73,7 +74,7 @@ package gui;
 	    protected boolean isInputValid() {
 	        String errorMessage = "";
 
-	        if (from.getText() == null || from.getText().length() == 0) {
+	        if (from.getText() == null || from.getText().length() != 9) {
 	            errorMessage += "Did not set a from date\n"; 
 	        }
 
