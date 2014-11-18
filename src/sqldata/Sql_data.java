@@ -13,7 +13,10 @@ import com.sun.javafx.collections.MappingChange.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-
+/**
+ * Class for handling all sql connections and queries
+ *
+ */
 
 public class Sql_data {
 
@@ -33,7 +36,6 @@ public class Sql_data {
 	private ArrayList<Sent> sentOld;
 	private ArrayList<Received> receivedOld;
 	private HashMap<String, String> woodstatusOld;
-
 
 	public Sql_data(){
 
@@ -668,11 +670,17 @@ public class Sql_data {
 					for(Reservation r : newRes){
 						try {
 							addReservationToDatabase(r.getName(), r.getEmail(), r.getStartDate(), r.getEndDate());
-							addUserToDatabase(r.getfirstname(), r.getlastname(), r.getEmail());
 						} catch (SQLException e) {
 							System.out.println(r.getStartDate());
 							System.out.println("failed to add: " + r.getEmail() + " to database");
 							e.printStackTrace();
+						}
+						
+						try{
+							addUserToDatabase(r.getfirstname(), r.getlastname(), r.getEmail());
+						}
+						catch(SQLException e){
+							System.out.println("could not add user to database");
 						}
 					}
 				}

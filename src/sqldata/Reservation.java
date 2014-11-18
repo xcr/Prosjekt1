@@ -7,6 +7,10 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * Class for holding information of the reservation and userdata
+ */
+
 public class Reservation {
 	
 	private StringProperty name, email, startDate, endDate, firstname, lastname;

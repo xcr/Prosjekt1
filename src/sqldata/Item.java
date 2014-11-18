@@ -5,7 +5,13 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * Holds item information from the database
+ *
+ */
+
 public class Item {
+	
 	
 	private IntegerProperty amount;
 	private StringProperty cabinName, itemName;

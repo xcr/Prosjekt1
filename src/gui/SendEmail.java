@@ -5,6 +5,11 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import javax.mail.PasswordAuthentication;
 
+/**
+ * Class for connecting to Gmail server
+ *
+ */
+
 public class SendEmail extends Thread{	
 	
 	private String to, subject, messageBody;
@@ -15,17 +20,24 @@ public class SendEmail extends Thread{
 		this.messageBody = messageBody;
 	}
 	
+	/**
+	 * Sends the email
+	 * <p></p>
+	 * @param to the email it is being sent to
+	 * @param subject 
+	 * @param messageBody
+	 * @return
+	 */
 	public boolean sendEmail(String to, String subject, String messageBody){
 		System.out.println(to);
 		System.out.println(subject);
 		System.out.println(messageBody);
 			Properties props = new Properties();
+		//These are all settings so that we can use the google smtp server
 	      props.put("mail.smtp.auth", "true");
 	      props.put("mail.smtp.starttls.enable", "true");
 	      props.put("mail.smtp.host", "smtp.gmail.com");
 	      props.put("mail.smtp.port", "587");
-	      /*These are all settings so that we can use the google smtp server*/
-	      
 	      
 	      Session session = Session.getInstance(props,
 	    		  new javax.mail.Authenticator() {
@@ -64,6 +76,9 @@ public class SendEmail extends Thread{
 	      } 
 	}
 	
+	/**
+	 * Closes the mailthread
+	 */
 	private void closeThread(){
 		this.stop();
 	}

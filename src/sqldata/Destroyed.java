@@ -3,6 +3,12 @@ package sqldata;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * Class for holding information of the destroyed messagetype
+ * @author David
+ *
+ */
+
 public class Destroyed implements MailInterface {
 	
 	private StringProperty cabinName, description, email;

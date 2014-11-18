@@ -8,7 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * Created by Eirik on 14.11.2014.
+ * Class for handling all items of same type
  */
 public class ItemType {
     private IntegerProperty amount;

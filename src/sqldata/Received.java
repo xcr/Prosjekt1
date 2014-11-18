@@ -3,6 +3,11 @@ package sqldata;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * Class for holding messageinformation
+ *
+ */
+
 public class Received implements MailInterface {
 	
 	StringProperty subject, body, from;

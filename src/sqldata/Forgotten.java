@@ -2,6 +2,11 @@ package sqldata;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * class for holding information of the forgotten messagetype
+ *
+ */
+
 public class Forgotten implements MailInterface {
 	
 	private StringProperty cabinName, description, email;
@@ -52,7 +57,7 @@ public class Forgotten implements MailInterface {
 		return this.email.get();
 	}
 	
-	//String setters start here-------------
+	//String setters start here--->
 	public void setName(String cabinName){
 		this.cabinName.setValue(cabinName);
 	}

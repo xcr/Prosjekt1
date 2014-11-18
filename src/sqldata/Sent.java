@@ -11,6 +11,8 @@ public class Sent {
     private StringProperty to, subject, body;
     private String id, type;
 
+    
+    
     public Sent(String id, String email, String subject, String body, String type){
         this.to = new SimpleStringProperty(email);
         this.subject = new SimpleStringProperty(subject);

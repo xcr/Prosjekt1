@@ -2,6 +2,11 @@ package sqldata;
 
 import javafx.beans.property.StringProperty;
 
+/**
+ * Interface for connecting multiple messageclasses 
+ *
+ */
+
 public interface MailInterface {
 	
 	public StringProperty getDescriptionProperty();
