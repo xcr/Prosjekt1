@@ -111,6 +111,7 @@ public class MainApp extends Application{
             forgottenData.addAll(sql.getReceivedMessages());
 
 		} catch (SQLException e) {
+			//Extracts data from local backup if sql load fails
 			System.out.println("Kunne ikke hente all data fra database. Har laster inn backup" + e);
 			outBox = BackupHandler.readOutboxBackup();
 	        itemData = BackupHandler.readItemBackup();
