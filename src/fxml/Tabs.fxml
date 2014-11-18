@@ -284,7 +284,7 @@
                                                       <HBox layoutX="10.0" layoutY="560.0" spacing="10.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0">
                                                          <children>
                                                             <Label layoutX="10.0" layoutY="569.0" text="Fra:" />
-                                                            <DatePicker fx:id="reservationDateFrom" layoutX="34.0" layoutY="555.0" onAction="#handleReservationOk" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="40.0" />
+                                                            <DatePicker fx:id="reservationDateFrom" layoutX="34.0" layoutY="555.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="40.0" />
                                                             <Label layoutX="225.0" layoutY="560.0" text="Til:" />
                                                             <DatePicker fx:id="reservationDateTo" layoutX="243.0" layoutY="564.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="260.0" />
                                                          </children>
@@ -413,7 +413,7 @@
                                                 <Font size="19.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="woodLevelDugnad1" text="20 dager" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                          <Label fx:id="woodDugnadAverageDays" text="20 dager" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                              <font>
                                                 <Font size="19.0" />
                                              </font>

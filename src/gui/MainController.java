@@ -79,7 +79,7 @@ public class MainController{
 
 	//cabin lables
 	@FXML
-	private Label woodLabelLevel1,woodLabelName, woodLabelLevel, woodLevelDugnad, beds, tables, yearBuilt, terrain, reachableByBike, trip, guitar, waffleIron, hunting, fishing, specialties, woodStatus;
+	private Label woodLabelLevel1,woodLabelName, woodLabelLevel, woodLevelDugnad,woodDugnadAverageDays, beds, tables, yearBuilt, terrain, reachableByBike, trip, guitar, waffleIron, hunting, fishing, specialties, woodStatus;
 	@FXML
 	private TextField to, subject;
 	@FXML
@@ -419,6 +419,110 @@ public class MainController{
         }
     }
 
+    @FXML
+    private void DateReservation2(){
+
+        System.out.println(reservationDateFrom1.getValue());
+        System.out.println(reservationDateTo1.getValue());
+
+        String pattern = "yyyy-MM-dd";
+
+        reservationDateFrom1.setPromptText(pattern.toLowerCase());
+
+        reservationDateFrom1.setConverter(new StringConverter<LocalDate>() {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        });
+
+        reservationDateTo1.setPromptText(pattern.toLowerCase());
+
+        reservationDateTo1.setConverter(new StringConverter<LocalDate>() {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        });
+
+        ObservableList<Reservation> currentRes = FXCollections.observableArrayList();
+        ObservableList<Reservation> from = FXCollections.observableArrayList();
+        ObservableList<Reservation> to = FXCollections.observableArrayList();
+
+        if(((!(reservationDateFrom1.getValue() == null)))){
+
+
+            for(Reservation r : mainApp.getReservationData()){
+                LocalDate date = r.getStartLocalDate();
+                System.out.println(date.compareTo(reservationDateFrom1.getValue()));
+                if(date.compareTo(reservationDateFrom1.getValue()) >= 0){
+                    from.add(r);
+                }
+            }
+        }
+
+        if(!(reservationDateTo1.getValue() == null)){
+            for(Reservation r : mainApp.getReservationData()){
+                LocalDate date = r.getEndLocalDate();
+
+                System.out.println("2: " + date.compareTo(reservationDateTo1.getValue()));
+                if(date.compareTo(reservationDateTo1.getValue()) <= 0){
+                    to.add(r);
+                }
+            }
+        }
+
+        if((from.size() == 0 && reservationDateFrom1.getValue() != null) || (to.size() == 0 && reservationDateTo1.getValue() != null)){
+            mainResTable.setItems(FXCollections.observableArrayList());
+        }else if(from.size() > 0 && to.size() > 0){
+            for(Reservation f : from){
+                for(Reservation t : to){
+                    if(f.equals(t)){
+                        currentRes.add(f);
+                    }
+                }
+            }
+            mainResTable.setItems(currentRes);
+        }
+        else if(from.size() > 0){
+            System.out.println("JA FOR FAEN");
+            mainResTable.setItems(from);
+        }
+        else if(to.size() > 0){
+            mainResTable.setItems(to);
+        }
+    }
+
 
 
     /**
@@ -429,20 +533,20 @@ public class MainController{
         woodLevelBox.setValue(cab.getWood());
 		String wood = cab.getWood();
 		if(wood.equals("Fullt")){
-			woodLevelDugnad.setText("40 dager");
+			woodLevelDugnad.setText("40 bruksdager");
 
 		}
 		else if(wood.equals("Høy")){
-			woodLevelDugnad.setText("30 dager");
+			woodLevelDugnad.setText("30 bruksdager");
 		}
 		else if(wood.equals("Middels")){
-			woodLevelDugnad.setText("20 dager");
+			woodLevelDugnad.setText("20 bruksdager");
 		}
 		else if(wood.equals("Tomt")){
 			woodLevelDugnad.setText("Så fort som mulig");
 		}
 		else if(wood.equals("Lav")){
-			woodLevelDugnad.setText("10 dager");
+			woodLevelDugnad.setText("10 bruksdager");
 		}
 
 
@@ -864,12 +968,12 @@ public class MainController{
         System.out.println(res.getlastname());
 
     }
-
+/*
 	@FXML
 	private void handleReservationOk(){
 		System.out.println(reservationDateFrom.getValue());
 	}
-
+*/
     /**
      * Edit the selected reservation
      */
@@ -957,18 +1061,23 @@ public class MainController{
 		System.out.println(average);
 		if(average > 4){
 			woodLabelLevel1.setText("Fullt");
+            woodDugnadAverageDays.setText("40 bruksdager");
 		}
 		else if(average > 3){
 			woodLabelLevel1.setText("Høy");
+            woodDugnadAverageDays.setText("30 bruksdager");
 		}
 		else if(average > 2){
 			woodLabelLevel1.setText("Middels");
+            woodDugnadAverageDays.setText("20 bruksdager");
 		}
 		else if(average > 1){
 			woodLabelLevel1.setText("Lav");
+            woodDugnadAverageDays.setText("10 bruksdager");
 		}
 		else{
 			woodLabelLevel1.setText("Tomt");
+            woodDugnadAverageDays.setText("Så fort som mulig");
 		}
 	}
 
