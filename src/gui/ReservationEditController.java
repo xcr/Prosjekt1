@@ -64,7 +64,8 @@ package gui;
                res.setEmail(this.email.getText());
                res.setLocalEndDate(datePickerEnd.getValue());
                res.setLocalStartDate(datePickerStart.getValue());
-
+               res.setStartDate(datePickerStart.getValue().toString());
+               res.setEndDate(datePickerEnd.getValue().toString());
                 okClicked = true;
 	            dialogStage.close();
 	        }
