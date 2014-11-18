@@ -18,6 +18,9 @@ public interface MailInterface {
 
     public String getName();
 
+    public StringProperty getNameProperty();
+
+
 
 
 }

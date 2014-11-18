@@ -45,6 +45,10 @@ public class Destroyed implements MailInterface {
     public StringProperty getSubject() {
         return this.subject;
     }
+
+    public StringProperty getNameProperty(){
+        return this.cabinName;
+    }
     
 
     public String getEmail(){

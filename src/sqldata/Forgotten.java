@@ -35,6 +35,9 @@ public class Forgotten implements MailInterface {
 	public String getName(){
 		return this.cabinName.get();
 	}
+    public StringProperty getNameProperty(){
+        return this.cabinName;
+    }
 	
 	public String getDescription(){
 		return this.description.get();
