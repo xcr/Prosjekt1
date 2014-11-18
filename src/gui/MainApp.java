@@ -30,7 +30,7 @@ import sqldata.Forgotten;
 import sqldata.Sent;
 
 /**
- * This is the main class.
+ * This is the main class. This is where the windows are started, the main data lists are stored and also talks with all the controllers.
  */
 public class MainApp extends Application{
 
@@ -125,8 +125,7 @@ public class MainApp extends Application{
         }
     }
 
-    //sorterer reservasjonene og legger de til riktig koie.
-    //c.getName().toLowerCase().equals(r.getName().toLowerCase())
+
 
     /**
      * Sorts the reservations to the correct cabins
@@ -136,7 +135,7 @@ public class MainApp extends Application{
     	for(Cabin c : cabinData){
             c.getReservationList().clear();
 			for(Reservation r : reservationData){
-			//	System.out.println("cabin name = "+c.getName()+"   reservation name = "+r.getName());
+
 				if(c.getName().toLowerCase().equals(r.getName().toLowerCase())){
 					c.addReservation(r);
 
@@ -146,7 +145,7 @@ public class MainApp extends Application{
     }
 
 
-    //getters for observable listene
+
     public ObservableList<Cabin> getCabinData() {
         return cabinData;
     }

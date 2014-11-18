@@ -21,7 +21,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-//import gui.MainApp;
 import sqldata.Cabin;
 import sqldata.Item;
 import sqldata.ItemType;
@@ -30,7 +29,9 @@ import sqldata.Reservation;
 import sqldata.Sent;
 
 
-@SuppressWarnings("deprecation")
+/**
+ * This is the MainController class. It controls all communication between the user and the program.
+ */
 public class MainController{
 
 
@@ -62,7 +63,6 @@ public class MainController{
     private TableColumn<Sent, String> outboxEmailColumn, outboxSubjectColumn;
 	@FXML
 	private Button map;
-
 	@FXML
 	private TableView<MailInterface> forgottenTable;
 	@FXML
@@ -75,8 +75,6 @@ public class MainController{
 	sendFirstName, sendLastName,mainResName, mainResFirstName, mainResLastName;
     @FXML
     TableColumn<Reservation, LocalDate> reservationTo,mainResFrom, mainResTo, reservationFrom;
-
-	//cabin lables
 	@FXML
 	private Label woodLabelLevel1, woodLevelDugnad,woodDugnadAverageDays, beds, tables, yearBuilt, terrain, reachableByBike, trip, guitar, waffleIron, hunting, fishing, specialties, woodStatus;
 	@FXML
@@ -126,19 +124,17 @@ public class MainController{
 
 
 		cabinNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+		cabinNameColumn2.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
 
 		forgottenMailColumn.setCellValueFactory(cellData -> cellData.getValue().getEmailProperty());
         forgottenSubjectColumn.setCellValueFactory(cellData -> cellData.getValue().getSubject());
         forgottenCabinNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
 
-		cabinNameColumn2.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
 		//change this later to name
 		sendFirstName.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
 		sendLastName.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
         outboxEmailColumn.setCellValueFactory(cellData -> cellData.getValue().getToProperty());
         outboxSubjectColumn.setCellValueFactory(cellData -> cellData.getValue().getSubjectProperty());
-
-
 
 		mainResName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
 		mainResFrom.setCellValueFactory(cellData -> cellData.getValue().getStartLocalDateProperty());
