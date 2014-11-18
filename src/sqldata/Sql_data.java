@@ -4,7 +4,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.concurrent.SynchronousQueue;
+
+import com.sun.javafx.collections.MappingChange.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,19 +27,20 @@ import javafx.collections.ObservableList;
 
 public class Sql_data {
 
-	private static String url = "jdbc:mysql://mysql.stud.ntnu.no/gabrielb_gruppe2";
-	private static String username = "gabrielb_guest";
-	private static String passwd = "guest";
-	private static Connection connection = null;
-	private static java.sql.Statement statement = null;
-	private static ResultSet resultSet = null;
-	private static ObservableList<Cabin> cabinList = null;
-	private static ObservableList<Item> itemList = null;
-	private static ArrayList<Item> itemsOld;
-	private static ArrayList<Cabin> cabinsOld;
-	private static ArrayList<Destroyed> destroyedOld;
-	private static ArrayList<Forgotten> forgottenOld;
-	private static ArrayList<Reservation> reservationsOld;
+	private  String url = "jdbc:mysql://mysql.stud.ntnu.no/gabrielb_gruppe2";
+	private  String username = "gabrielb_guest";
+	private  String passwd = "guest";
+	private  Connection connection = null;
+	private  java.sql.Statement statement = null;
+	private  ResultSet resultSet = null;
+	private ObservableList<Cabin> cabinList = null;
+	private  ObservableList<Item> itemList = null;
+	private  ArrayList<Item> itemsOld;
+	private  ArrayList<Cabin> cabinsOld;
+	private  ArrayList<Destroyed> destroyedOld;
+	private  ArrayList<Forgotten> forgottenOld;
+	private  ArrayList<Reservation> reservationsOld;
+	private HashMap<String, String> woodstatusOld;
 
 
 	public Sql_data(){
@@ -54,7 +59,7 @@ public class Sql_data {
 	 *<p>Remember to close the connection after use</p>
 	 */
 
-	public static void connect() throws SQLException {
+	public void connect() throws SQLException {
 		System.out.println("Connecting to SQLdatabase...");
 		connection = DriverManager.getConnection(url, username, passwd);
 		System.out.println("connection established");
@@ -64,7 +69,7 @@ public class Sql_data {
 	 * Closes the connection to the database, the resultset and the statement.
 	 */
 
-	public static void closeConnection(){
+	public  void closeConnection(){
 
 		if(connection != null){
 
@@ -94,7 +99,7 @@ public class Sql_data {
 	 * @param table the sql table you want to retrieve information from
 	 * @return Returns a Resultset which is holding all the information
 	 */
-	private static ResultSet getTableInformation(String table){
+	private  ResultSet getTableInformation(String table){
 		if(connection != null){
 			try {
 				statement = connection.createStatement();
@@ -124,7 +129,7 @@ public class Sql_data {
 	 * @param id The id unique id for the row
 	 */
 
-	public static void updateSqlTable(String dbName, String columnName, String newValue, String columnIDname, String id  ){
+	public  void updateSqlTable(String dbName, String columnName, String newValue, String columnIDname, String id  ){
 
 		if(connection != null){
 			try {
@@ -148,11 +153,12 @@ public class Sql_data {
 	 * @return an ObservableList which contains the cabins
 	 */
 
-	public static  ObservableList<Cabin> getCabinData() throws SQLException{
+	public  ObservableList<Cabin> getCabinData() throws SQLException{
 		connect();
 		ResultSet cabin = getTableInformation("Cabin");
 		Cabin c;
 		cabinList = FXCollections.observableArrayList();
+		woodstatusOld = new HashMap<String, String>();
 
 		if(connection != null){
 			try {
@@ -163,6 +169,7 @@ public class Sql_data {
 							cabin.getString("guitar"), cabin.getString("waffleiron"), cabin.getString("hunting"),cabin.getString("fishing"),
 							cabin.getString("specialities"), cabin.getString("wood"));
 					cabinList.add(c);
+					woodstatusOld.put(cabin.getString("cnr"), cabin.getString("wood"));
 				}
 			} catch (SQLException e) {
 				System.out.println("failed to retrieve CabinData from sql server" + e);
@@ -181,19 +188,21 @@ public class Sql_data {
 	 * @return an ObservableList which contains the Item objects.
 	 */
 
-	public static ObservableList<Item> getItemData() throws SQLException{
+	public ObservableList<Item> getItemData() throws SQLException{
 
 		itemsOld = new ArrayList<Item>();
 		connect();
 		ResultSet item = getTableInformation("Item");
 		Item i;
+		Item j;
 		itemList = FXCollections.observableArrayList();
 		if(connection != null){
 			try {
 				while(item.next()){
 					i = new Item(item.getString("cabinname"), item.getString("itemname"), item.getString("amount"), item.getString("inr"));
+					j = new Item(item.getString("cabinname"), item.getString("itemname"), item.getString("amount"), item.getString("inr"));
 					itemList.add(i);
-					itemsOld.add(i);
+					itemsOld.add(j);
 				}
 			} catch (SQLException e) {
 				System.out.println("failed to retrieve data from table: Item in database");
@@ -217,12 +226,14 @@ public class Sql_data {
 	 * @return an ObservableList which contains the Destroyed objects.
 	 */
 
-	public static ObservableList<MailInterface> getDestroyedData() throws SQLException{
+	public ObservableList<MailInterface> getDestroyedData() throws SQLException{
 
 		connect();
 
 		ObservableList<MailInterface> destroyed =  FXCollections.observableArrayList();
 		Destroyed d;
+		Destroyed f;
+		this.destroyedOld = new ArrayList<Destroyed>();
 
 		if(connection != null){
 
@@ -233,6 +244,9 @@ public class Sql_data {
 					d = new Destroyed(Integer.toString(destroyedItems.getInt("dnr")), destroyedItems.getString("cabinname"), destroyedItems.getString("description")
 							, destroyedItems.getString("email"));
 					destroyed.add(d);
+					f = d = new Destroyed(Integer.toString(destroyedItems.getInt("dnr")), destroyedItems.getString("cabinname"), destroyedItems.getString("description")
+							, destroyedItems.getString("email"));
+					destroyedOld.add(f);
 				}
 			} catch (SQLException e) {
 				System.out.println("Failed to read from ResultSet");
@@ -253,7 +267,7 @@ public class Sql_data {
 	 * @return an ObservableList which contains the Forgotten objects.
 	 */
 
-	public static ObservableList<MailInterface> getForgottenData() throws SQLException{
+	public ObservableList<MailInterface> getForgottenData() throws SQLException{
 
 		connect();
 		ObservableList<MailInterface> forgotten = FXCollections.observableArrayList();
@@ -282,11 +296,12 @@ public class Sql_data {
 	 * <p>
 	 * @return an ObservableList which contains the Reservation objects.
 	 */
-	public static ObservableList<Reservation> getReservationData() throws SQLException{
+	public ObservableList<Reservation> getReservationData() throws SQLException{
 		connect();
 		ObservableList<Reservation> reservations = FXCollections.observableArrayList();
 		reservationsOld = new ArrayList<Reservation>();
 		Reservation r;
+		Reservation rOld;
 		ResultSet res = null;
 
 		try {
@@ -295,6 +310,8 @@ public class Sql_data {
 
 			while(res.next()){
 				r = new Reservation(Integer.toString(res.getInt("rnr")), Integer.toString(res.getInt("pnr")), res.getString("cabinname"), res.getString("email"), res.getString("startdate"),
+						res.getString("enddate"), res.getString("firstname"), res.getString("lastname"));
+				rOld = new Reservation(Integer.toString(res.getInt("rnr")), Integer.toString(res.getInt("pnr")), res.getString("cabinname"), res.getString("email"), res.getString("startdate"),
 						res.getString("enddate"), res.getString("firstname"), res.getString("lastname"));
 				reservations.add(r);
 				reservationsOld.add(r);
@@ -313,7 +330,7 @@ public class Sql_data {
 	/**
 	 * Checks if the cabin has had any changes, and updates all the changes in the sql database.
 	 */
-	public static void updateCabindata(String itemName, String value, String id) throws SQLException{
+	public  void updateCabindata(String itemName, String value, String id) throws SQLException{
 
 		updateSqlTable("Cabin", itemName, value, "cnr", id);
 
@@ -326,7 +343,7 @@ public class Sql_data {
 	 * @throws SQLException
 	 */
 
-	public static void addItemToDatabase(String cabinName, String itemName, String amount) throws SQLException{
+	public void addItemToDatabase(String cabinName, String itemName, String amount) throws SQLException{
 
 		statement = connection.createStatement();
 		statement.execute("INSERT INTO Item (cabinname, itemname, amount) VALUES "
@@ -341,7 +358,7 @@ public class Sql_data {
 	 * @throws SQLException
 	 */
 
-	public static void removeItemsFromSql(String id) throws SQLException{
+	public  void removeItemsFromSql(String id) throws SQLException{
 		statement = connection.createStatement();
 		statement.execute("DELETE FROM Item WHERE inr =" + id);
 		System.out.println("removed item with id: " + id);
@@ -364,7 +381,7 @@ public class Sql_data {
 	 * @throws SQLException
 	 */
 
-	public static void updateItemInDatabase(String cabinName, String itemName, String amount, String id) throws SQLException{
+	public void updateItemInDatabase(String cabinName, String itemName, String amount, String id) throws SQLException{
 
 		java.sql.PreparedStatement update = connection.prepareStatement("UPDATE Item SET cabinname = ?, itemname = ?, amount = ? WHERE inr = ?");
 		update.setString(1, cabinName);
@@ -374,7 +391,7 @@ public class Sql_data {
 		update.executeUpdate();
 
 	}
-	public static void addReservationToDatabase(String cabinName, String email, String startDate, String endDate) throws SQLException{
+	public void addReservationToDatabase(String cabinName, String email, String startDate, String endDate) throws SQLException{
 
 		java.sql.PreparedStatement add = connection.prepareStatement("INSERT INTO Reservation (cabinname, email, startdate, enddate) VALUES(?, ?, ?, ?)");
 		add.setString(1, cabinName);
@@ -399,7 +416,7 @@ public class Sql_data {
 	 * @throws SQLException
 	 */
 
-	public static void updateReservationInDatabase(String cabinName, String email, String startDate,
+	public void updateReservationInDatabase(String cabinName, String email, String startDate,
 			String endDate, String reservationId) throws SQLException{
 		java.sql.PreparedStatement updateRes = connection.prepareStatement("UPDATE Item SET cabinname = ?, email = ?, startdate = ?, enddate = ? WHERE inr = ?");
 		updateRes.setString(1, cabinName);
@@ -412,7 +429,7 @@ public class Sql_data {
 		System.out.println("Reservation Updated");
 	}
 
-	private static void updateUserIndatabase(String firstname, String lastname, String email, String id) throws SQLException{
+	private  void updateUserIndatabase(String firstname, String lastname, String email, String id) throws SQLException{
 		java.sql.PreparedStatement updateUser = connection.prepareStatement("UPDATE User SET firstname = ?, lastname = ?, email = ? WHERE pnr = ?");
 		updateUser.setString(1, firstname);
 		updateUser.setString(2, lastname);
@@ -424,7 +441,7 @@ public class Sql_data {
 	}
 
 
-	private static void addUserToDatabase(String firstname, String lastname,String email) throws SQLException{
+	private  void addUserToDatabase(String firstname, String lastname,String email) throws SQLException{
 		statement = connection.createStatement();
 		java.sql.PreparedStatement add = connection.prepareStatement("INSERT INTO User (firstname, lastname, email) VALUES(?, ?, ?)");
 		add.setString(1, firstname);
@@ -434,22 +451,24 @@ public class Sql_data {
 		System.out.println("Successfully added all user: " + firstname + " to database");
 	}
 
-	private static void updateWoodInDatabase(ObservableList<Cabin> cabins) throws SQLException{
+	private  void updateWoodInDatabase(HashMap<String, String> updatedWood) throws SQLException{
 
-		for(Cabin c : cabins){
+		for (Entry<String, String> entry : woodstatusOld.entrySet()) {
+		    String id = entry.getKey();
+		    String status = entry.getValue();
 			java.sql.PreparedStatement updateWood = connection.prepareStatement("UPDATE Cabin SET wood = ? WHERE cnr = ?");
-			updateWood.setString(1, c.getWood());
-			updateWood.setString(2, c.getId());
+			updateWood.setString(1, status);
+			updateWood.setString(2, id);
 			updateWood.executeUpdate();
 		}
 		System.out.println("successfully updated woodstatus for all cabins");
 
 	}
 
-	public static void saveItemsToDatabase(ObservableList<Item> items ){
+	public  void saveItemsToDatabase(ObservableList<Item> items ){
 		ArrayList<Item> updatedItems = new ArrayList<Item>();
 		ArrayList<Item> newItems = new ArrayList<Item>();
-		ArrayList<Item> old = itemsOld;
+		
 		
  		System.out.println("saveItemsToDatabase size of parameter: " + items.size());
 		System.out.println("saveItemsToDatabase size of old list: " + itemsOld.size());
@@ -515,7 +534,7 @@ public class Sql_data {
 		removeItemsFromDatabase(items);
 	}
 
-	private static void removeItemsFromDatabase(ObservableList<Item> items){
+	private  void removeItemsFromDatabase(ObservableList<Item> items){
 		ArrayList<String> oldIds = new ArrayList<String>();
 		ArrayList<String> newIds = new ArrayList<String>();
 		System.out.println("sfa" + items.size());
@@ -554,7 +573,7 @@ public class Sql_data {
 		}
 	}
 
-	public static void saveReservationsAndUsers(ObservableList<Reservation> reservations){
+	public  void saveReservationsAndUsers(ObservableList<Reservation> reservations){
 		ArrayList<Reservation> updatedRes = new ArrayList<Reservation>();
 		ArrayList<Reservation> newRes = new ArrayList<Reservation>();
 		ArrayList<String[]> newUser = new ArrayList<String[]>();
@@ -623,6 +642,7 @@ public class Sql_data {
 						try {
 							addReservationToDatabase(r.getName(), r.getEmail(), r.getStartDate(), r.getEndDate());
 						} catch (SQLException e) {
+							System.out.println(r.getStartDate());
 							System.out.println("failed to add: " + r.getEmail() + " to database");
 							e.printStackTrace();
 						}
@@ -654,10 +674,22 @@ public class Sql_data {
 			}
 		}
 	}
-	
-	public static void test(ObservableList<Item> items){
-		Sql_data.saveItemsToDatabase(items);
-    	
+	public void saveWoodToDatabase(ObservableList<Cabin> cabins){
+		HashMap<String, String> updatedWood = new HashMap<String, String>();
+		for(Cabin c : cabins){
+			
+			for (Entry<String, String> entry : woodstatusOld.entrySet()) {
+			    String id = entry.getKey();
+			    String status = entry.getValue();
+			    
+			    if(c.getId().equals(id)){
+			    	if(c.getWood().equals(status)){
+			    		updatedWood.put(c.getId(), c.getWood());
+			    	}
+			    }
+			}
+		}
+		
 	}
 }
 

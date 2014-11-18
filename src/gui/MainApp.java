@@ -86,19 +86,20 @@ public class MainApp extends Application{
     private ObservableList<ItemType> itemTypeData = FXCollections.observableArrayList();
     private ObservableList<Sent> outBox = FXCollections.observableArrayList();
     private static ArrayList<String> cabinNames = new ArrayList<String>();
+    private Sql_data sql = new Sql_data();
 
 
     /**
      * The main constructor retrives all the data from the mysql and put them in observablelists
      */
     public MainApp() {
-
+    	
 		try {
-			cabinData = Sql_data.getCabinData();
-			forgottenData = Sql_data.getForgottenData();
-			forgottenData.addAll(Sql_data.getDestroyedData());
-			reservationData = Sql_data.getReservationData();
-			itemData = Sql_data.getItemData();
+			cabinData = sql.getCabinData();
+			forgottenData = sql.getForgottenData();
+			forgottenData.addAll(sql.getDestroyedData());
+			reservationData = sql.getReservationData();
+			itemData = sql.getItemData();
 
 		} catch (SQLException e) {
 			System.out.println("Kunne ikke hente all data fra database" + e);
@@ -289,7 +290,6 @@ public class MainApp extends Application{
             //gir MainControllern til gang til mainApp
             MainController controller = loader.getController();
             controller.setMainApp(this);
-          
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -376,8 +376,9 @@ public class MainApp extends Application{
      * Saves the data to the database
      */
     public void saveAllDataToDatabase(){
-    	Sql_data.test(this.itemData);
-    	
+    	sql.saveItemsToDatabase(this.itemData);
+    	sql.saveReservationsAndUsers(this.reservationData);
+    	sql.saveWoodToDatabase(this.cabinData);
     }
   
     public static void main(String[] args) {

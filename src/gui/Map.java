@@ -80,7 +80,8 @@ public class Map extends Application implements MapComponentInitializedListener 
 		coor.put("Ovensenget", new LatLong(62.41219, 11.18655));
 
 		try {
-			this.cabins = Sql_data.getCabinData();
+			Sql_data sql = new Sql_data();
+			this.cabins = sql.getCabinData();
 		} catch (SQLException e) {
 			System.out.println("kunne ikke hente data til å bruke i kartapplikasjon");
 			e.printStackTrace();
