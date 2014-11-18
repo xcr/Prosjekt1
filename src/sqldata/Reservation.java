@@ -26,8 +26,8 @@ public class Reservation {
 		this.reservationId = reservationId;
 		this.userId = userId;
 
-        System.out.println("start date "+startDate);
-        //local date stuff om man skal omgj�re
+
+
         if(startDate != null){
 
 		String[] temp = startDate.split("-");
@@ -51,26 +51,7 @@ public class Reservation {
 
 	}
 	
-//	public ObjectProperty<LocalDate> getStartProperty(){
-//		return this.start;
-//	}
-//	public ObjectProperty<LocalDate> getEndProperty(){
-//		return this.end;
-//	}
-	
-	
-//	public void setStart(LocalDate ld){
-//		start.set(ld);
-//	}
-//	public void setEnd(LocalDate ld){
-//		end.set(ld);
-//	}
-//	public LocalDate getStart(){
-//		return start.get();
-//	}
-//	public LocalDate getEnd(){
-//		return end.get();
-//	}
+
 	
 	//StringProperty getters starts here ---------
 	

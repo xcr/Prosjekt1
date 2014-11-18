@@ -120,12 +120,6 @@ public class MainApp extends Application{
                 }
             }
         }
-        for( ItemType i : itemTypeData){
-     //       System.out.println("item typer: " + i.getItemName());
-            for(Item j : i.getItemList()){
-     //           System.out.println("den innholder: "+ j.getItemName());
-            }
-        }
     }
 
     //sorterer reservasjonene og legger de til riktig koie.
