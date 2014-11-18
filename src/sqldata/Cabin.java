@@ -26,12 +26,12 @@ public class Cabin {
 	private String id;
 
 	
-	public Cabin(int cnr, String name, String bedNumber, String tableNumber, int year,
+	public Cabin(String id, String name, String bedNumber, String tableNumber, int year,
 
 			String terrain, String bike, String trip, String guitar, String waffleIron,
 			String hunting, String fishing, String specialities, String wood) {
 
-		this.id = Integer.toString(cnr);
+		this.id = id;
 		
 		this.name = new SimpleStringProperty(name);
 		this.bedNumber = new SimpleStringProperty(bedNumber);
@@ -53,7 +53,7 @@ public class Cabin {
 
 	public Cabin(){
 
-		this(0,null,null,null,0,null,null,null,null,null,null,null,null,null);
+		this(null,null,null,null,0,null,null,null,null,null,null,null,null,null);
 
 	}
 	// Property getters starts here --->

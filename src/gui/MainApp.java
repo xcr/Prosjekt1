@@ -96,7 +96,7 @@ public class MainApp extends Application{
 			cabinData = Sql_data.getCabinData();
 			forgottenData = Sql_data.getForgottenData();
 			forgottenData.addAll(Sql_data.getDestroyedData());
-			//reservationData = Sql_data.getReservationData();
+			reservationData = Sql_data.getReservationData();
 			itemData = Sql_data.getItemData();
 
 		} catch (SQLException e) {
@@ -104,17 +104,15 @@ public class MainApp extends Application{
 			e.printStackTrace();
 		}
 		
-		
-		
 		//test data
-		reservationData.add(new Reservation(1,"Fosenkoia","amail@rofl.copter","2014-11-1","2014-11-10", "David","Bakke"));
-		reservationData.add(new Reservation(1,"Heinfjordstua","bmail@rofl.copter","2014-11-2","2014-11-10", "Magnus","Blomlie"));
-		reservationData.add(new Reservation(1,"Heinfjordstua","cmail@rofl.copter","2014-11-3","2014-11-10", "Eirik","Bertelsen"));
-		reservationData.add(new Reservation(1,"Fosenkoia","dmail@rofl.copter","2014-11-4","2014-10-7", "Gabriel","Et eller annet"));
-		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-5","2014-11-28", "Ola","Nordmann"));
-		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-6","2014-11-8", "Ola","Nordmann"));
-		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-7","2014-11-9", "Ola","Nordmann"));
-		reservationData.add(new Reservation(1,"Fosenkoia","email@rofl.copter","2014-11-8","2014-11-10", "Ola","Nordmann"));
+//		reservationData.add(new Reservation(null, null,"Heinfjordstua","bmail@rofl.copter","2014-11-2","2014-11-10", "Magnus","Blomlie"));
+//		reservationData.add(new Reservation(null, null,"Fosenkoia","amail@rofl.copter","2014-11-1","2014-11-10", "David","Bakke"));
+//		reservationData.add(new Reservation(null, null, "Heinfjordstua","cmail@rofl.copter","2014-11-3","2014-11-10", "Eirik","Bertelsen"));
+//		reservationData.add(new Reservation(null, null, "Fosenkoia","dmail@rofl.copter","2014-11-4","2014-10-7", "Gabriel","Et eller annet"));
+//		reservationData.add(new Reservation(null, null, "Fosenkoia","email@rofl.copter","2014-11-5","2014-11-28", "Ola","Nordmann"));
+//		reservationData.add(new Reservation(null, null, "Fosenkoia","fmail@rofl.copter","2014-11-6","2014-11-8", "Ola","Nordmann"));
+//		reservationData.add(new Reservation(null, null, "Fosenkoia","gmail@rofl.copter","2014-11-7","2014-11-9", "Ola","Nordmann"));
+//		reservationData.add(new Reservation(null, null, "Fosenkoia","hmail@rofl.copter","2014-11-8","2014-11-10", "Ola","Nordmann"));
 
         outBox.add(new Sent("espen.d.hansen@gmail.com", "Frakting av utstyr til koia","Hei, \n\n vi har noe utstyr som skulle vært fraktet til koia som vi hopet at du kunne ta med deg \n\n Hilsen Ntnu koie systemet"));
         outBox.add(new Sent("morten.hansen@gmail.com", "Hei Morten! vi lurte på om","HEllo!, we bought you " +
@@ -124,11 +122,11 @@ public class MainApp extends Application{
 
 
 
-	itemData.add(new Item("Heinfjordstua","Guitar", "4","1"));
-	itemData.add(new Item("Fosenkoia","Guitar","5","2"));
-	itemData.add(new Item("Heinfjordstua","Grill", "1","3"));
-	itemData.add(new Item("Heinfjordstua","Sykkel", "1","4"));
-	itemData.add(new Item("Fosenkoia","Sykkel", "1","5"));
+//	itemData.add(new Item("Heinfjordstua","Guitar", "4","1"));
+//	itemData.add(new Item("Fosenkoia","Guitar","5","2"));
+//	itemData.add(new Item("Heinfjordstua","Grill", "1","3"));
+//	itemData.add(new Item("Heinfjordstua","Sykkel", "1","4"));
+//	itemData.add(new Item("Fosenkoia","Sykkel", "1","5"));
 
         reservationSorting();
 		itemHandling();
@@ -136,7 +134,7 @@ public class MainApp extends Application{
         for(Cabin c : cabinData){
             cabinNames.add(c.getName());
         }
-        this.forgottenData = BackupHandler.readMailInterfaceBackup();
+        //this.forgottenData = BackupHandler.readMailInterfaceBackup();
     }
 
     public static ArrayList<String> getCabinNames(){
@@ -157,14 +155,11 @@ public class MainApp extends Application{
         ArrayList<String> names = new ArrayList<String>();
         for(Item i : itemData){
             if(!names.contains(i.getItemName())){
-
                 names.add(i.getItemName());
-
             }
         }
 
         for(String s : names){
-
             itemTypeData.add(new ItemType(s));
         }
 
@@ -172,10 +167,8 @@ public class MainApp extends Application{
             for(Item j : itemData){
                 if(i.getItemName().equals(j.getItemName())){
                     i.addItem(j);
-
                 }
             }
-
         }
         for( ItemType i : itemTypeData){
      //       System.out.println("item typer: " + i.getItemName());
@@ -184,8 +177,6 @@ public class MainApp extends Application{
             }
         }
     }
-    
-    
     
     //sorterer reservasjonene og legger de til riktig koie.
     //c.getName().toLowerCase().equals(r.getName().toLowerCase())
@@ -236,13 +227,13 @@ public class MainApp extends Application{
 
         this.primaryStage.setTitle("Koie Admin Client");
         this.primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/koiene_logo.gif")));
-       /*  primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 		    @Override
 		    public void handle(WindowEvent event) {
 		        saveAllDataToDatabase();
 		    }
 		});
-*/
+
         initRootLayout();
         showCabinOverview();
     }
@@ -254,7 +245,6 @@ public class MainApp extends Application{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/fxml/Root.fxml"));
             rootLayout = (BorderPane) loader.load();
-
             
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
@@ -266,7 +256,6 @@ public class MainApp extends Application{
             e.printStackTrace();
         }
     }
-
 
     public void showCabinOverview() {
         try {
@@ -306,13 +295,10 @@ public class MainApp extends Application{
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
-
             
             ItemEditController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setChanges(selected);
-            
-            
    
             dialogStage.showAndWait();
             
@@ -323,8 +309,6 @@ public class MainApp extends Application{
         }
    }
     
-    
-
     
     public boolean showReservationEditDialog(Reservation res) {
         try {
@@ -355,40 +339,11 @@ public class MainApp extends Application{
             return false;
         }
     }
-    
     public void saveAllDataToDatabase(){
-    	try {
-			Sql_data.saveItemsToDatabase(this.getItemData());
-		} catch (SQLException e) {
-			//SAVE ITEMDATA TO FILE
-			e.printStackTrace();
-		}
-    	try {
-			Sql_data.saveMessagesToDatabase(this.forgottenData);
-		} catch (SQLException e) {
-			//SAVE MESSAGING DATA TO FILE
-			e.printStackTrace();
-		}
-    	try {
-			Sql_data.saveReservationsToDatabase(this.reservationData);
-		} catch (SQLException e) {
-			// SAVE RESERVATIONDATA TO FILE
-			e.printStackTrace();
-		}
-    	try {
-			Sql_data.saveUsersToDatabase(this.reservationData);
-		} catch (SQLException e) {
-			// SAVE RESERVATIONDATA TO FILE
-			e.printStackTrace();
-		}
-    	try {
-			Sql_data.saveWoodToDatabase(this.cabinData);
-		} catch (SQLException e) {
-			// SAVE CABINDATA TO DATABASE
-			e.printStackTrace();
-		}
+    	Sql_data.saveItemsToDatabase(this.itemData);
+    	Sql_data.saveReservationsAndUsers(this.reservationData);
     }
-    
+  
     public static void main(String[] args) {
         launch(args);
     }

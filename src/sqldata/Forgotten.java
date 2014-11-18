@@ -5,10 +5,10 @@ import javafx.beans.property.StringProperty;
 public class Forgotten implements MailInterface {
 	
 	private StringProperty cabinName, description, email;
-	private int id;
+	private String id;
     private StringProperty subject = new SimpleStringProperty("Glemt");
 	
-	public Forgotten(int id, String cabinName, String description, String email){
+	public Forgotten(String id, String cabinName, String description, String email){
 		
 		this.cabinName = new SimpleStringProperty(cabinName);
 		this.description = new SimpleStringProperty(description);

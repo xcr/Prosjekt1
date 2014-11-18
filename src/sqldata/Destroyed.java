@@ -6,10 +6,10 @@ import javafx.beans.property.StringProperty;
 public class Destroyed implements MailInterface {
 	
 	private StringProperty cabinName, description, email;
-	private int id;
+	private String id;
     private StringProperty subject = new SimpleStringProperty("Ødelagt");
 	
-	public Destroyed(int id, String cabinName, String description, String email){
+	public Destroyed(String id, String cabinName, String description, String email){
 		
 		this.cabinName = new SimpleStringProperty(cabinName);
 		this.description = new SimpleStringProperty(description);

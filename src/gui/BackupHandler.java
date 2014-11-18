@@ -145,7 +145,7 @@ public class BackupHandler {
             reader.readLine();
             while(reader.ready()){
                 String[] data = reader.readLine().split(split);
-                cabinData.add(new Cabin(Integer.parseInt(data[0]),data[1],data[2],data[3],Integer.parseInt(data[4]),data[5],data[6],data[7]
+                cabinData.add(new Cabin(data[0],data[1],data[2],data[3],Integer.parseInt(data[4]),data[5],data[6],data[7]
                         ,data[8],data[9],data[10],data[11],data[12],data[13]));
             }
 
@@ -188,7 +188,7 @@ public class BackupHandler {
             reader.readLine();
             while(reader.ready()){
                 String[] data = reader.readLine().split(split);
-                reservationData.add(new Reservation(0,data[0],data[1],data[2],data[3],data[4],data[5]));
+                reservationData.add(new Reservation(null, null,data[0],data[1],data[2],data[3],data[4],data[5]));
             }
 
 
@@ -248,9 +248,9 @@ public class BackupHandler {
                 }
             if(data[1].equals("Glemt")){
 
-            mainInterfaceData.add(new Forgotten(0, data[0], str, data[1]));
+            mainInterfaceData.add(new Forgotten(null, data[0], str, data[1]));
             }else{
-                mainInterfaceData.add(new Destroyed(0,data[0],str,data[1]));
+                mainInterfaceData.add(new Destroyed(null,data[0],str,data[1]));
             }
             }
             reader.close();

@@ -10,20 +10,21 @@ import javafx.beans.property.StringProperty;
 public class Reservation {
 	
 	private StringProperty name, email, startDate, endDate, firstname, lastname;
-	private int id;
+	private String reservationId, userId;
 	private ObjectProperty<LocalDate> start, end;
 	private HashMap<String, String> changedFields = new HashMap<String, String>();
 	
 	
-	public Reservation(int id, String name, String email, String startDate, String endDate, String firstname, String lastname){
+	public Reservation(String reservationId, String userId, String name, String email, String startDate, String endDate, String firstname, String lastname){
 		this.name = new SimpleStringProperty(name); 
 		this.email = new SimpleStringProperty(email);
 		this.firstname = new SimpleStringProperty(firstname);
 		this.lastname = new SimpleStringProperty(lastname);
 		this.startDate = new SimpleStringProperty(startDate);
 		this.endDate = new SimpleStringProperty(endDate);
-		this.firstname = new SimpleStringProperty(firstname);
-		this.lastname = new SimpleStringProperty(lastname);
+		
+		this.reservationId = reservationId;
+		this.userId = userId;
 
         System.out.println("start date "+startDate);
         //local date stuff om man skal omgj�re
@@ -35,7 +36,7 @@ public class Reservation {
 		temp = endDate.split("-");
 		this.end = new SimpleObjectProperty<LocalDate>(
 				LocalDate.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2])));
-		this.id = id;
+		
         }
         else{
             this.start = new SimpleObjectProperty<LocalDate>();
@@ -44,7 +45,7 @@ public class Reservation {
 
 	}
 	public Reservation(){
-		this(0,null, null, null, null,null, null);
+		this(null, null, null, null, null, null,null, null);
 
 
 
@@ -154,8 +155,11 @@ public class Reservation {
 
 		this.firstname.setValue(name);
 	}
-	public int getId(){
-		return this.id;
+	public String getReservationId(){
+		return this.reservationId;
+	}
+	public String getUserId(){
+		return this.userId;
 	}
 	public LocalDate getStartLocalDate(){
 		return this.start.get();
