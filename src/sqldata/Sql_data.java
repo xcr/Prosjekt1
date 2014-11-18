@@ -451,16 +451,22 @@ public class Sql_data {
 		System.out.println("Successfully added all user: " + firstname + " to database");
 	}
 
-	private  void updateWoodInDatabase(HashMap<String, String> updatedWood) throws SQLException{
-
-		for (Entry<String, String> entry : woodstatusOld.entrySet()) {
-		    String id = entry.getKey();
-		    String status = entry.getValue();
-			java.sql.PreparedStatement updateWood = connection.prepareStatement("UPDATE Cabin SET wood = ? WHERE cnr = ?");
-			updateWood.setString(1, status);
-			updateWood.setString(2, id);
-			updateWood.executeUpdate();
+	private  void updateWoodInDatabase(HashMap<String, String> updatedWood){
+		try {
+			connect();
+			for (Entry<String, String> entry : woodstatusOld.entrySet()) {
+			    String id = entry.getKey();
+			    String status = entry.getValue();
+				java.sql.PreparedStatement updateWood = connection.prepareStatement("UPDATE Cabin SET wood = ? WHERE cnr = ?");
+				updateWood.setString(1, status);
+				updateWood.setString(2, id);
+				updateWood.executeUpdate();
+			}
+		} catch (SQLException e) {
+			System.out.println("failed to add wood to database. id: ");
+			e.printStackTrace();
 		}
+		
 		System.out.println("successfully updated woodstatus for all cabins");
 
 	}
@@ -683,11 +689,14 @@ public class Sql_data {
 			    String status = entry.getValue();
 			    
 			    if(c.getId().equals(id)){
-			    	if(c.getWood().equals(status)){
+			    	if(!(c.getWood().equals(status))){
 			    		updatedWood.put(c.getId(), c.getWood());
 			    	}
 			    }
 			}
+		}
+		if(updatedWood.size() > 0){
+			updateWoodInDatabase(updatedWood);
 		}
 		
 	}
