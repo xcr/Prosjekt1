@@ -1,12 +1,12 @@
 package gui;
 
-import java.sql.SQLException;
+
 import java.time.LocalDate;
 import java.util.HashMap;
 
 import sqldata.Cabin;
 import sqldata.Reservation;
-import sqldata.Sql_data;
+
 
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
@@ -22,11 +22,13 @@ import com.lynden.gmapsfx.javascript.object.MarkerOptions;
 
 import javafx.application.Application;
 import javafx.collections.ObservableList;
-import static javafx.application.Application.launch;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
 
+/**
+ * Handels everything that has to do with the map.
+ */
 public class Map extends Application implements MapComponentInitializedListener {
 
 	GoogleMapView mapView;
@@ -55,7 +57,9 @@ public class Map extends Application implements MapComponentInitializedListener 
 		stage.show();
 	}
 
-
+    /**
+     * places all the markers at their correct location.
+     */
 	public void initVars(){
 
 		coor = new HashMap<String, LatLong>();
@@ -93,6 +97,9 @@ public class Map extends Application implements MapComponentInitializedListener 
 */
 	}
 
+    /**
+     * Initializing the map.
+     */
 	@Override
 	public void mapInitialized() {
 
@@ -125,6 +132,11 @@ public class Map extends Application implements MapComponentInitializedListener 
 
 	}
 
+    /**
+     * Checks if the cabin has an active reservation from today and into the future.
+     * @param c
+     * @return
+     */
     private String checkIfReserved(Cabin c){
         for(Reservation r : c.getReservationList()){
             System.out.println(now.toString());
@@ -135,12 +147,7 @@ public class Map extends Application implements MapComponentInitializedListener 
         }
             return "Nei";
     }
-    /*
-	public static void main(String[] args) {
 
-		launch(args);
-	}
-	*/
 
 
 }

@@ -87,6 +87,9 @@ package gui;
             if(cabinName.getValue() == null){
                 errorMessage += "Glemt å sette koie\n";
             }
+            if(datePickerStart.getValue().compareTo(datePickerEnd.getValue()) > 0){
+                errorMessage += "Sluttdato er før startdato.";
+            }
 
 	        if (email.getText() == null ||!email.getText().contains("@") || !email.getText().contains(".")) {
 	            errorMessage += "Ugyldig email\n";
