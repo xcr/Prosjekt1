@@ -99,7 +99,7 @@ public class MainApp extends Application{
      * The main constructor retrives all the data from the mysql and put them in observablelists
      */
     public MainApp() {
-    	
+
 		try {
 			cabinData = sql.getCabinData();
 			forgottenData = sql.getForgottenData();
@@ -144,6 +144,7 @@ public class MainApp extends Application{
         for(Cabin c : cabinData){
             cabinNames.add(c.getName());
         }
+
 
     }
 
