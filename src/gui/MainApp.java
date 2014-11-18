@@ -90,7 +90,7 @@ public class MainApp extends Application{
     private static ArrayList<String> cabinNames = new ArrayList<String>();
     private Sql_data sql = new Sql_data();
     private ObservableList<Sent> sentData = FXCollections.observableArrayList();
-    private ObservableList<Received> receivedData = FXCollections.observableArrayList();
+
     
 
 
@@ -106,7 +106,8 @@ public class MainApp extends Application{
 			reservationData = sql.getReservationData();
 			itemData = sql.getItemData();
 			sentData = sql.getSentMessages();
-			receivedData = sql.getReceivedMessages();
+
+            forgottenData.addAll(sql.getReceivedMessages());
 
 		} catch (SQLException e) {
 			System.out.println("Kunne ikke hente all data fra database" + e);
