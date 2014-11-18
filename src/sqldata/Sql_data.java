@@ -276,7 +276,6 @@ public class Sql_data {
 				}
 			}
 		}
-		System.out.println("sentmessages size: " + sentmessages.size());
 		return sentmessages;
 	}
 
@@ -517,7 +516,6 @@ public class Sql_data {
 	 */
 	
 	private  void updateWoodInDatabase(ArrayList<Cabin> updatedWood){
-		System.out.println("inne i updatewood: " + updatedWood.size());
 
 		try {
 			connect();
@@ -540,8 +538,9 @@ public class Sql_data {
 	}
 
 	/**
-	 * saves all items to database
-	 * @param items
+	 * saves all items to database.(adds, and updates)
+	 * <p>
+	 * @param items list of all items
 	 */
 	
 	public  void saveItemsToDatabase(ObservableList<Item> items ){
@@ -557,15 +556,12 @@ public class Sql_data {
 
 				if(i.getId().equals(j.getId())){
 					if(!(i.getCabinName().equals(j.getCabinName()))){
-						System.out.println("item has changed cabinname");
 						updatedItems.add(i);
 					}
 					else if(!(i.getAmount().equals(j.getAmount()))){
-						System.out.println("item has changed amount");
 						updatedItems.add(i);
 					}
 					else if(!(i.getItemName().equals(j.getItemName()))){
-						System.out.println("item has changed name");
 						updatedItems.add(i);
 					}
 				}
@@ -601,6 +597,12 @@ public class Sql_data {
 		removeItemsFromDatabase(items);
 	}
 
+	/**
+	 * saves all reservations, and users assosiated with the database
+	 * <p>
+	 * @param reservations list of all reservations
+	 */
+	
 	public  void saveReservationsAndUsers(ObservableList<Reservation> reservations){
 		ArrayList<Reservation> updatedRes = new ArrayList<Reservation>();
 		ArrayList<Reservation> newRes = new ArrayList<Reservation>();
@@ -618,7 +620,6 @@ public class Sql_data {
 				if(r.getReservationId().equals(res.getReservationId())){
 
 					if(!(r.getEmail().equals(res.getEmail()))){
-						System.out.println("jo de er like: " + r.getEmail() + " og " + res.getEmail());
 						updatedRes.add(r);
 					}
 					else if(!(r.getEndDate().equals(res.getEndDate()))){
@@ -702,6 +703,12 @@ public class Sql_data {
 		}
 		removeReservationAndUserFromdatabase(reservations);
 	}
+	
+	/**
+	 * Removes all reservations and users from the parameterlist.
+	 * <p> 
+	 * @param reservations reservations and users to be removed
+	 */
 
 	public void removeReservationAndUserFromdatabase(ObservableList<Reservation> reservations){
 		ArrayList<String> oldresids = new ArrayList<String>();
@@ -770,13 +777,17 @@ public class Sql_data {
 			}
 		}
 	}
+	
+	/**
+	 * removes all items from the parameterlist from database
+	 * <p>
+	 * @param items
+	 */
 
 	private  void removeItemsFromDatabase(ObservableList<Item> items){
 		ArrayList<String> oldIds = new ArrayList<String>();
 		ArrayList<String> newIds = new ArrayList<String>();
-		System.out.println("sfa" + items.size());
-		System.out.println("jlafjdk" + itemsOld.size());
-
+		
 		for(Item i : items){
 			if(i.getId() != null){
 				newIds.add(i.getId());
@@ -807,6 +818,12 @@ public class Sql_data {
 		}
 	}
 
+	/**
+	 * Saves woodstatus to database
+	 * <p>
+	 * @param cabins cabinlist
+	 */
+	
 	public void saveWoodToDatabase(ObservableList<Cabin> cabins){
 		ArrayList<Cabin> updatedWood = new ArrayList<Cabin>();
 
@@ -821,12 +838,18 @@ public class Sql_data {
 				}
 			}
 		}
-		System.out.println("sysyout updatedWoodsize: " + updatedWood.size());
+		
 		if(updatedWood.size() > 0){
 			updateWoodInDatabase(updatedWood);
 		}
 	}
 
+	/**
+	 * removes destroyed and forgotten items from database
+	 * <p></p>
+	 * @param destroyed list that implements mailinterface. Holds all destroyed and forgotten messages
+	 */
+	
 	public void removeDestroyedAndForgottenFromDatabase(ObservableList<MailInterface> destroyed){
 
 		ArrayList<String> destroyedids = new ArrayList<String>();
@@ -853,8 +876,6 @@ public class Sql_data {
 		forgottenids.removeAll(forgottenNew);
 		destroyedids.removeAll(destroyedNew);
 
-		System.out.println("Size of destroyed: " + destroyedids.size());
-		System.out.println("Size of forgotten: " + forgottenids.size());
 		if(destroyedids.size() > 0){
 			try {
 				connect();
@@ -889,12 +910,17 @@ public class Sql_data {
 		}
 		removeReceivedFromDatabase(destroyed);
 	}
+	
+	/**
+	 * removes or adds sent messages to the database
+	 * <p></p>
+	 * @param sent
+	 */
 
 	public void removeAndAddSentToDatabase(ObservableList<Sent> sent){
 		ArrayList<String> oldid = new ArrayList<String>();
 		ArrayList<String> newid = new ArrayList<String>();
 		ArrayList<Sent> newSent = new ArrayList<Sent>();
-		System.out.println("sent størrelse: " + sent.size());
 		
 		for(Sent s : sent){
 			if(s.getId() == null){
@@ -944,6 +970,15 @@ public class Sql_data {
 		}
 	}
 	
+	/**
+	 * adds sent messages to database
+	 * <p></p>
+	 * @param title title of message
+	 * @param message body of message
+	 * @param email email that message was sent to
+	 * @param type message type
+	 * @throws SQLException
+	 */
 	public void addSentToDataBase(String title, String message, String email, String type) throws SQLException{
 
 		java.sql.PreparedStatement update = connection.prepareStatement("INSERT INTO Message (title, message, email, type, date) VALUES (?, ?, ?, ?, ?)");
@@ -955,6 +990,12 @@ public class Sql_data {
 		update.executeUpdate();
 	}
 
+	/**
+	 * removes received messages from database if it has been deleted from the program
+	 * <p></p>
+	 * @param received list of received messages
+	 */
+	
 	private void removeReceivedFromDatabase(ObservableList<MailInterface> received){
 		ArrayList<String> oldid = new ArrayList<String>();
 		ArrayList<String> newid = new ArrayList<String>();
@@ -1003,12 +1044,6 @@ public class Sql_data {
 	}
 	
 	/**
-	 * removes the specified Forgotten item with the specified id
-	 * @param id of item to be removed
-	 * @throws SQLException
-	 */
-	
-	/**
 	 * Removes forgotten item messages from database
 	 * @param id message to be removed
 	 * @throws SQLException
@@ -1019,7 +1054,13 @@ public class Sql_data {
 		System.out.println("removed forgotten item");
 		statement.close();
 	}
-
+	
+	/**
+	 * removes sent or received messages from database.
+	 * @param id id of the sent or received message
+	 * @throws SQLException
+	 */
+	
 	private void removeSentOrReceivedFromDatabase(String id) throws SQLException{
 		statement = connection.createStatement();
 		statement.execute("DELETE FROM Message WHERE mnr =" + id);
@@ -1027,6 +1068,13 @@ public class Sql_data {
 		statement.close();
 	}
 
+	/**
+	 * removes a user from the database
+	 * <p></p>
+	 * @param id the id of the user to be removed
+	 * @throws SQLException
+	 */
+	
 	private void removeUserFromDatabase(String id) throws SQLException{
 		statement = connection.createStatement();
 		statement.execute(("DELETE FROM User WHERE pnr = " + id));
@@ -1035,6 +1083,7 @@ public class Sql_data {
 
 	/**
 	 * Removes the item with specified ID from the sql database
+	 * <p></p>
 	 * @param id the id of the item that is going to be removed
 	 * @throws SQLException
 	 */
@@ -1045,6 +1094,13 @@ public class Sql_data {
 		System.out.println("removed item with id: " + id);
 		statement.close();
 	}
+	
+	/**
+	 * Removes a reservatino from the database
+	 * <p></p>
+	 * @param id the id assosiated with the database
+	 * @throws SQLException
+	 */
 
 	private void removeReservationsFromDatabase(String id) throws SQLException{
 		statement = connection.createStatement();
