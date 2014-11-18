@@ -402,7 +402,6 @@ public class MainApp extends Application{
     	sql.saveWoodToDatabase(this.cabinData);
     	sql.removeDestroyedAndForgottenFromDatabase(this.forgottenData);
     	sql.removeAndAddSentToDatabase(outBox);
-    	
     }
     
     @FXML
