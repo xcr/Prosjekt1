@@ -51,13 +51,10 @@ public class Received implements MailInterface {
         return null;
     }
 
-
     @Override
     public StringProperty getNameProperty() {
         return null;
     }
-
-
     
     public String getId(){
     	return this.id;

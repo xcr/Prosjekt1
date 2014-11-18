@@ -387,6 +387,8 @@ public class MainApp extends Application{
     	sql.saveReservationsAndUsers(this.reservationData);
     	sql.saveWoodToDatabase(this.cabinData);
     	sql.removeDestroyedAndForgottenFromDatabase(this.forgottenData);
+    	sql.removeSentFromDatabase(sentData);
+    		
     }
  
     public static void main(String[] args) {

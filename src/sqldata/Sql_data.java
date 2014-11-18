@@ -856,6 +856,7 @@ public class Sql_data {
 				e1.printStackTrace();
 			}
 		}
+		removeReceivedFromDatabase(destroyed);
 	}
 	
 	public void removeSentFromDatabase(ObservableList<Sent> sent){
@@ -888,15 +889,20 @@ public class Sql_data {
 			}
 		}
 	}
-	public void removeReceivedFromDatabase(ObservableList<Received> received){
+	private void removeReceivedFromDatabase(ObservableList<MailInterface> received){
 		ArrayList<String> oldid = new ArrayList<String>();
 		ArrayList<String> newid = new ArrayList<String>();
 		
-		for(Received s : received){
-			newid.add(s.getId());
+		
+		
+		for(MailInterface s : received){
+			if(!(s.getSubject().equals("Glemt")) || !(s.getSubject().equals("Ødelagt"))){
+				newid.add(s.getid());
+			}
+			
 		}
-		for(Received s : receivedOld){
-			oldid.add(s.getId());
+		for(MailInterface s : receivedOld){
+			oldid.add(s.getid());
 		}
 		
 		oldid.removeAll(newid);
