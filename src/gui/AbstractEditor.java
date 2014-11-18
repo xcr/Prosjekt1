@@ -13,38 +13,39 @@ public abstract class AbstractEditor {
     protected Stage dialogStage;
     protected boolean okClicked = false;
 
-    	@FXML
-	    protected abstract void initialize();
 
-	    public void setDialogStage(Stage dialogStage) {
-	        this.dialogStage = dialogStage;
-	    }
+    @FXML
+    protected abstract void initialize();
 
-	
-	   //public abstract void setChanges();
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
 
 
-	    public boolean isOkClicked() {
-	        return okClicked;
-	    }
+   //public abstract void setChanges();
 
 
-	    
-	    protected void closeEditor(){
-	         okClicked = true;
-	         dialogStage.close();
-	    }
-	    @FXML
-	    protected abstract void handleOk();
+    public boolean isOkClicked() {
+        return okClicked;
+    }
 
 
-	    @FXML
-	    protected void handleCancel() {
-	        dialogStage.close();
-	    }
+
+    protected void closeEditor(){
+         okClicked = true;
+         dialogStage.close();
+    }
+    @FXML
+    protected abstract void handleOk();
 
 
-	    protected abstract boolean isInputValid();
+    @FXML
+    protected void handleCancel() {
+        dialogStage.close();
+    }
+
+
+    protected abstract boolean isInputValid();
 	
 
 }
