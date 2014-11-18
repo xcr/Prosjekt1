@@ -34,52 +34,7 @@ public class MainApp extends Application{
     private Stage primaryStage;
     private BorderPane rootLayout;
 
-/*
- * 2. Administratorer i koiestyret skal kunne ta ut status for utstyr p� en eller alle koiene, samt legge inn n�r nytt utstyr er innkj�pt.
-3. Administrator i koiestyret skal kunne ta ut status for ved p� en eller alle koiene, og f� anslag p� hvor lenge det vil vare f�r det er n�dvendig med veddugnad.
-4. Administrator i koiestyret skal kunne melde til brukere som har reservert koie at det er utstyr som m� fraktes til koia.
-5. Administrator i koiestyret skal kunne se et kart hvor koiene er plottet inn, og hvor klikk p� en koie gir administrativ informasjon.
- 
- toDo:
- *lage items klasse
- *integrer item i gui
- *lag kode som h�ndterer logikken med item amount osv
- *add editorer for de gjennv�rende feltene.
- *fix kart markers
- *lag wood algorithme
- *add threading til email 
- *flytt ting fra about cabin til items(i mysql)
- *add destroyed
- *fix wood css
- *add map button til coie status
- *fix wood per koie
- *fix reservasjonsbuttons
- *fix dato felt greia for reservasjoner
- *fix set conditions for datoer
- *fix s� datoan st�r riktig vei
- *fix p� alle tabellene s� de ikke har overfl�dige felt osv
- *legg til subject på mottatte meldinger
- *embed kart(lav prio)
- * fix item knapper
- * fix reservasjonsknapper
- center tables
- *sort greia til wood
- ordentlig ved algorithme
- fix date picker med add remove og edit
- lagre meldinger
- hente emails fra gmail(denne kan noen andre gj�re)
- lag undo(hotkey?)
- save og load funksjoner(david)
- sette cabin reservation og cabin info til samme colonne listener(lav prio)
- add about page(lav prio)
- adde masse throws osv(noe av det siste som kan gj�res)
- comment all koden
- *fix email så email settes i til feltet
- fix så man ikke kan adde two instanser av samme item på en koie(lavprio)
- add så man kan slette destoryed/forgotten
- fix wood average level labeln
 
- */
     
     //the lists that comes from the mysql and contains the main data for the program
     private ObservableList<Cabin> cabinData = FXCollections.observableArrayList();
@@ -120,33 +75,10 @@ public class MainApp extends Application{
 	        forgottenData = BackupHandler.readMailInterfaceBackup();
 			e.printStackTrace();
 		}
-	/*
-		//test data
-	reservationData.add(new Reservation(null, null,"Heinfjordstua","bmail@rofl.copter","2014-11-02","2014-11-10", "Magnus","Blomlie"));
-	reservationData.add(new Reservation(null, null,"Fosenkoia","amail@rofl.copter","2014-11-01","2014-11-10", "David","Bakke"));
-	reservationData.add(new Reservation(null, null, "Heinfjordstua","cmail@rofl.copter","2014-11-03","2014-11-10", "Eirik","Bertelsen"));
-	reservationData.add(new Reservation(null, null, "Fosenkoia","dmail@rofl.copter","2014-11-04","2014-10-07", "Gabriel","Et eller annet"));
-		reservationData.add(new Reservation(null, null, "Fosenkoia","email@rofl.copter","2014-11-05","2014-11-28", "Ola","Nordmann"));
-		reservationData.add(new Reservation(null, null, "Fosenkoia","fmail@rofl.copter","2014-11-06","2014-11-08", "Ola","Nordmann"));
-	reservationData.add(new Reservation(null, null, "Fosenkoia","gmail@rofl.copter","2014-11-07","2014-11-09", "Ola","Nordmann"));
-		reservationData.add(new Reservation(null, null, "Fosenkoia","hmail@rofl.copter","2014-11-08","2014-11-10", "Ola","Nordmann"));
-        outBox.add(new Sent("espen.d.hansen@gmail.com", "Frakting av utstyr til koia","Hei, \n\n vi har noe utstyr som skulle vært fraktet til koia som vi hopet at du kunne ta med deg \n\n Hilsen Ntnu koie systemet"));
-        outBox.add(new Sent("morten.hansen@gmail.com", "Hei Morten! vi lurte på om","HEllo!, we bought you " +
-                "a new rotor and we are sending it in the mail \n you're welcome! \n\n from ntnu koie"));
-        outBox.add(new Sent("Magnus Blomlie", "Hey Magnus! We were wondering if you the way!!!!","HEllo!, we bought you " +
-                "a new rotor and we are sending it in the mail \n you're welcome! \n\n from ntnu koie"));
-*/
-
-
-//	itemData.add(new Item("Heinfjordstua","Guitar", "4","1"));
-//	itemData.add(new Item("Fosenkoia","Guitar","5","2"));
-//	itemData.add(new Item("Heinfjordstua","Grill", "1","3"));
-//	itemData.add(new Item("Heinfjordstua","Sykkel", "1","4"));
-//	itemData.add(new Item("Fosenkoia","Sykkel", "1","5"));
 
         reservationSorting();
 		itemHandling();
-        //lager liste av alle koie navnene som skal brukes til dropdown menyene
+
         for(Cabin c : cabinData){
             cabinNames.add(c.getName());
         }

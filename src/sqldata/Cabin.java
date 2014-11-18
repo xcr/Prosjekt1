@@ -10,11 +10,7 @@ import javafx.collections.ObservableList;
 
 public class Cabin {
 
-	// Git test
-	// name-bednumber-tablenumber-year-terrain-bike-trip-guitar-waffleiron-hunting-fishing-specialities-wood
 
-	// private int bednumber, tablenumber, year, bike, trip, guitar, waffleiron,
-	// hunting, fishing;
 	private StringProperty name, bedNumber, tableNumber, year, terrain, bike,
 			trip, guitar, waffleIron, hunting, fishing, specialities, wood, cnr;
 	

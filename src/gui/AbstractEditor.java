@@ -22,8 +22,6 @@ public abstract class AbstractEditor {
     }
 
 
-   //public abstract void setChanges();
-
 
     public boolean isOkClicked() {
         return okClicked;
