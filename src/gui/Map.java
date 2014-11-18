@@ -37,12 +37,23 @@ public class Map extends Application implements MapComponentInitializedListener 
 	private HashMap<String, LatLong> coor;
     private LocalDate now = LocalDate.now();
 
-
+    /**
+     * The constructor, gets the stage and cabin list as parameters.
+     * @param stage
+     * @param c
+     * @throws Exception
+     */
 	public Map(Stage stage, ObservableList<Cabin> c) throws Exception{
 		start(stage);
         cabins = c;
 		
 	}
+
+    /**
+     * sets up the map window.
+     * @param stage
+     * @throws Exception
+     */
 	@Override
 	public void start(Stage stage) throws Exception {
 
@@ -86,15 +97,7 @@ public class Map extends Application implements MapComponentInitializedListener 
 		coor.put("Selbukaaten", new LatLong(63.32851, 11.02758));
 		coor.put("Sonvasskoia", new LatLong(63.39030, 11.41852));
 		coor.put("Ovensenget", new LatLong(62.41219, 11.18655));
-/*
-		try {
-			Sql_data sql = new Sql_data();
-			this.cabins = sql.getCabinData();
-		} catch (SQLException e) {
-			System.out.println("kunne ikke hente data til å bruke i kartapplikasjon");
-			e.printStackTrace();
-		}
-*/
+
 	}
 
     /**

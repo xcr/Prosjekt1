@@ -209,9 +209,9 @@ public class MainController{
         woodLevelAverage();
         }catch(Exception e){
           Dialogs.create()
-                  .title("Ingen koie valgt")
-                  .masthead("Velg koien du ønsker å endre på i tabellen til venstre")
-                  .message("")
+                  .title("")
+                  .masthead("Ingen koie valgt")
+                  .message("Velg koien du ønsker å endre på i tabellen til venstre")
                   .showWarning();
       }
 
@@ -296,7 +296,7 @@ public class MainController{
     }
 
     /**
-     * Sets the item list equal to the items in the ItemType it gets as a parameter
+     * Sets the item list equal to the items in the ItemType it gets as a parameter.
      * @param it
      */
     private void showItemDetail(ItemType it){
@@ -416,7 +416,9 @@ public class MainController{
             mainResTable.setItems(to);
         }
     }
-
+    /**
+     * Limit the reservations between the two dates that have been set by the user on the cabin reservation page.
+     */
     @FXML
     private void DateReservation2(){
         reservationTable.getSelectionModel().clearSelection();
@@ -523,7 +525,7 @@ public class MainController{
 
 
     /**
-     * shows the wood level details for the cabin that is targeted.
+     * Shows the wood level details for the cabin that is targeted.
      * @param cab
      */
 	private void showWoodStatus(Cabin cab){
@@ -553,7 +555,7 @@ public class MainController{
 	}
 
     /**
-     * sets the Til field in the send window to the email of the targeted reservation
+     * Sets the Til field in the send window to the email of the targeted reservation
      * @param res
      */
 	private void showMessagingDetail(Reservation res) {
@@ -566,7 +568,7 @@ public class MainController{
 
 
     /**
-     * shows the reservations to the selected sqldata
+     * Shows the reservations to the selected sqldata
      * @param cab
      */
 	private void showReservationDetail(Cabin cab){
@@ -772,8 +774,6 @@ public class MainController{
             //fjerner fra itemdata lista
             mainApp.getItemData().remove(selected);
 
-
-
             //fjærner fra cabin
             for(Cabin c : mainApp.getCabinData()){
                 if(c.getName().equals(item.getCabinName())){
@@ -969,6 +969,9 @@ public class MainController{
 
     }
 
+    /**
+     * Deletes the selected outbox message.
+     */
     @FXML
     private void handleDeleteOutbox(){
 
