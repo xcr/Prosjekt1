@@ -561,7 +561,10 @@ public class MainController{
      * @param res
      */
 	private void showMessagingDetail(Reservation res) {
+        if(removing == 0){
+
         to.setText(res.getEmail());
+        }
 
 	}
 
@@ -818,13 +821,13 @@ public class MainController{
     private void handleReservationRemove(){
         int selected = mainResTable.getSelectionModel().getSelectedIndex();
         if (selected >= 0){
-
-
+            removing = 1;
+           // sendTable.getSelectionModel().clearSelection();
             mainApp.getReservationData().remove(mainResTable.getSelectionModel().getSelectedItem());
             mainApp.reservationSorting();
 
             DateReservation();
-
+            removing = 0;
             // mainResTable.getItems().remove(selected);
             //reservationTable.getItems().remove(selected);
         }
@@ -835,6 +838,7 @@ public class MainController{
                     .message("Velg en reservasjon fra tabellen")
                     .showWarning();
         }
+
     }
 
     /**
