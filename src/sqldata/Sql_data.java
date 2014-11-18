@@ -135,8 +135,6 @@ public class Sql_data {
 		}
 	}
 
-	//Cabin database variables: cnr-name-bednumber-tablenumber-year-terrain-bike-trip-guitar-waffleiron-hunting-fishing-specialities-wood
-
 	/**
 	 * Retrieves the tableinformation for the Cabins in the sql database, and makes an array with Cabin objects.
 	 *  .
@@ -267,7 +265,6 @@ public class Sql_data {
 			while(sent.next()){
 				if(sent.getString("type") != null){
 					if(sent.getString("type").equals("outbox")){
-						System.out.println("pepppppppperoni");
 						s = new Sent(sent.getString("mnr"), sent.getString("email"), sent.getString("title"), sent.getString("message"), sent.getString("type"));
 						sentmessages.add(s);
 						sold = new Sent(sent.getString("mnr"), null, null, null, null);
@@ -426,7 +423,17 @@ public class Sql_data {
 		update.executeUpdate();
 	}
 
-	public void addReservationToDatabase(String cabinName, String email, String startDate, String endDate) throws SQLException{
+	/**
+	 * Adds a reservation to database
+	 * <P>
+	 * @param cabinName cabinname	
+	 * @param email email assosiated with the reservation
+	 * @param startDate when the reservation starts
+	 * @param endDate when the reservation ends
+	 * @throws SQLException
+	 */
+	
+	private void addReservationToDatabase(String cabinName, String email, String startDate, String endDate) throws SQLException{
 
 		java.sql.PreparedStatement add = connection.prepareStatement("INSERT INTO Reservation (cabinname, email, startdate, enddate) VALUES(?, ?, ?, ?)");
 		add.setString(1, cabinName);
@@ -439,16 +446,13 @@ public class Sql_data {
 	}
 
 	/**
-	 * Updates both the Reservation table, and the Person table in the sql database.
+	 * Updates both the Reservation table
 	 * </p>
 	 * @param cabinName name of the cabin of the reservation
 	 * @param email the email of the user
 	 * @param startDate stardate for the reservation
 	 * @param endDate  enddate for the reservation
 	 * @param reservationId the INR id for the column to be updated
-	 * @param firstName first name of the person
-	 * @param lastName lastname of the person
-	 * @param PersonId the PNR id for the column to be updated
 	 * @throws SQLException
 	 */
 
@@ -464,6 +468,16 @@ public class Sql_data {
 		updateRes.clearBatch();
 		System.out.println("Reservation Updated");
 	}
+	
+	/**
+	 * updates the user in the database
+	 * <p>
+	 * @param firstname
+	 * @param lastname
+	 * @param email
+	 * @param id pnr of the user
+	 * @throws SQLException
+	 */
 
 	private  void updateUserIndatabase(String firstname, String lastname, String email, String id) throws SQLException{
 		java.sql.PreparedStatement updateUser = connection.prepareStatement("UPDATE User SET firstname = ?, lastname = ?, email = ? WHERE pnr = ?");
@@ -476,6 +490,15 @@ public class Sql_data {
 		updateUser.clearBatch();
 	}
 
+	
+	/**
+	 * Adds a new user to database
+	 * <p>
+	 * @param firstname
+	 * @param lastname
+	 * @param email
+	 * @throws SQLException
+	 */
 
 	private  void addUserToDatabase(String firstname, String lastname,String email) throws SQLException{
 		statement = connection.createStatement();
@@ -487,6 +510,12 @@ public class Sql_data {
 		System.out.println("Successfully added all user: " + firstname + " to database");
 	}
 
+	
+	/**
+	 * updates the woodstatus of the cabins
+	 * @param updatedWood
+	 */
+	
 	private  void updateWoodInDatabase(ArrayList<Cabin> updatedWood){
 		System.out.println("inne i updatewood: " + updatedWood.size());
 
@@ -510,6 +539,11 @@ public class Sql_data {
 		System.out.println("successfully updated woodstatus for all cabins");
 	}
 
+	/**
+	 * saves all items to database
+	 * @param items
+	 */
+	
 	public  void saveItemsToDatabase(ObservableList<Item> items ){
 		ArrayList<Item> updatedItems = new ArrayList<Item>();
 		ArrayList<Item> newItems = new ArrayList<Item>();
@@ -522,13 +556,6 @@ public class Sql_data {
 			for(Item j : itemsOld){
 
 				if(i.getId().equals(j.getId())){
-					//					System.out.println("new: " + i.getItemName());
-					//					System.out.println("old: " + j.getItemName());
-					//					System.out.println("items have same id");
-					//					System.out.println(i.getCabinName());
-					//					System.out.println(j.getCabinName());
-					//					System.out.println(i.getItemName());
-					//					System.out.println(j.getItemName());
 					if(!(i.getCabinName().equals(j.getCabinName()))){
 						System.out.println("item has changed cabinname");
 						updatedItems.add(i);
