@@ -1017,7 +1017,7 @@ public class MainController{
         }else{
 		SendEmail email = new SendEmail(to.getText(), subject.getText(), body.getText());
 		email.start();
-        mainApp.getOutBox().add(new Sent(to.getText(), subject.getText(), body.getText()));
+        mainApp.getOutBox().add(new Sent(null, to.getText(), subject.getText(), body.getText(), "outbox"));
 
         }
 

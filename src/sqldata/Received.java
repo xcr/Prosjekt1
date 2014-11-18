@@ -3,23 +3,20 @@ package sqldata;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-/**
- * Class for messages that has been sent by the user.
- */
-public class Sent {
-
-    private StringProperty to, subject, body;
-    private String id, type;
-
-    public Sent(String id, String email, String subject, String body, String type){
-        this.to = new SimpleStringProperty(email);
+public class Received {
+	
+	StringProperty subject, body, date, to;
+	String id, type;
+	
+	Received(String id, String email, String subject, String body, String type){
+		this.to = new SimpleStringProperty(email);
         this.subject = new SimpleStringProperty(subject);
         this.body = new SimpleStringProperty(body);
         this.id = id;
         this.type = type;
-    }
-
-    public String getTo() {
+	}
+	
+	public String getTo() {
         return to.get();
     }
 
@@ -62,4 +59,5 @@ public class Sent {
     public String getType(){
     	return this.type;
     }
+	
 }

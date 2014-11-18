@@ -218,7 +218,7 @@ public class BackupHandler {
                     }
                     str += temp+"\n";
                 }
-                outboxData.add(new Sent(data[0],data[1],str));
+                outboxData.add(new Sent(null, data[0],data[1],str,"outbox"));
             }
             reader.close();
 

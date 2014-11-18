@@ -40,6 +40,8 @@ public class Sql_data {
 	private  ArrayList<Destroyed> destroyedOld;
 	private  ArrayList<Forgotten> forgottenOld;
 	private  ArrayList<Reservation> reservationsOld;
+	private ArrayList<Sent> sentOld;
+	private ArrayList<Received> receivedOld;
 	private HashMap<String, String> woodstatusOld;
 
 
@@ -218,7 +220,6 @@ public class Sql_data {
 			}
 		}
 
-
 		return itemList;
 	}
 
@@ -260,6 +261,52 @@ public class Sql_data {
 			}
 		}
 		return destroyed;
+	}
+
+	public ObservableList<Sent> getSentMessages() throws SQLException{
+		connect();
+		ObservableList<Sent> sentmessages = null;
+		sentOld = new ArrayList<Sent>();
+		Sent s;
+		Sent sold = null;
+
+		if(connection != null){
+			ResultSet sent = getTableInformation("Message");
+
+			while(sent.next()){
+				if(sent.getString("type") != null){
+					if(sent.getString("type").equals("outbox")){
+						s = new Sent(sent.getString("id"), sent.getString("email"), sent.getString("title"), sent.getString("message"), sent.getString("type"));
+						sold = new Sent(sent.getString("id"), null, null, null, null);
+						sentOld.add(sold);
+					}
+				}
+			}
+		}
+		return sentmessages;
+	}
+	
+	public ObservableList<Received> getReceivedMessages() throws SQLException{
+		connect();
+		ObservableList<Received> receivedmessages = null;
+		receivedOld = new ArrayList<Received>();
+		Received r;
+		Received rold;
+		if(connection != null){
+			ResultSet sent = getTableInformation("Message");
+
+			while(sent.next()){
+				if(sent.getString("type") != null){
+					if(sent.getString("type").equals("inbox")){
+						r = new Received(sent.getString("id"), sent.getString("email"), sent.getString("title"), sent.getString("message"), sent.getString("type"));
+						receivedmessages.add(r);
+						rold = new Received(sent.getString("id"), null, null, null, null);
+						receivedOld.add(rold);
+					}
+				}
+			}
+		}
+		return receivedmessages;
 	}
 
 	/**
@@ -330,7 +377,6 @@ public class Sql_data {
 		finally{
 			closeConnection();
 		}
-
 		return reservations;
 	}
 
@@ -396,8 +442,8 @@ public class Sql_data {
 		update.setString(3, amount);
 		update.setString(4, id);
 		update.executeUpdate();
-
 	}
+
 	public void addReservationToDatabase(String cabinName, String email, String startDate, String endDate) throws SQLException{
 
 		java.sql.PreparedStatement add = connection.prepareStatement("INSERT INTO Reservation (cabinname, email, startdate, enddate) VALUES(?, ?, ?, ?)");
@@ -545,8 +591,6 @@ public class Sql_data {
 		}
 		removeItemsFromDatabase(items);
 	}
-
-
 
 	public  void saveReservationsAndUsers(ObservableList<Reservation> reservations){
 		ArrayList<Reservation> updatedRes = new ArrayList<Reservation>();
@@ -733,18 +777,15 @@ public class Sql_data {
 		for(Item i : items){
 			if(i.getId() != null){
 				newIds.add(i.getId());
-				//System.out.println("nye:" +  i.getId());
 			}
 		}
 		for(Item i : itemsOld){
 			oldIds.add(i.getId());
-			//System.out.println("gamle" + i.getId());
 		}
 
 		oldIds.removeAll(newIds);
 
 		if(oldIds.size() > 0){
-			//System.out.println(oldIds.size());
 			try {
 				connect();
 
@@ -793,10 +834,8 @@ public class Sql_data {
 		for(MailInterface m : destroyed){
 			if(m.getSubject().get().equals("Glemt")){
 				forgottenNew.add(m.getid());
-				System.out.println("id for glemt: " + m.getid());
 			}
 			if(m.getSubject().get().equals("Ødelagt")){
-				System.out.println("id for ødelagt: " + m.getid());
 				destroyedNew.add(m.getid());
 			}
 		}
@@ -807,15 +846,10 @@ public class Sql_data {
 		for(Forgotten d : forgottenOld){
 			forgottenids.add(d.getid());
 		}
-		
-		System.out.println("size of forgottenNew: " + forgottenNew.size());
-		System.out.println("size of destroyedNew: " + destroyedNew.size());
-		System.out.println("size of destroyedold: " + destroyedids.size());
-		System.out.println("size of destroyedold: " + forgottenids.size());
 
 		forgottenids.removeAll(forgottenNew);
 		destroyedids.removeAll(destroyedNew);
-		
+
 		System.out.println("Size of destroyed: " + destroyedids.size());
 		System.out.println("Size of forgotten: " + forgottenids.size());
 		if(destroyedids.size() > 0){
@@ -864,7 +898,6 @@ public class Sql_data {
 		statement.execute("DELETE FROM Forgotten WHERE fnr =" + id);
 		System.out.println("removed forgotten item");
 		statement.close();
-
 	}
 }
 
