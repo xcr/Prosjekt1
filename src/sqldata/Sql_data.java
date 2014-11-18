@@ -257,8 +257,9 @@ public class Sql_data {
 		connect();
 		ObservableList<Sent> sentmessages =  FXCollections.observableArrayList();;
 		sentOld = new ArrayList<Sent>();
-		Sent s;
+		Sent s = null;
 		Sent sold = null;
+		
 
 		if(connection != null){
 			ResultSet sent = getTableInformation("Message");
@@ -266,7 +267,9 @@ public class Sql_data {
 			while(sent.next()){
 				if(sent.getString("type") != null){
 					if(sent.getString("type").equals("outbox")){
+						System.out.println("pepppppppperoni");
 						s = new Sent(sent.getString("mnr"), sent.getString("email"), sent.getString("title"), sent.getString("message"), sent.getString("type"));
+						sentmessages.add(s);
 						sold = new Sent(sent.getString("mnr"), null, null, null, null);
 						sentOld.add(sold);
 					}
@@ -276,9 +279,10 @@ public class Sql_data {
 				}
 			}
 		}
+		System.out.println("sentmessages size: " + sentmessages.size());
 		return sentmessages;
 	}
-	
+
 	public ObservableList<Received> getReceivedMessages() throws SQLException{
 		connect();
 		ObservableList<Received> receivedmessages =  FXCollections.observableArrayList();;
@@ -858,20 +862,27 @@ public class Sql_data {
 		}
 		removeReceivedFromDatabase(destroyed);
 	}
-	
-	public void removeSentFromDatabase(ObservableList<Sent> sent){
+
+	public void removeAndAddSentToDatabase(ObservableList<Sent> sent){
 		ArrayList<String> oldid = new ArrayList<String>();
 		ArrayList<String> newid = new ArrayList<String>();
+		ArrayList<Sent> newSent = new ArrayList<Sent>();
+		System.out.println("sent størrelse: " + sent.size());
 		
 		for(Sent s : sent){
-			newid.add(s.getId());
+			if(s.getId() == null){
+				newSent.add(s);
+			}
+			else{
+				newid.add(s.getId());
+			}
 		}
 		for(Sent s : sentOld){
 			oldid.add(s.getId());
 		}
-		
+
 		oldid.removeAll(newid);
-		
+
 		if(oldid.size() > 0){
 			try {
 				connect();
@@ -888,25 +899,50 @@ public class Sql_data {
 				e1.printStackTrace();
 			}
 		}
+		if(newSent.size() > 0){
+			try {
+				connect();
+				for(Sent s : newSent){
+					try {
+						addSentToDataBase(s.getSubject(), s.getBody(), s.getTo(), s.getType());
+					} catch (SQLException e) {
+						System.out.println("could not add sent to database");
+						e.printStackTrace();
+					}
+				}
+			} catch (SQLException e1) {
+				System.out.println("Failed to connect in removeAndAddSentToDatabase");
+				e1.printStackTrace();
+			}
+		}
 	}
+	
+	public void addSentToDataBase(String title, String message, String email, String type) throws SQLException{
+
+		java.sql.PreparedStatement update = connection.prepareStatement("INSERT INTO Message (title, message, email, type, date) VALUES (?, ?, ?, ?, ?)");
+		update.setString(1, title);
+		update.setString(2, message);
+		update.setString(3, email);
+		update.setString(4, type);
+		update.setString(5, "0000-00-00");
+		update.executeUpdate();
+	}
+
 	private void removeReceivedFromDatabase(ObservableList<MailInterface> received){
 		ArrayList<String> oldid = new ArrayList<String>();
 		ArrayList<String> newid = new ArrayList<String>();
-		
-		
-		
+
 		for(MailInterface s : received){
 			if(!(s.getSubject().equals("Glemt")) || !(s.getSubject().equals("Ødelagt"))){
 				newid.add(s.getid());
 			}
-			
 		}
 		for(MailInterface s : receivedOld){
 			oldid.add(s.getid());
 		}
-		
+
 		oldid.removeAll(newid);
-		
+
 		if(oldid.size() > 0){
 			try {
 				connect();
@@ -925,6 +961,8 @@ public class Sql_data {
 		}
 	}
 
+
+
 	private void removeDestroyedFromDatabase(String id) throws SQLException{
 		statement = connection.createStatement();
 		statement.execute("DELETE FROM Destroyed WHERE dnr =" + id);
@@ -938,14 +976,14 @@ public class Sql_data {
 		System.out.println("removed forgotten item");
 		statement.close();
 	}
-	
+
 	private void removeSentOrReceivedFromDatabase(String id) throws SQLException{
 		statement = connection.createStatement();
 		statement.execute("DELETE FROM Message WHERE mnr =" + id);
 		System.out.println("removed items from message");
 		statement.close();
 	}
-	
+
 	private void removeUserFromDatabase(String id) throws SQLException{
 		statement = connection.createStatement();
 		statement.execute(("DELETE FROM User WHERE pnr = " + id));

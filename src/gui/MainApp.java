@@ -90,7 +90,7 @@ public class MainApp extends Application{
     private ObservableList<Sent> outBox = FXCollections.observableArrayList();
     private static ArrayList<String> cabinNames = new ArrayList<String>();
     private Sql_data sql = new Sql_data();
-    private ObservableList<Sent> sentData = FXCollections.observableArrayList();
+    
 
     
 
@@ -106,8 +106,8 @@ public class MainApp extends Application{
 			forgottenData.addAll(sql.getDestroyedData());
 			reservationData = sql.getReservationData();
 			itemData = sql.getItemData();
-			sentData = sql.getSentMessages();
-
+			outBox = sql.getSentMessages();
+			
             forgottenData.addAll(sql.getReceivedMessages());
 
 		} catch (SQLException e) {
@@ -388,7 +388,7 @@ public class MainApp extends Application{
     	sql.saveReservationsAndUsers(this.reservationData);
     	sql.saveWoodToDatabase(this.cabinData);
     	sql.removeDestroyedAndForgottenFromDatabase(this.forgottenData);
-    	sql.removeSentFromDatabase(sentData);
+    	sql.removeAndAddSentToDatabase(outBox);
     		
     }
     @FXML
