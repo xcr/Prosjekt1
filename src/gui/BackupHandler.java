@@ -236,7 +236,7 @@ public class BackupHandler {
             System.out.println(reader.readLine());
             reader.readLine();
             while (reader.ready()) {
-                String[] data = reader.readLine().split(split);
+                String[] data = reader.readLine().trim().split(split);
                 String str = "";
                 int count = 0;
                 while (true) {
@@ -246,12 +246,15 @@ public class BackupHandler {
                     }
                     str += temp + "\n";
                 }
-            if(data[1].equals("Glemt")){
+            if(data[2].startsWith("Glemt")){
 
             mainInterfaceData.add(new Forgotten(null, data[0], str, data[1]));
-            }else{
+            }else if(data[2].startsWith("Ødel")){
                 mainInterfaceData.add(new Destroyed(null,data[0],str,data[1]));
+            }else{
+                mainInterfaceData.add(new Received(null,data[1],data[2],str,"inbox"));
             }
+
             }
             reader.close();
 

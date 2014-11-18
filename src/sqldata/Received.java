@@ -8,7 +8,7 @@ public class Received implements MailInterface {
 	StringProperty subject, body, from;
 	String id, type;
 	
-	Received(String id, String email, String subject, String body, String type){
+	public Received(String id, String email, String subject, String body, String type){
 		this.from = new SimpleStringProperty(email);
         this.subject = new SimpleStringProperty(subject);
         this.body = new SimpleStringProperty(body);
