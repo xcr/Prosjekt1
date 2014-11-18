@@ -961,7 +961,11 @@ public class Sql_data {
 		}
 	}
 
-
+	/**
+	 * Removes the Destroyed message with the specified id
+	 * @param id item to be removed
+	 * @throws SQLException
+	 */
 
 	private void removeDestroyedFromDatabase(String id) throws SQLException{
 		statement = connection.createStatement();
@@ -970,6 +974,18 @@ public class Sql_data {
 		System.out.println("removed destroyed item");
 		statement.close();
 	}
+	
+	/**
+	 * removes the specified Forgotten item with the specified id
+	 * @param id of item to be removed
+	 * @throws SQLException
+	 */
+	
+	/**
+	 * Removes forgotten item messages from database
+	 * @param id message to be removed
+	 * @throws SQLException
+	 */
 	private void removeForgottenFromDatabase(String id) throws SQLException{
 		statement = connection.createStatement();
 		statement.execute("DELETE FROM Forgotten WHERE fnr =" + id);
