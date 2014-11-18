@@ -12,12 +12,17 @@ import java.io.*;
 
 
 /**
- * Created by Eirik on 16.11.2014.
+ * This class handles everything to do with backup. It writes to file when the program saves and reads from file when a mysql connection can't be established.
  */
 public class BackupHandler {
 
 
     private static String split = "-:-";
+
+    /**
+     * Writes a backup for items.
+     * @param itemData
+     */
     public static void writeItemBackup(ObservableList<Item> itemData){
 
         Writer writer = null;
@@ -40,6 +45,11 @@ public class BackupHandler {
             try{writer.close();}catch(Exception ex){}
         }
     }
+
+    /**
+     * write backup of cabin.
+     * @param cabinData
+     */
     public static void writeCabinBackup(ObservableList<Cabin> cabinData){
 
         Writer writer = null;
@@ -65,6 +75,10 @@ public class BackupHandler {
         }
     }
 
+    /**
+     * Writes MainInterface backup.
+     * @param mailData
+     */
     public static void writeMailInterfaceBackup(ObservableList<MailInterface> mailData){
 
         Writer writer = null;
@@ -88,6 +102,11 @@ public class BackupHandler {
             try{writer.close();}catch(Exception ex){}
         }
     }
+
+    /**
+     * Writes reservation backup.
+     * @param reservationData
+     */
     public static void writeReservationBackup(ObservableList<Reservation> reservationData){
 
         Writer writer = null;
@@ -111,6 +130,11 @@ public class BackupHandler {
             try{writer.close();}catch(Exception ex){}
         }
     }
+
+    /**
+     * Writes outbox backup.
+     * @param outbox
+     */
     public static void writeOutboxBackup(ObservableList<Sent> outbox){
 
         Writer writer = null;
@@ -136,12 +160,17 @@ public class BackupHandler {
 
     //read backup starts here
 
+
+    /**
+     * Reads cabin backup.
+     * @return
+     */
     public static ObservableList<Cabin> readCabinBackup(){
 
         ObservableList<Cabin> cabinData = FXCollections.observableArrayList();
         try{
             BufferedReader reader = new BufferedReader(new FileReader("backup/CabinBackup.txt"));
-            System.out.println(reader.readLine());
+
             reader.readLine();
             while(reader.ready()){
                 String[] data = reader.readLine().split(split);
@@ -157,12 +186,16 @@ public class BackupHandler {
         return cabinData;
     }
 
+    /**
+     * Reads item backup.
+     * @return
+     */
     public static ObservableList<Item> readItemBackup(){
 
         ObservableList<Item> itemData = FXCollections.observableArrayList();
         try{
             BufferedReader reader = new BufferedReader(new FileReader("backup/ItemBackup.txt"));
-            System.out.println(reader.readLine());
+
             reader.readLine();
             while(reader.ready()){
                 String[] data = reader.readLine().split(split);
@@ -178,13 +211,16 @@ public class BackupHandler {
         return itemData;
     }
 
-
+    /**
+     * Reads reservation backup
+     * @return
+     */
     public static ObservableList<Reservation> readReservationBackup(){
 
         ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
         try{
             BufferedReader reader = new BufferedReader(new FileReader("backup/ReservationBackup.txt"));
-            System.out.println(reader.readLine());
+
             reader.readLine();
             while(reader.ready()){
                 String[] data = reader.readLine().split(split);
@@ -200,12 +236,16 @@ public class BackupHandler {
         return reservationData;
     }
 
+    /**
+     * Reads outbox backup
+     * @return
+     */
     public static ObservableList<Sent> readOutboxBackup(){
 
         ObservableList<Sent> outboxData = FXCollections.observableArrayList();
         try{
             BufferedReader reader = new BufferedReader(new FileReader("backup/OutboxBackup.txt"));
-            System.out.println(reader.readLine());
+
             reader.readLine();
             while(reader.ready()){
                 String[] data = reader.readLine().split(split);
@@ -228,12 +268,16 @@ public class BackupHandler {
         return outboxData;
     }
 
+    /**
+     * Reads MailInterface backup.
+     * @return
+     */
     public static ObservableList<MailInterface> readMailInterfaceBackup() {
 
         ObservableList<MailInterface> mainInterfaceData = FXCollections.observableArrayList();
         try {
             BufferedReader reader = new BufferedReader(new FileReader("backup/MailInterfaceBackup.txt"));
-            System.out.println(reader.readLine());
+
             reader.readLine();
             while (reader.ready()) {
                 String[] data = reader.readLine().trim().split(split);

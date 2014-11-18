@@ -8,6 +8,9 @@ import org.controlsfx.dialog.Dialogs;
 
 import sqldata.Item;
 
+/**
+ * This is the controller for the edit window.
+ */
 public class ItemEditController extends AbstractEditor {
 
 	@FXML

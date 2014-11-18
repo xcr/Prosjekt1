@@ -29,6 +29,9 @@ import sqldata.ItemType;
 import sqldata.Forgotten;
 import sqldata.Sent;
 
+/**
+ * This is the main class.
+ */
 public class MainApp extends Application{
 
     private Stage primaryStage;

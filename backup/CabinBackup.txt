@@ -1,25 +1,25 @@
-This backup was made on Tue Nov 18 22:48:56 CET 2014
+This backup was made on Tue Nov 18 22:57:23 CET 2014
 
-57-:-Flaakoia-:-11-:-14-:-1968-:-S-:-Ja-:-Nei-:-Yes-:-No-:-No-:-Yes-:-Sauna,båt,isborr-:-Middels
 59-:-Fosenkoia-:-10-:-12-:-1957-:-S/T-:-Nei-:-Ja-:-Ja-:-Ja-:-Nei-:-Nei-:-Ingen spesifisert-:-Fullt
-66-:-Heinfjordstua-:-25-:-25-:-1966-:-S-:-Ja-:-Nei-:-Ja-:-Ja-:-Nei-:-Ja-:-Sauna,Oven-:-Lav
 67-:-Hognabu-:-6-:-6-:-1966-:-T-:-Nei-:-Ja-:-Ja-:-Ja-:-Nei-:-Nei-:-Nasjonalpark-:-Fullt
-68-:-Holmsaakoia-:-20-:-25-:-1974-:-S-:-Ja-:-Ja-:-Ja-:-Nei-:-nei-:-Nei-:-Sauna, piano-:-Høy
-75-:-Holvassgamma-:-8-:-16-:-1978-:-S-:-Nei-:-Ja-:-Ja-:-Ja-:-Ja-:-Ja-:-Båt-:-Tomt
-76-:-Iglbu-:-8-:-14-:-1964-:-T-:-Ja-:-Ja-:-Ja-:-Nei-:-Ja-:-Ja-:-Ingen spesifisert-:-Høy
 77-:-Kamtjonnkoia-:-6-:-10-:-1993-:-H-:-Nei-:-Ja-:-Nei-:-Nei-:-Ja-:-Ja-:-Isborr-:-Fullt
 86-:-Kraaklikaaten-:-4-:-6-:-1963-:-S-:-Ja-:-Ja-:-Nei-:-Nei-:-Nei-:-Nei-:-Ingen spesifisert-:-Fullt
-87-:-Kvernmovollen-:-8-:-14-:-1975-:-T-:-Nei-:-Ja-:-Ja-:-Ja-:-Ja-:-Nei-:-Toseters toalett-:-Middels
-88-:-Kaasen-:-8-:-12-:-2011-:-S-:-Ja-:-Nei-:-Ja-:-Nei-:-Ja-:-Ja-:-Ingen spesifisert-:-Tomt
-89-:-Lynhogen-:-4-:-8-:-1973-:-S/T-:-Ja-:-Ja-:-Nei-:-Nei-:-Nei-:-Nei-:-Ingen spesifiert-:-Tomt
-90-:-Mortenskaaten-:-2-:-4-:-1961-:-T-:-Ja-:-Ja-:-Nei-:-Ja-:-Nei-:-Nei-:-Ølbua,hengekøye-:-Middels
-91-:-Nicokoia-:-8-:-12-:-1847-:-S/T-:-Nei-:-Ja-:-Ja-:-Nei-:-Nei-:-Nei-:-Historisk-:-Tomt
 92-:-Rindalsloa-:-4-:-6-:-1978-:-S-:-Ja-:-Ja-:-Ja-:-Ja-:-Ja-:-Nei-:-Ingen spesifisert-:-Fullt
 93-:-Selbukaaten-:-2-:-4-:-1959-:-S-:-Ja-:-Ja-:-Nei-:-Nei-:-Nei-:-Nei-:-Skispor-:-Fullt
-94-:-Sonvasskoia-:-8-:-12-:-1951-:-S-:-Ja-:-Ja-:-Ja-:-Nei-:-Ja-:-Ja-:-Kano,isborr-:-Høy
-95-:-Stabburet-:-2-:-4-:-1995-:-T-:-Ja-:-Ja-:-Ja-:-Nei-:-Ja-:-Ja-:-Ingen spesifisert-:-Tomt
 96-:-Stakkslettbua-:-11-:-15-:-2013-:-T-:-Ja-:-Ja-:-Ja-:-Ja-:-Ja-:-Ja-:-Fire etasjers soverom-:-Fullt
 97-:-Telin-:-9-:-12-:-1991-:-T-:-Ja-:-Ja-:-Ja-:-Ja-:-Ja-:-Nei-:-Lenestol-:-Fullt
+68-:-Holmsaakoia-:-20-:-25-:-1974-:-S-:-Ja-:-Ja-:-Ja-:-Nei-:-nei-:-Nei-:-Sauna, piano-:-Høy
+76-:-Iglbu-:-8-:-14-:-1964-:-T-:-Ja-:-Ja-:-Ja-:-Nei-:-Ja-:-Ja-:-Ingen spesifisert-:-Høy
+94-:-Sonvasskoia-:-8-:-12-:-1951-:-S-:-Ja-:-Ja-:-Ja-:-Nei-:-Ja-:-Ja-:-Kano,isborr-:-Høy
+57-:-Flaakoia-:-11-:-14-:-1968-:-S-:-Ja-:-Nei-:-Yes-:-No-:-No-:-Yes-:-Sauna,båt,isborr-:-Middels
+87-:-Kvernmovollen-:-8-:-14-:-1975-:-T-:-Nei-:-Ja-:-Ja-:-Ja-:-Ja-:-Nei-:-Toseters toalett-:-Middels
+90-:-Mortenskaaten-:-2-:-4-:-1961-:-T-:-Ja-:-Ja-:-Nei-:-Ja-:-Nei-:-Nei-:-Ølbua,hengekøye-:-Middels
 98-:-Taagaabu-:-6-:-9-:-1970-:-T-:-Ja-:-Ja-:-Ja-:-Ja-:-Ja-:-Nei-:-Ingen spesifisert-:-Middels
-99-:-Vekvessaetra-:-20-:-24-:-2011-:-T-:-Ja-:-Ja-:-Ja-:-Ja-:-Ja-:-Ja-:-Treseters sagebenk-:-Tomt
 100-:-Ovensenget-:-8-:-14-:-1992-:-S/T-:-Ja-:-Ja-:-Ja-:-Ja-:-No-:-No-:-Sauna,Braakaaten-:-Middels
+66-:-Heinfjordstua-:-25-:-25-:-1966-:-S-:-Ja-:-Nei-:-Ja-:-Ja-:-Nei-:-Ja-:-Sauna,Oven-:-Lav
+91-:-Nicokoia-:-8-:-12-:-1847-:-S/T-:-Nei-:-Ja-:-Ja-:-Nei-:-Nei-:-Nei-:-Historisk-:-Lav
+75-:-Holvassgamma-:-8-:-16-:-1978-:-S-:-Nei-:-Ja-:-Ja-:-Ja-:-Ja-:-Ja-:-Båt-:-Tomt
+88-:-Kaasen-:-8-:-12-:-2011-:-S-:-Ja-:-Nei-:-Ja-:-Nei-:-Ja-:-Ja-:-Ingen spesifisert-:-Tomt
+89-:-Lynhogen-:-4-:-8-:-1973-:-S/T-:-Ja-:-Ja-:-Nei-:-Nei-:-Nei-:-Nei-:-Ingen spesifiert-:-Tomt
+95-:-Stabburet-:-2-:-4-:-1995-:-T-:-Ja-:-Ja-:-Ja-:-Nei-:-Ja-:-Ja-:-Ingen spesifisert-:-Tomt
+99-:-Vekvessaetra-:-20-:-24-:-2011-:-T-:-Ja-:-Ja-:-Ja-:-Ja-:-Ja-:-Ja-:-Treseters sagebenk-:-Tomt
