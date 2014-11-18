@@ -31,6 +31,9 @@ public class Cabin {
 			String terrain, String bike, String trip, String guitar, String waffleIron,
 			String hunting, String fishing, String specialities, String wood) {
 
+        if(wood.equals("HÃ¸y")){
+            wood = "Høy";
+        }
 		this.id = id;
 		
 		this.name = new SimpleStringProperty(name);

@@ -62,7 +62,7 @@ public class MainController{
     @FXML
     private TableColumn<Sent, String> outboxEmailColumn, outboxSubjectColumn;
 	@FXML
-	private Button reservationAdd, reservationRemove, reservationEdit, map;
+	private Button map;
 
 	@FXML
 	private TableView<MailInterface> forgottenTable;
@@ -79,7 +79,7 @@ public class MainController{
 
 	//cabin lables
 	@FXML
-	private Label woodLabelLevel1,woodLabelName, woodLabelLevel, woodLevelDugnad,woodDugnadAverageDays, beds, tables, yearBuilt, terrain, reachableByBike, trip, guitar, waffleIron, hunting, fishing, specialties, woodStatus;
+	private Label woodLabelLevel1, woodLevelDugnad,woodDugnadAverageDays, beds, tables, yearBuilt, terrain, reachableByBike, trip, guitar, waffleIron, hunting, fishing, specialties, woodStatus;
 	@FXML
 	private TextField to, subject;
 	@FXML
@@ -862,14 +862,13 @@ public class MainController{
             }
         }
             else {
-                // Nothing selected.
-                Dialogs.create()
-                        .title("")
-                        .masthead("Inge utstyr valgt")
-                        .message("Velg en koie du vil endre utstyret how i tabellen til høyre")
-                        .showWarning();
-            }
-
+            // Nothing selected.
+            Dialogs.create()
+                    .title("")
+                    .masthead("Ingen utstyr valgt")
+                    .message("Velg utstyret du ønsker og endre i tabellen til høyre.")
+                    .showWarning();
+        }
 	}
 
     /**
@@ -887,11 +886,11 @@ public class MainController{
             }
             else {
                 // Nothing selected.
-                Dialogs.create()
-                        .title("Ingen utstyr valgt")
-                        .masthead("")
-                        .message("Velg et utstyr fra listen")
-                        .showWarning();
+            Dialogs.create()
+                    .title("")
+                    .masthead("Ingen utstyr valgt")
+                    .message("Velg utstyret du ønsker og endre i tabellen til høyre.")
+                    .showWarning();
             }
 
     }

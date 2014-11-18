@@ -370,9 +370,9 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <Label text="Koienavn">
+                                          <Label text="Valgt koie">
                                              <font>
-                                                <Font size="19.0" />
+                                                <Font name="System Bold" size="19.0" />
                                              </font></Label>
                                           <Label text="Vednivå" GridPane.rowIndex="1">
                                              <font>
