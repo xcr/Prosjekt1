@@ -394,7 +394,8 @@ public class MainApp extends Application{
     	BackupHandler.writeCabinBackup(this.cabinData);
     	BackupHandler.writeMailInterfaceBackup(this.forgottenData);
     	BackupHandler.writeReservationBackup(this.reservationData);
-    	BackupHandler.writeItemBackup(itemData);
+    	BackupHandler.writeItemBackup(this.itemData);
+    	BackupHandler.writeOutboxBackup(this.outBox);
     	
     	sql.saveItemsToDatabase(this.itemData);
     	sql.saveReservationsAndUsers(this.reservationData);
