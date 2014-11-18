@@ -422,14 +422,14 @@ public class MainController{
     @FXML
     private void DateReservation2(){
 
-        System.out.println(reservationDateFrom1.getValue());
-        System.out.println(reservationDateTo1.getValue());
+        System.out.println(reservationDateFrom.getValue());
+        System.out.println(reservationDateTo.getValue());
 
         String pattern = "yyyy-MM-dd";
 
-        reservationDateFrom1.setPromptText(pattern.toLowerCase());
+        reservationDateFrom.setPromptText(pattern.toLowerCase());
 
-        reservationDateFrom1.setConverter(new StringConverter<LocalDate>() {
+        reservationDateFrom.setConverter(new StringConverter<LocalDate>() {
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
             @Override
@@ -451,9 +451,9 @@ public class MainController{
             }
         });
 
-        reservationDateTo1.setPromptText(pattern.toLowerCase());
+        reservationDateTo.setPromptText(pattern.toLowerCase());
 
-        reservationDateTo1.setConverter(new StringConverter<LocalDate>() {
+        reservationDateTo.setConverter(new StringConverter<LocalDate>() {
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
             @Override
@@ -474,36 +474,37 @@ public class MainController{
                 }
             }
         });
+        ObservableList<Reservation> cabinList = cabinTable2.getSelectionModel().getSelectedItem().getReservationList();
 
         ObservableList<Reservation> currentRes = FXCollections.observableArrayList();
         ObservableList<Reservation> from = FXCollections.observableArrayList();
         ObservableList<Reservation> to = FXCollections.observableArrayList();
 
-        if(((!(reservationDateFrom1.getValue() == null)))){
+        if(((!(reservationDateFrom.getValue() == null)))){
 
 
-            for(Reservation r : mainApp.getReservationData()){
+            for(Reservation r : cabinList){
                 LocalDate date = r.getStartLocalDate();
-                System.out.println(date.compareTo(reservationDateFrom1.getValue()));
-                if(date.compareTo(reservationDateFrom1.getValue()) >= 0){
+                System.out.println(date.compareTo(reservationDateFrom.getValue()));
+                if(date.compareTo(reservationDateFrom.getValue()) >= 0){
                     from.add(r);
                 }
             }
         }
 
-        if(!(reservationDateTo1.getValue() == null)){
-            for(Reservation r : mainApp.getReservationData()){
+        if(!(reservationDateTo.getValue() == null)){
+            for(Reservation r : cabinList){
                 LocalDate date = r.getEndLocalDate();
 
-                System.out.println("2: " + date.compareTo(reservationDateTo1.getValue()));
-                if(date.compareTo(reservationDateTo1.getValue()) <= 0){
+                System.out.println("2: " + date.compareTo(reservationDateTo.getValue()));
+                if(date.compareTo(reservationDateTo.getValue()) <= 0){
                     to.add(r);
                 }
             }
         }
 
-        if((from.size() == 0 && reservationDateFrom1.getValue() != null) || (to.size() == 0 && reservationDateTo1.getValue() != null)){
-            mainResTable.setItems(FXCollections.observableArrayList());
+        if((from.size() == 0 && reservationDateFrom.getValue() != null) || (to.size() == 0 && reservationDateTo.getValue() != null)){
+            reservationTable.setItems(FXCollections.observableArrayList());
         }else if(from.size() > 0 && to.size() > 0){
             for(Reservation f : from){
                 for(Reservation t : to){
@@ -512,17 +513,16 @@ public class MainController{
                     }
                 }
             }
-            mainResTable.setItems(currentRes);
+            reservationTable.setItems(currentRes);
         }
         else if(from.size() > 0){
             System.out.println("JA FOR FAEN");
-            mainResTable.setItems(from);
+            reservationTable.setItems(from);
         }
         else if(to.size() > 0){
-            mainResTable.setItems(to);
+            reservationTable.setItems(to);
         }
     }
-
 
 
     /**
@@ -658,8 +658,8 @@ public class MainController{
           //  mainResTable.getItems().remove(selected);
         mainApp.getReservationData().remove(reservationTable.getSelectionModel().getSelectedItem());
         mainApp.reservationSorting();
-        
 
+        DateReservation2();
            // mainResTable.getItems().remove(selected);
             //reservationTable.getItems().remove(selected);
         }
