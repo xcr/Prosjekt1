@@ -265,7 +265,7 @@ public class Sql_data {
 
 	public ObservableList<Sent> getSentMessages() throws SQLException{
 		connect();
-		ObservableList<Sent> sentmessages = null;
+		ObservableList<Sent> sentmessages =  FXCollections.observableArrayList();;
 		sentOld = new ArrayList<Sent>();
 		Sent s;
 		Sent sold = null;
@@ -281,6 +281,9 @@ public class Sql_data {
 						sentOld.add(sold);
 					}
 				}
+				else{ 
+					sentmessages = null;
+				}
 			}
 		}
 		return sentmessages;
@@ -288,7 +291,7 @@ public class Sql_data {
 	
 	public ObservableList<Received> getReceivedMessages() throws SQLException{
 		connect();
-		ObservableList<Received> receivedmessages = null;
+		ObservableList<Received> receivedmessages =  FXCollections.observableArrayList();;
 		receivedOld = new ArrayList<Received>();
 		Received r;
 		Received rold;
@@ -303,6 +306,9 @@ public class Sql_data {
 						rold = new Received(sent.getString("mnr"), null, null, null, null);
 						receivedOld.add(rold);
 					}
+				}
+				else{
+					receivedmessages = null;
 				}
 			}
 		}
@@ -405,24 +411,6 @@ public class Sql_data {
 		System.out.println("Item: " + itemName + "Successfully added to database");
 	}
 
-	/**
-	 * Removes the item with specified ID from the sql database
-	 * @param id the id of the item that is going to be removed
-	 * @throws SQLException
-	 */
-
-	private  void removeItemsFromSql(String id) throws SQLException{
-		statement = connection.createStatement();
-		statement.execute("DELETE FROM Item WHERE inr =" + id);
-		System.out.println("removed item with id: " + id);
-		statement.close();
-	}
-
-	public void removeReservationsFromDatabase(String id) throws SQLException{
-		statement = connection.createStatement();
-		statement.execute(("DELETE FROM Reservation WHERE rnr = " + id));
-		statement.close();
-	}
 
 	/**
 	 * Updates the item table in the sql database
@@ -462,9 +450,9 @@ public class Sql_data {
 	 * @param cabinName name of the cabin of the reservation
 	 * @param email the email of the user
 	 * @param startDate stardate for the reservation
-	 * @param endDate       enddate for the reservation
+	 * @param endDate  enddate for the reservation
 	 * @param reservationId the INR id for the column to be updated
-	 * @param firstName     first name of the person
+	 * @param firstName first name of the person
 	 * @param lastName lastname of the person
 	 * @param PersonId the PNR id for the column to be updated
 	 * @throws SQLException
@@ -694,11 +682,7 @@ public class Sql_data {
 		removeReservationAndUserFromdatabase(reservations);
 	}
 
-	private void removeUserFromDatabase(String id) throws SQLException{
-		statement = connection.createStatement();
-		statement.execute(("DELETE FROM User WHERE pnr = " + id));
-		statement.close();
-	}
+	
 
 	public void removeReservationAndUserFromdatabase(ObservableList<Reservation> reservations){
 		ArrayList<String> oldresids = new ArrayList<String>();
@@ -886,17 +870,49 @@ public class Sql_data {
 		}
 	}
 
-	public void removeDestroyedFromDatabase(String id) throws SQLException{
+	private void removeDestroyedFromDatabase(String id) throws SQLException{
 		statement = connection.createStatement();
 		statement.execute("DELETE FROM Destroyed WHERE dnr =" + id);
 		System.out.println("removed item with id: " + id);
 		System.out.println("removed destroyed item");
 		statement.close();
 	}
-	public void removeForgottenFromDatabase(String id) throws SQLException{
+	private void removeForgottenFromDatabase(String id) throws SQLException{
 		statement = connection.createStatement();
 		statement.execute("DELETE FROM Forgotten WHERE fnr =" + id);
 		System.out.println("removed forgotten item");
+		statement.close();
+	}
+	
+	private void removeSentOrReceivedFromDatabase(ArrayList<String> id) throws SQLException{
+		statement = connection.createStatement();
+		statement.execute("DELETE FROM Message WHERE mnr =" + id);
+		System.out.println("removed items from message");
+		statement.close();
+	}
+	
+	private void removeUserFromDatabase(String id) throws SQLException{
+		statement = connection.createStatement();
+		statement.execute(("DELETE FROM User WHERE pnr = " + id));
+		statement.close();
+	}
+
+	/**
+	 * Removes the item with specified ID from the sql database
+	 * @param id the id of the item that is going to be removed
+	 * @throws SQLException
+	 */
+
+	private  void removeItemsFromSql(String id) throws SQLException{
+		statement = connection.createStatement();
+		statement.execute("DELETE FROM Item WHERE inr =" + id);
+		System.out.println("removed item with id: " + id);
+		statement.close();
+	}
+
+	private void removeReservationsFromDatabase(String id) throws SQLException{
+		statement = connection.createStatement();
+		statement.execute(("DELETE FROM Reservation WHERE rnr = " + id));
 		statement.close();
 	}
 }

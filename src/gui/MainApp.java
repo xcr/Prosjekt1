@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +21,7 @@ import javafx.stage.WindowEvent;
 import sqldata.Cabin;
 import sqldata.Item;
 import sqldata.MailInterface;
+import sqldata.Received;
 import sqldata.Reservation;
 import sqldata.Sql_data;
 import sqldata.ItemType;
@@ -89,6 +89,9 @@ public class MainApp extends Application{
     private ObservableList<Sent> outBox = FXCollections.observableArrayList();
     private static ArrayList<String> cabinNames = new ArrayList<String>();
     private Sql_data sql = new Sql_data();
+    private ObservableList<Sent> sentData = FXCollections.observableArrayList();
+    private ObservableList<Received> receivedData = FXCollections.observableArrayList();
+    
 
 
     /**
@@ -102,6 +105,8 @@ public class MainApp extends Application{
 			forgottenData.addAll(sql.getDestroyedData());
 			reservationData = sql.getReservationData();
 			itemData = sql.getItemData();
+			sentData = sql.getSentMessages();
+			receivedData = sql.getReceivedMessages();
 
 		} catch (SQLException e) {
 			System.out.println("Kunne ikke hente all data fra database" + e);
