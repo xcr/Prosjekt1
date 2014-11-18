@@ -118,10 +118,6 @@ public class MainController{
 
 	}
 
-	/**
-	 * Initializes the controller class. This method is automatically called
-	 * after the fxml file has been loaded.
-	 */
 
     /**
      * Initializes the maincontroller. Is automatically called after the fxml.
@@ -424,6 +420,7 @@ public class MainController{
     }
 
 
+
     /**
      * shows the wood level details for the cabin that is targeted.
      * @param cab
@@ -529,12 +526,22 @@ public class MainController{
 			woodStatus.setText("");
 		}
 	}
+
+    /**
+     * Deletes the selected message.
+     */
     @FXML
     private void handleMessageDelete(){
         int selected = forgottenTable.getSelectionModel().getSelectedIndex();
         if (selected >= 0){
             mainApp.getForgottenData().remove(forgottenTable.getSelectionModel().getSelectedItem());
 
+        } else{
+            Dialogs.create()
+                    .title("")
+                    .masthead("Ingen melding valgt")
+                    .message("Velg meldingen du ønsker å slette i menyen til venstre")
+                    .showWarning();
         }
     }
     /**
@@ -554,9 +561,9 @@ public class MainController{
         }
         else{
             Dialogs.create()
-                    .title("No Selection")
-                    .masthead("No reservation was selected")
-                    .message("Please select a reservation in the table.")
+                    .title("")
+                    .masthead("Ingen reservajon valgt")
+                    .message("Velg reservasjonen du ønsker og slette i menyen til venstre")
                     .showWarning();
         }
     }
@@ -604,7 +611,7 @@ public class MainController{
             Dialogs.create()
                     .title("")
                     .masthead("Ingen Koie Valgt")
-                    .message("Velg en koie du vil endre utstyret how i tabellen til høyre")
+                    .message("Velg koien du ønsker å fjærne utstyret på i i tabellen til høyre")
                     .showWarning();
         }
 
@@ -648,6 +655,9 @@ public class MainController{
     }
 
 
+    /**
+     * Removes the selected item from the cabin.
+     */
 	@FXML
 	private void handleItemCabinRemove(){
 
@@ -682,12 +692,23 @@ public class MainController{
                 }
             }
 
+        }else {
+            // Nothing selected.
+            Dialogs.create()
+                    .title("")
+                    .masthead("Ingen utstyr valgt")
+                    .message("Velg utstyret du ønsker og slette i tabellen til høyre.")
+                    .showWarning();
         }
+
 
     removing = 0;
 
 	}
 
+    /**
+     * Removes the selected reservation.
+     */
     @FXML
     private void handleReservationRemove(){
         int selected = mainResTable.getSelectionModel().getSelectedIndex();
@@ -704,13 +725,16 @@ public class MainController{
         }
         else{
             Dialogs.create()
-                    .title("Ingen reservasjon valgt")
-                    .masthead("")
+                    .title("")
+                    .masthead("Ingen reservasjon valgt")
                     .message("Velg en reservasjon fra tabellen")
                     .showWarning();
         }
     }
 
+    /**
+     * Edit selected item.
+     */
     @FXML
 	private void handleItemEdit(){
         System.out.println("handleitemedit called");
@@ -728,13 +752,16 @@ public class MainController{
                 // Nothing selected.
                 Dialogs.create()
                         .title("")
-                        .masthead("Ingen Koie Valgt")
+                        .masthead("Inge utstyr valgt")
                         .message("Velg en koie du vil endre utstyret how i tabellen til høyre")
                         .showWarning();
             }
 
 	}
 
+    /**
+     * Edit selected item.
+     */
     @FXML
     private void handleItemCabinEdit(){
         Item selected = cabinItemTable.getSelectionModel().getSelectedItem();
@@ -748,14 +775,17 @@ public class MainController{
             else {
                 // Nothing selected.
                 Dialogs.create()
-                        .title("Ingen item valgt")
+                        .title("Ingen utstyr valgt")
                         .masthead("")
-                        .message("Velg et item fra listen")
+                        .message("Velg et utstyr fra listen")
                         .showWarning();
             }
 
     }
 
+    /**
+     * Edit selected reservation.
+     */
 	@FXML
 	private void handleReservationEdit(){
 		Reservation selected = mainResTable.getSelectionModel().getSelectedItem();
@@ -771,13 +801,17 @@ public class MainController{
             else {
                 // Nothing selected.
                 Dialogs.create()
-                        .title("No Selection")
-                        .masthead("No cabin Selected")
-                        .message("Please select a cabin in the table.")
+                        .title("")
+                        .masthead("Ingen reservasjon valgt")
+                        .message("Velg en reservasjon i tabellen")
                         .showWarning();
             }
 
 	}
+
+    /**
+     * Adds an item.
+     */
 	@FXML
 	private void handleItemCabinAdd(){
         Item item = new Item();
@@ -809,6 +843,9 @@ public class MainController{
         }
 	}
 
+    /**
+     * Adds a reservation.
+     */
     @FXML
     private void handleReservationAdd(){
         Reservation res = new Reservation();
@@ -833,6 +870,9 @@ public class MainController{
 		System.out.println(reservationDateFrom.getValue());
 	}
 
+    /**
+     * Edit the selected reservation
+     */
     @FXML
     private void handleReservationCabinEdit(){
         Reservation selected = reservationTable.getSelectionModel().getSelectedItem();
@@ -845,16 +885,18 @@ public class MainController{
         }else {
             // Nothing selected.
             Dialogs.create()
-                    .title("Ingen reservasjon valgt")
-                    .masthead("Velg en reservasjon i tabellen.")
-                    .message("")
+                    .title("")
+                    .masthead("Ingen reservasjon valgt")
+                    .message("Velg en reservasjon i tabellen.")
                     .showWarning();
         }
 
     }
 
 
-
+    /**
+     * Sends an mail to the email in the til field.
+     */
 	@FXML
 	private void handleSendMail(){
         if(to.getText().length() == 0 || subject.getText().length() == 0 || body.getText().length() == 0){
@@ -863,14 +905,19 @@ public class MainController{
                     .masthead("Venligst fyll ut alle feltene")
 
                     .showWarning();
-        }
-
+        }else{
 		SendEmail email = new SendEmail(to.getText(), subject.getText(), body.getText());
 		email.start();
         mainApp.getOutBox().add(new Sent(to.getText(), subject.getText(), body.getText()));
 
+        }
+
+
 	}
 
+    /**
+     * Opens the map.
+     */
 	@FXML
 	private void handleOpenMap(){
 
@@ -883,7 +930,9 @@ public class MainController{
 		}
 	}
 
-
+    /**
+     * Find and set the average wood level
+     */
 	private void woodLevelAverage(){
 		int lol = 0;
 		for(Cabin c : mainApp.getCabinData()){
@@ -923,7 +972,9 @@ public class MainController{
 		}
 	}
 
-
+    /**
+     * woodComparator that takes care of the wood table sorting.
+     */
     public class woodComp implements Comparator<String> {
 
         public int woodLVL(String s){
@@ -951,6 +1002,4 @@ public class MainController{
             return woodLVL(s1) - woodLVL(s2);
         }
     }
-
-
 }

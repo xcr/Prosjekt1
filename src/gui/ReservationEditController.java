@@ -71,6 +71,10 @@ package gui;
 	        }
 	    }
 
+        /**
+         * validates the input from the user.
+         * @return
+         */
 	    protected boolean isInputValid() {
 	        String errorMessage = "";
 

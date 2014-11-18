@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -105,23 +106,22 @@ public class MainApp extends Application{
 			System.out.println("Kunne ikke hente all data fra database" + e);
 			e.printStackTrace();
 		}
-		
+	/*
 		//test data
-//		reservationData.add(new Reservation(null, null,"Heinfjordstua","bmail@rofl.copter","2014-11-2","2014-11-10", "Magnus","Blomlie"));
-//		reservationData.add(new Reservation(null, null,"Fosenkoia","amail@rofl.copter","2014-11-1","2014-11-10", "David","Bakke"));
-//		reservationData.add(new Reservation(null, null, "Heinfjordstua","cmail@rofl.copter","2014-11-3","2014-11-10", "Eirik","Bertelsen"));
-//		reservationData.add(new Reservation(null, null, "Fosenkoia","dmail@rofl.copter","2014-11-4","2014-10-7", "Gabriel","Et eller annet"));
-//		reservationData.add(new Reservation(null, null, "Fosenkoia","email@rofl.copter","2014-11-5","2014-11-28", "Ola","Nordmann"));
-//		reservationData.add(new Reservation(null, null, "Fosenkoia","fmail@rofl.copter","2014-11-6","2014-11-8", "Ola","Nordmann"));
-//		reservationData.add(new Reservation(null, null, "Fosenkoia","gmail@rofl.copter","2014-11-7","2014-11-9", "Ola","Nordmann"));
-//		reservationData.add(new Reservation(null, null, "Fosenkoia","hmail@rofl.copter","2014-11-8","2014-11-10", "Ola","Nordmann"));
-
+	reservationData.add(new Reservation(null, null,"Heinfjordstua","bmail@rofl.copter","2014-11-02","2014-11-10", "Magnus","Blomlie"));
+	reservationData.add(new Reservation(null, null,"Fosenkoia","amail@rofl.copter","2014-11-01","2014-11-10", "David","Bakke"));
+	reservationData.add(new Reservation(null, null, "Heinfjordstua","cmail@rofl.copter","2014-11-03","2014-11-10", "Eirik","Bertelsen"));
+	reservationData.add(new Reservation(null, null, "Fosenkoia","dmail@rofl.copter","2014-11-04","2014-10-07", "Gabriel","Et eller annet"));
+		reservationData.add(new Reservation(null, null, "Fosenkoia","email@rofl.copter","2014-11-05","2014-11-28", "Ola","Nordmann"));
+		reservationData.add(new Reservation(null, null, "Fosenkoia","fmail@rofl.copter","2014-11-06","2014-11-08", "Ola","Nordmann"));
+	reservationData.add(new Reservation(null, null, "Fosenkoia","gmail@rofl.copter","2014-11-07","2014-11-09", "Ola","Nordmann"));
+		reservationData.add(new Reservation(null, null, "Fosenkoia","hmail@rofl.copter","2014-11-08","2014-11-10", "Ola","Nordmann"));
         outBox.add(new Sent("espen.d.hansen@gmail.com", "Frakting av utstyr til koia","Hei, \n\n vi har noe utstyr som skulle vært fraktet til koia som vi hopet at du kunne ta med deg \n\n Hilsen Ntnu koie systemet"));
         outBox.add(new Sent("morten.hansen@gmail.com", "Hei Morten! vi lurte på om","HEllo!, we bought you " +
                 "a new rotor and we are sending it in the mail \n you're welcome! \n\n from ntnu koie"));
         outBox.add(new Sent("Magnus Blomlie", "Hey Magnus! We were wondering if you the way!!!!","HEllo!, we bought you " +
                 "a new rotor and we are sending it in the mail \n you're welcome! \n\n from ntnu koie"));
-
+*/
 
 
 //	itemData.add(new Item("Heinfjordstua","Guitar", "4","1"));
@@ -137,6 +137,18 @@ public class MainApp extends Application{
             cabinNames.add(c.getName());
         }
         //this.forgottenData = BackupHandler.readMailInterfaceBackup();
+        System.out.println("STARTDATE: \n\n");
+        for(Reservation r : reservationData){
+            System.out.println(r.getfirstname()+ " " + r.getlastname());
+            System.out.println("STARTSTRING: "+r.getStartDate());
+            System.out.println("STARTLOCALD: "+r.getStartLocalDate().toString());
+        }
+        System.out.println("ENDDATE: \n\n");
+        for(Reservation r : reservationData){
+            System.out.println(r.getfirstname()+ " " + r.getlastname());
+            System.out.println("END STRING: "+r.getEndDate());
+            System.out.println("END LOCALD: "+r.getEndLocalDate().toString());
+        }
     }
 
 
