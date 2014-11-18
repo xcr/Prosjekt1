@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.concurrent.SynchronousQueue;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,7 +39,7 @@ public class Sql_data {
 
 
 	public Sql_data(){
-		
+
 		try {
 			System.out.println("Loading driver...");
 			Class.forName("com.mysql.jdbc.Driver");
@@ -181,7 +182,7 @@ public class Sql_data {
 	 */
 
 	public static ObservableList<Item> getItemData() throws SQLException{
-		
+
 		itemsOld = new ArrayList<Item>();
 		connect();
 		ResultSet item = getTableInformation("Item");
@@ -203,8 +204,8 @@ public class Sql_data {
 				closeConnection();
 			}
 		}
-		
-		
+
+
 		return itemList;
 	}
 
@@ -305,7 +306,7 @@ public class Sql_data {
 		finally{
 			closeConnection();
 		}
-		
+
 		return reservations;
 	}
 
@@ -448,6 +449,11 @@ public class Sql_data {
 	public static void saveItemsToDatabase(ObservableList<Item> items ){
 		ArrayList<Item> updatedItems = new ArrayList<Item>();
 		ArrayList<Item> newItems = new ArrayList<Item>();
+		ArrayList<Item> old = itemsOld;
+		
+ 		System.out.println("saveItemsToDatabase size of parameter: " + items.size());
+		System.out.println("saveItemsToDatabase size of old list: " + itemsOld.size());
+
 
 		for(Item i : items){
 			if(i.getId() == null){
@@ -455,10 +461,15 @@ public class Sql_data {
 				continue;
 			}
 			for(Item j : itemsOld){
+				
 				if(i.getId().equals(j.getId())){
+					System.out.println("new: " + i.getItemName());
+					System.out.println("old: " + j.getItemName());
 					System.out.println("items have same id");
 					System.out.println(i.getCabinName());
 					System.out.println(j.getCabinName());
+					System.out.println(i.getItemName());
+					System.out.println(j.getItemName());
 					if(!(i.getCabinName().equals(j.getCabinName()))){
 						System.out.println("item has changed cabinname");
 						updatedItems.add(i);
@@ -513,32 +524,35 @@ public class Sql_data {
 		for(Item i : items){
 			if(i.getId() != null){
 				newIds.add(i.getId());
+				System.out.println("nye:" +  i.getId());
 			}
 		}
 		for(Item i : itemsOld){
 			oldIds.add(i.getId());
+			System.out.println("gamle" + i.getId());
 		}
-
-//		if(oldIds.size() > 0){
-//			System.out.println(oldIds.size());
-//			try {
-//				connect();
-//
-//				for(String id : oldIds){
-//					try {
-//						removeItemsFromSql(id);
-//					} catch (SQLException e) {
-//						System.out.println("failed to remove items");
-//						e.printStackTrace();
-//					}
-//				}
-//			} catch (SQLException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-	}
 		
-	
+		oldIds.removeAll(newIds);
+		
+		if(oldIds.size() > 0){
+			System.out.println(oldIds.size());
+			try {
+				connect();
+
+				for(String id : oldIds){
+					try {
+						removeItemsFromSql(id);
+					} catch (SQLException e) {
+						System.out.println("failed to remove items");
+						e.printStackTrace();
+					}
+				}
+			} catch (SQLException e1) {
+				System.out.println("connectionfailure in removeItemsFromDatabase");
+				e1.printStackTrace();
+			}
+		}
+	}
 
 	public static void saveReservationsAndUsers(ObservableList<Reservation> reservations){
 		ArrayList<Reservation> updatedRes = new ArrayList<Reservation>();
@@ -639,6 +653,11 @@ public class Sql_data {
 				e1.printStackTrace();
 			}
 		}
+	}
+	
+	public static void test(ObservableList<Item> items){
+		Sql_data.saveItemsToDatabase(items);
+    	
 	}
 }
 

@@ -376,11 +376,12 @@ public class MainApp extends Application{
      * Saves the data to the database
      */
     public void saveAllDataToDatabase(){
-    	Sql_data.saveItemsToDatabase(this.itemData);
-    	Sql_data.saveReservationsAndUsers(this.reservationData);
+    	Sql_data.test(this.itemData);
+    	
     }
   
     public static void main(String[] args) {
         launch(args);
     }
-}
+}    
+
