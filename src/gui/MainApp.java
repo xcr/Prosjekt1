@@ -111,7 +111,12 @@ public class MainApp extends Application{
             forgottenData.addAll(sql.getReceivedMessages());
 
 		} catch (SQLException e) {
-			System.out.println("Kunne ikke hente all data fra database" + e);
+			System.out.println("Kunne ikke hente all data fra database. Har laster inn backup" + e);
+			outBox = BackupHandler.readOutboxBackup();
+	        itemData = BackupHandler.readItemBackup();
+	        reservationData = BackupHandler.readReservationBackup();
+	        cabinData = BackupHandler.readCabinBackup();
+	        forgottenData = BackupHandler.readMailInterfaceBackup();
 			e.printStackTrace();
 		}
 	/*
@@ -385,13 +390,19 @@ public class MainApp extends Application{
      * Saves the data to the database
      */
     public void saveAllDataToDatabase(){
+    	BackupHandler.writeCabinBackup(this.cabinData);
+    	BackupHandler.writeMailInterfaceBackup(this.forgottenData);
+    	BackupHandler.writeReservationBackup(this.reservationData);
+    	BackupHandler.writeItemBackup(itemData);
+    	
     	sql.saveItemsToDatabase(this.itemData);
     	sql.saveReservationsAndUsers(this.reservationData);
     	sql.saveWoodToDatabase(this.cabinData);
     	sql.removeDestroyedAndForgottenFromDatabase(this.forgottenData);
     	sql.removeAndAddSentToDatabase(outBox);
-    		
+    	
     }
+    
     @FXML
     private void saveChanges(){
         saveAllDataToDatabase();
