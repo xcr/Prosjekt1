@@ -207,7 +207,7 @@ public class MainController{
     private void woodChoiceBox(Object newValue) {
       try{
 
-        System.out.println(newValue);
+
         woodTable.getSelectionModel().getSelectedItem().setWood(newValue.toString());
         cabinTable.getSelectionModel().clearSelection();
         showWoodStatus(woodTable.getSelectionModel().getSelectedItem());
@@ -323,8 +323,7 @@ public class MainController{
     private void DateReservation(){
         mainResTable.getSelectionModel().clearSelection();
 
-        System.out.println(reservationDateFrom1.getValue());
-        System.out.println(reservationDateTo1.getValue());
+
 
         String pattern = "yyyy-MM-dd";
 
@@ -385,7 +384,7 @@ public class MainController{
 
             for(Reservation r : mainApp.getReservationData()){
                 LocalDate date = r.getStartLocalDate();
-                System.out.println(date.compareTo(reservationDateFrom1.getValue()));
+
                 if(date.compareTo(reservationDateFrom1.getValue()) >= 0){
                     from.add(r);
                 }
@@ -396,7 +395,6 @@ public class MainController{
             for(Reservation r : mainApp.getReservationData()){
                 LocalDate date = r.getEndLocalDate();
 
-                System.out.println("2: " + date.compareTo(reservationDateTo1.getValue()));
                 if(date.compareTo(reservationDateTo1.getValue()) <= 0){
                     to.add(r);
                 }
@@ -416,7 +414,7 @@ public class MainController{
             mainResTable.setItems(currentRes);
         }
         else if(from.size() > 0){
-            System.out.println("JA FOR FAEN");
+
             mainResTable.setItems(from);
         }
         else if(to.size() > 0){
@@ -427,8 +425,7 @@ public class MainController{
     @FXML
     private void DateReservation2(){
         reservationTable.getSelectionModel().clearSelection();
-        System.out.println(reservationDateFrom.getValue());
-        System.out.println(reservationDateTo.getValue());
+
 
         String pattern = "yyyy-MM-dd";
 
@@ -490,7 +487,7 @@ public class MainController{
 
             for(Reservation r : cabinList){
                 LocalDate date = r.getStartLocalDate();
-                System.out.println(date.compareTo(reservationDateFrom.getValue()));
+
                 if(date.compareTo(reservationDateFrom.getValue()) >= 0){
                     from.add(r);
                 }
@@ -501,7 +498,7 @@ public class MainController{
             for(Reservation r : cabinList){
                 LocalDate date = r.getEndLocalDate();
 
-                System.out.println("2: " + date.compareTo(reservationDateTo.getValue()));
+
                 if(date.compareTo(reservationDateTo.getValue()) <= 0){
                     to.add(r);
                 }
@@ -521,7 +518,7 @@ public class MainController{
             reservationTable.setItems(currentRes);
         }
         else if(from.size() > 0){
-            System.out.println("JA FOR FAEN");
+
             reservationTable.setItems(from);
         }
         else if(to.size() > 0){
@@ -701,7 +698,7 @@ public class MainController{
                     c.getItemList().remove(item);
                 }
             }
-            System.out.println(mainApp.getItemData().size());
+
             //fjerner fra itemType
 
             for(ItemType it : mainApp.getItemTypeData()){
@@ -850,15 +847,15 @@ public class MainController{
      */
     @FXML
 	private void handleItemEdit(){
-        System.out.println("handleitemedit called");
+
         Item selected = itemSingleTable.getSelectionModel().getSelectedItem();
         if(selected != null){
-            System.out.println("inside if");
+
             boolean okClicked = mainApp.showItemEditDialog(selected);
             if(okClicked){
                 updateCabinItems();
                 updateItemType();
-                System.out.println(mainApp.getItemData().size());
+
             }
         }
             else {
@@ -965,23 +962,18 @@ public class MainController{
         if(okClicked){
             mainApp.getReservationData().add(res);
             for (Cabin c : mainApp.getCabinData()){
-                System.out.println(c.getName());
+
                 if(c.getName().toLowerCase().equals(res.getName().toLowerCase())){
                     c.addReservation(res);
-                    System.out.println(c.getReservationList());
+
                 }
             }
             DateReservation();
         }
-        System.out.println(res.getlastname());
+
 
     }
-/*
-	@FXML
-	private void handleReservationOk(){
-		System.out.println(reservationDateFrom.getValue());
-	}
-*/
+
     @FXML
     private void handleDeleteOutbox(){
 
@@ -1086,7 +1078,7 @@ public class MainController{
 			}
 		}
 		double average = ((double) lol / (double) mainApp.getCabinData().size());
-		System.out.println(average);
+
 		if(average > 4){
 			woodLabelLevel1.setText("Fullt");
             woodDugnadAverageDays.setText("40 bruksdager");
