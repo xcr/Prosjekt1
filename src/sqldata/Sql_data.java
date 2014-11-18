@@ -157,7 +157,9 @@ public class Sql_data {
 		connect();
 		ResultSet cabin = getTableInformation("Cabin");
 		Cabin c;
+		Cabin old;
 		cabinList = FXCollections.observableArrayList();
+		cabinsOld = new ArrayList<Cabin>();
 		woodstatusOld = new HashMap<String, String>();
 
 		if(connection != null){
@@ -169,7 +171,9 @@ public class Sql_data {
 							cabin.getString("guitar"), cabin.getString("waffleiron"), cabin.getString("hunting"),cabin.getString("fishing"),
 							cabin.getString("specialities"), cabin.getString("wood"));
 					cabinList.add(c);
-					woodstatusOld.put(cabin.getString("cnr"), cabin.getString("wood"));
+					old = new Cabin(Integer.toString(cabin.getInt("cnr")), null,null,null,0,
+							null,null,null, null, null, null,null, null, cabin.getString("wood"));
+					cabinsOld.add(old);
 				}
 			} catch (SQLException e) {
 				System.out.println("failed to retrieve CabinData from sql server" + e);
@@ -314,7 +318,7 @@ public class Sql_data {
 				rOld = new Reservation(Integer.toString(res.getInt("rnr")), Integer.toString(res.getInt("pnr")), res.getString("cabinname"), res.getString("email"), res.getString("startdate"),
 						res.getString("enddate"), res.getString("firstname"), res.getString("lastname"));
 				reservations.add(r);
-				reservationsOld.add(r);
+				reservationsOld.add(rOld);
 			}
 		} catch (SQLException e) {
 			System.out.println("failed to retrieve reservationdata from resultSet in getReservationdata()");
@@ -358,7 +362,7 @@ public class Sql_data {
 	 * @throws SQLException
 	 */
 
-	public  void removeItemsFromSql(String id) throws SQLException{
+	private  void removeItemsFromSql(String id) throws SQLException{
 		statement = connection.createStatement();
 		statement.execute("DELETE FROM Item WHERE inr =" + id);
 		System.out.println("removed item with id: " + id);
@@ -400,6 +404,7 @@ public class Sql_data {
 		add.setString(4, endDate);
 		add.executeUpdate();
 		add.clearBatch();
+		System.out.println("successfully added reservation: " + email + " to database");
 	}
 
 	/**
@@ -418,7 +423,7 @@ public class Sql_data {
 
 	public void updateReservationInDatabase(String cabinName, String email, String startDate,
 			String endDate, String reservationId) throws SQLException{
-		java.sql.PreparedStatement updateRes = connection.prepareStatement("UPDATE Item SET cabinname = ?, email = ?, startdate = ?, enddate = ? WHERE inr = ?");
+		java.sql.PreparedStatement updateRes = connection.prepareStatement("UPDATE Reservation SET cabinname = ?, email = ?, startdate = ?, enddate = ? WHERE rnr = ?");
 		updateRes.setString(1, cabinName);
 		updateRes.setString(2, email);
 		updateRes.setString(3, startDate);
@@ -451,34 +456,32 @@ public class Sql_data {
 		System.out.println("Successfully added all user: " + firstname + " to database");
 	}
 
-	private  void updateWoodInDatabase(HashMap<String, String> updatedWood){
+	private  void updateWoodInDatabase(ArrayList<Cabin> updatedWood){
+		System.out.println("inne i updatewood: " + updatedWood.size());
+		
 		try {
 			connect();
-			for (Entry<String, String> entry : woodstatusOld.entrySet()) {
-			    String id = entry.getKey();
-			    String status = entry.getValue();
+			for (Cabin c : updatedWood) {
 				java.sql.PreparedStatement updateWood = connection.prepareStatement("UPDATE Cabin SET wood = ? WHERE cnr = ?");
-				updateWood.setString(1, status);
-				updateWood.setString(2, id);
+				updateWood.setString(1, c.getWood());
+				updateWood.setString(2, c.getId());
 				updateWood.executeUpdate();
+				updateWood.clearBatch();
 			}
 		} catch (SQLException e) {
 			System.out.println("failed to add wood to database. id: ");
 			e.printStackTrace();
 		}
+		finally{
+			closeConnection();
+		}
 		
 		System.out.println("successfully updated woodstatus for all cabins");
-
 	}
 
 	public  void saveItemsToDatabase(ObservableList<Item> items ){
 		ArrayList<Item> updatedItems = new ArrayList<Item>();
 		ArrayList<Item> newItems = new ArrayList<Item>();
-		
-		
- 		System.out.println("saveItemsToDatabase size of parameter: " + items.size());
-		System.out.println("saveItemsToDatabase size of old list: " + itemsOld.size());
-
 
 		for(Item i : items){
 			if(i.getId() == null){
@@ -488,13 +491,13 @@ public class Sql_data {
 			for(Item j : itemsOld){
 				
 				if(i.getId().equals(j.getId())){
-					System.out.println("new: " + i.getItemName());
-					System.out.println("old: " + j.getItemName());
-					System.out.println("items have same id");
-					System.out.println(i.getCabinName());
-					System.out.println(j.getCabinName());
-					System.out.println(i.getItemName());
-					System.out.println(j.getItemName());
+//					System.out.println("new: " + i.getItemName());
+//					System.out.println("old: " + j.getItemName());
+//					System.out.println("items have same id");
+//					System.out.println(i.getCabinName());
+//					System.out.println(j.getCabinName());
+//					System.out.println(i.getItemName());
+//					System.out.println(j.getItemName());
 					if(!(i.getCabinName().equals(j.getCabinName()))){
 						System.out.println("item has changed cabinname");
 						updatedItems.add(i);
@@ -540,44 +543,7 @@ public class Sql_data {
 		removeItemsFromDatabase(items);
 	}
 
-	private  void removeItemsFromDatabase(ObservableList<Item> items){
-		ArrayList<String> oldIds = new ArrayList<String>();
-		ArrayList<String> newIds = new ArrayList<String>();
-		System.out.println("sfa" + items.size());
-		System.out.println("jlafjdk" + itemsOld.size());
-
-		for(Item i : items){
-			if(i.getId() != null){
-				newIds.add(i.getId());
-				System.out.println("nye:" +  i.getId());
-			}
-		}
-		for(Item i : itemsOld){
-			oldIds.add(i.getId());
-			System.out.println("gamle" + i.getId());
-		}
-		
-		oldIds.removeAll(newIds);
-		
-		if(oldIds.size() > 0){
-			System.out.println(oldIds.size());
-			try {
-				connect();
-
-				for(String id : oldIds){
-					try {
-						removeItemsFromSql(id);
-					} catch (SQLException e) {
-						System.out.println("failed to remove items");
-						e.printStackTrace();
-					}
-				}
-			} catch (SQLException e1) {
-				System.out.println("connectionfailure in removeItemsFromDatabase");
-				e1.printStackTrace();
-			}
-		}
-	}
+	
 
 	public  void saveReservationsAndUsers(ObservableList<Reservation> reservations){
 		ArrayList<Reservation> updatedRes = new ArrayList<Reservation>();
@@ -588,12 +554,10 @@ public class Sql_data {
 		for(Reservation r : reservations){
 			if(r.getReservationId() == null){
 				newRes.add(r);
+				System.out.println("new reservations yeas");
 				continue;
 			}
-			if(r.getUserId() == null){
-				newUser.add(new String[] {r.getfirstname(), r.getlastname(), r.getEmail()});
-			}
-
+			
 			for(Reservation res : reservationsOld){
 				if(r.getReservationId().equals(res.getReservationId())){
 
@@ -638,7 +602,7 @@ public class Sql_data {
 							updateReservationInDatabase(r.getName(), r.getEmail(), r.getStartDate(),
 									r.getEndDate(), r.getReservationId());
 						} catch (SQLException e) {
-							System.out.println("failed to add reservation on cabin: " + r.getName() + " to database");
+							System.out.println("failed to update reservation on cabin: " + r.getName() + " to database");
 							e.printStackTrace();
 						}
 					}
@@ -647,6 +611,7 @@ public class Sql_data {
 					for(Reservation r : newRes){
 						try {
 							addReservationToDatabase(r.getName(), r.getEmail(), r.getStartDate(), r.getEndDate());
+							addUserToDatabase(r.getfirstname(), r.getlastname(), r.getEmail());
 						} catch (SQLException e) {
 							System.out.println(r.getStartDate());
 							System.out.println("failed to add: " + r.getEmail() + " to database");
@@ -679,22 +644,142 @@ public class Sql_data {
 				e1.printStackTrace();
 			}
 		}
+		removeReservationAndUserFromdatabase(reservations);
 	}
-	public void saveWoodToDatabase(ObservableList<Cabin> cabins){
-		HashMap<String, String> updatedWood = new HashMap<String, String>();
-		for(Cabin c : cabins){
-			
-			for (Entry<String, String> entry : woodstatusOld.entrySet()) {
-			    String id = entry.getKey();
-			    String status = entry.getValue();
-			    
-			    if(c.getId().equals(id)){
-			    	if(!(c.getWood().equals(status))){
-			    		updatedWood.put(c.getId(), c.getWood());
-			    	}
-			    }
+	
+	private void removeUserFromDatabase(String id) throws SQLException{
+		statement = connection.createStatement();
+		statement.execute(("DELETE FROM User WHERE pnr = " + id));
+		statement.close();
+	}
+	
+	public void removeReservationAndUserFromdatabase(ObservableList<Reservation> reservations){
+		ArrayList<String> oldresids = new ArrayList<String>();
+		ArrayList<String> newresids = new ArrayList<String>();
+		ArrayList<String> olduserids = new ArrayList<String>();
+		ArrayList<String> newuserids = new ArrayList<String>();
+		
+		//reservations ids
+		for(Reservation r : reservations){
+			if(r.getReservationId() != null){
+				newresids.add(r.getReservationId());
 			}
 		}
+		
+		for(Reservation r : reservationsOld){
+			if(r.getReservationId() != null){
+				oldresids.add(r.getReservationId());
+			}
+		}
+		
+		//userids
+		for(Reservation r : reservations){
+			if(r.getUserId() != null){
+				newuserids.add(r.getUserId());
+			}
+		}
+		for(Reservation r : reservationsOld){
+			if(r.getUserId() != null){
+				olduserids.add(r.getUserId());
+			}
+		}
+		
+		oldresids.removeAll(newresids);
+		olduserids.removeAll(newuserids);
+		
+		if(oldresids.size() > 0){
+			try {
+				connect();
+				for(String id : oldresids){
+					try {
+						removeReservationsFromDatabase(id);
+					} catch (SQLException e) {
+						System.out.println("failed to remove reservation from database");
+						e.printStackTrace();
+					}
+				}
+			} catch (SQLException e1) {
+				System.out.println("failed to connect in removeusersand reserverations");
+				e1.printStackTrace();
+			}
+			
+		}
+		if(olduserids.size() > 0){
+			try {
+				connect();
+				for(String id : olduserids){
+					try {
+						removeUserFromDatabase(id);
+					} catch (SQLException e) {
+						System.out.println("failed to remove user from database");
+						e.printStackTrace();
+					}
+				}
+			} catch (SQLException e1) {
+				System.out.println("failed to connect in removeusersand reserverations");
+				e1.printStackTrace();
+			}
+		}
+	}
+	
+	private  void removeItemsFromDatabase(ObservableList<Item> items){
+		ArrayList<String> oldIds = new ArrayList<String>();
+		ArrayList<String> newIds = new ArrayList<String>();
+		System.out.println("sfa" + items.size());
+		System.out.println("jlafjdk" + itemsOld.size());
+
+		for(Item i : items){
+			if(i.getId() != null){
+				newIds.add(i.getId());
+				//System.out.println("nye:" +  i.getId());
+			}
+		}
+		for(Item i : itemsOld){
+			oldIds.add(i.getId());
+			//System.out.println("gamle" + i.getId());
+		}
+		
+		oldIds.removeAll(newIds);
+		
+		if(oldIds.size() > 0){
+			//System.out.println(oldIds.size());
+			try {
+				connect();
+
+				for(String id : oldIds){
+					try {
+						removeItemsFromSql(id);
+					} catch (SQLException e) {
+						System.out.println("failed to remove items");
+						e.printStackTrace();
+					}
+				}
+			} catch (SQLException e1) {
+				System.out.println("connectionfailure in removeItemsFromDatabase");
+				e1.printStackTrace();
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	public void saveWoodToDatabase(ObservableList<Cabin> cabins){
+		ArrayList<Cabin> updatedWood = new ArrayList<Cabin>();
+
+		
+		for(Cabin c : cabins){
+			
+			for(Cabin ca : cabinsOld){
+				if(c.getId().equals(ca.getId())){
+					if(!(c.getWood().equals(ca.getWood()))){
+						updatedWood.add(c);
+					}
+				}
+			}
+		}
+		System.out.println("sysyout updatedWoodsize: " + updatedWood.size());
 		if(updatedWood.size() > 0){
 			updateWoodInDatabase(updatedWood);
 		}
