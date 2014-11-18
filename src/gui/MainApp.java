@@ -3,6 +3,7 @@ package gui;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.sun.org.apache.xpath.internal.SourceTree;
@@ -136,19 +137,7 @@ public class MainApp extends Application{
         for(Cabin c : cabinData){
             cabinNames.add(c.getName());
         }
-        //this.forgottenData = BackupHandler.readMailInterfaceBackup();
-        System.out.println("STARTDATE: \n\n");
-        for(Reservation r : reservationData){
-            System.out.println(r.getfirstname()+ " " + r.getlastname());
-            System.out.println("STARTSTRING: "+r.getStartDate());
-            System.out.println("STARTLOCALD: "+r.getStartLocalDate().toString());
-        }
-        System.out.println("ENDDATE: \n\n");
-        for(Reservation r : reservationData){
-            System.out.println(r.getfirstname()+ " " + r.getlastname());
-            System.out.println("END STRING: "+r.getEndDate());
-            System.out.println("END LOCALD: "+r.getEndLocalDate().toString());
-        }
+
     }
 
 

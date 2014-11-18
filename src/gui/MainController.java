@@ -923,7 +923,7 @@ public class MainController{
 
 		Stage dialogStage = new Stage();
 		try {
-			Map lol = new Map(dialogStage);
+			Map lol = new Map(dialogStage, mainApp.getCabinData());
 		} catch (Exception e) {
 
 			e.printStackTrace();

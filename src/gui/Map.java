@@ -1,9 +1,11 @@
 package gui;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashMap;
 
 import sqldata.Cabin;
+import sqldata.Reservation;
 import sqldata.Sql_data;
 
 import com.lynden.gmapsfx.GoogleMapView;
@@ -31,10 +33,12 @@ public class Map extends Application implements MapComponentInitializedListener 
 	GoogleMap map;
 	private ObservableList<Cabin> cabins;
 	private HashMap<String, LatLong> coor;
+    private LocalDate now = LocalDate.now();
 
 
-	public Map(Stage stage) throws Exception{
+	public Map(Stage stage, ObservableList<Cabin> c) throws Exception{
 		start(stage);
+        cabins = c;
 		
 	}
 	@Override
@@ -78,7 +82,7 @@ public class Map extends Application implements MapComponentInitializedListener 
 		coor.put("Selbukaaten", new LatLong(63.32851, 11.02758));
 		coor.put("Sonvasskoia", new LatLong(63.39030, 11.41852));
 		coor.put("Ovensenget", new LatLong(62.41219, 11.18655));
-
+/*
 		try {
 			Sql_data sql = new Sql_data();
 			this.cabins = sql.getCabinData();
@@ -86,7 +90,7 @@ public class Map extends Application implements MapComponentInitializedListener 
 			System.out.println("kunne ikke hente data til å bruke i kartapplikasjon");
 			e.printStackTrace();
 		}
-
+*/
 	}
 
 	@Override
@@ -113,14 +117,25 @@ public class Map extends Application implements MapComponentInitializedListener 
 			MarkerOptions markerOptions = new MarkerOptions().position(coor.get(c.getName()));
 			Marker cabinMarker = new Marker(markerOptions);
 			InfoWindowOptions infoOpts = new InfoWindowOptions();
-			infoOpts.content("<h3>" + c.getName() + "</h3>" +"<p>"+ "Vedstatus: " + c.getWood()+ "</p>" + "<p>reservasjoner: " + c.getReservationList() + "</p>");
+            infoOpts.content("<h3>" + c.getName() + "</h3>" +"<p>"+ "Vedstatus: " + c.getWood()+ "</p>" + "<p>reservasjoner: " + checkIfReserved(c) + "</p>");
 			InfoWindow cabinInfoWindow = new InfoWindow(infoOpts);
 			map.addUIEventHandler(cabinMarker, UIEventType.click, (JSObject obj) -> cabinInfoWindow.open(map, cabinMarker));
 			map.addMarker(cabinMarker);		
 		}
 
 	}
-	/*
+
+    private String checkIfReserved(Cabin c){
+        for(Reservation r : c.getReservationList()){
+            System.out.println(now.toString());
+            System.out.println(r.getEndDate().toString());
+            if(now.compareTo(r.getEndLocalDate()) <= 0){
+                return "Ja";
+            }
+        }
+            return "Nei";
+    }
+    /*
 	public static void main(String[] args) {
 
 		launch(args);
