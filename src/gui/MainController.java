@@ -194,7 +194,10 @@ public class MainController{
      * @param newValue
      */
     private void showOutboxDetail(Sent newValue) {
+        if(removing == 0){
         outboxBody.setText(newValue.getBody());
+
+        }
     }
 
     /**
@@ -318,6 +321,7 @@ public class MainController{
      */
     @FXML
     private void DateReservation(){
+        mainResTable.getSelectionModel().clearSelection();
 
         System.out.println(reservationDateFrom1.getValue());
         System.out.println(reservationDateTo1.getValue());
@@ -422,7 +426,7 @@ public class MainController{
 
     @FXML
     private void DateReservation2(){
-
+        reservationTable.getSelectionModel().clearSelection();
         System.out.println(reservationDateFrom.getValue());
         System.out.println(reservationDateTo.getValue());
 
@@ -979,6 +983,26 @@ public class MainController{
 		System.out.println(reservationDateFrom.getValue());
 	}
 */
+    @FXML
+    private void handleDeleteOutbox(){
+
+
+        removing = 1;
+                if(outboxTable.getSelectionModel().getSelectedIndex() >= 0){
+
+                    mainApp.getOutBox().remove(outboxTable.getSelectionModel().getSelectedItem());
+                    outboxBody.setText("");
+                }
+        else{            Dialogs.create()
+                        .title("")
+                        .masthead("Ingen melding valgt")
+                        .message("Velg en melding i tabellen til venstre.")
+                        .showWarning();
+
+                }
+        removing = 0;
+    }
+
     /**
      * Edit the selected reservation
      */
