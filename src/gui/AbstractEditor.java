@@ -4,7 +4,9 @@ import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
 
-
+/**
+ * Abstract editor that has all the methods that are the same for both editors.
+ */
 public abstract class AbstractEditor {
 	
 

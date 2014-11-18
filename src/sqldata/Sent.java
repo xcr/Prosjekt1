@@ -4,7 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
- * Created by Eirik on 15.11.2014.
+ * Class for messages that has been sent by the user.
  */
 public class Sent {
 

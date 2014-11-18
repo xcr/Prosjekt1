@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Comparator;
 
 
@@ -60,8 +61,6 @@ public class MainController{
     private TableView<Sent> outboxTable;
     @FXML
     private TableColumn<Sent, String> outboxEmailColumn, outboxSubjectColumn;
-
-
 	@FXML
 	private Button reservationAdd, reservationRemove, reservationEdit, map;
 
@@ -99,7 +98,7 @@ public class MainController{
 	}
 
     /**
-     * Lager en referanse til mainApp classen og legger observable listene til de riktige tabellene
+     * Sets up a reference to MainApp and places the datalists in their tables.
      * @param mainApp
      */
 	public void setMainApp(MainApp mainApp) {
@@ -125,7 +124,7 @@ public class MainController{
 	 */
 
     /**
-     * Initialiserer kolonnene og tabellene
+     * Initializes the maincontroller. Is automatically called after the fxml.
      */
 	@FXML
 	private void initialize() {
@@ -193,12 +192,16 @@ public class MainController{
 
 	}
 
+    /**
+     * Displays the message of the person that has been selected in the table.
+     * @param newValue
+     */
     private void showOutboxDetail(Sent newValue) {
         outboxBody.setText(newValue.getBody());
     }
 
     /**
-     *
+     * Sets the woodlevel of the selected cabin to what the used chose.
      * @param newValue
      */
     private void woodChoiceBox(Object newValue) {
@@ -220,11 +223,18 @@ public class MainController{
 
     }
 
+    /**
+     * Updates ItemType so it shows correctly.
+     */
     private void updateItemType(){
         for(ItemType it : mainApp.getItemTypeData()){
             it.updateAmount();
         }
     }
+
+    /**
+     * Updates cabin items so they show correctly.
+     */
     private void updateCabinItems(){
         for(Cabin c : mainApp.getCabinData()){
             c.getItemList().clear();
@@ -238,7 +248,7 @@ public class MainController{
     }
 
     /**
-     * Initializes the wood table with all the css it needs
+     * Initializes the wood table with css.
      */
     private void initWoodTable(){
         woodLevel.setCellFactory(column -> {
@@ -432,7 +442,7 @@ public class MainController{
 			woodLevelDugnad.setText("20 dager");
 		}
 		else if(wood.equals("Tomt")){
-			woodLevelDugnad.setText("S� fort som mulig");
+			woodLevelDugnad.setText("Så fort som mulig");
 		}
 		else if(wood.equals("Lav")){
 			woodLevelDugnad.setText("10 dager");
@@ -551,27 +561,6 @@ public class MainController{
         }
     }
 
-    /**
-     * Delete the targeted cabin.
-     */
-	@FXML
-	private void handleCabinDelete() {
-		int selectedIndex = cabinTable.getSelectionModel().getSelectedIndex();
-		if (selectedIndex >= 0) {
-			cabinTable.getItems().remove(selectedIndex);
-
-			
-
-
-		} else {
-			// Nothing selected.
-			Dialogs.create()
-			.title("No Selection")
-			.masthead("No cabin Selected")
-			.message("Please select a cabin in the table.")
-			.showWarning();
-		}
-	}
 
 
     /**
@@ -657,6 +646,8 @@ public class MainController{
             }
         }
     }
+
+
 	@FXML
 	private void handleItemCabinRemove(){
 

@@ -12,11 +12,7 @@ package gui;
 
     import java.time.LocalDate;
 
-/**
-	 * Dialog to edit details of a cabin.
-	 * 
-	 * @author Marco Jakob
-	 */
+
 	public class ReservationEditController extends AbstractEditor {
 		@FXML
 		TextField   firstName, lastName, email;
@@ -31,6 +27,10 @@ package gui;
 		protected void initialize() {
 	    }
 
+        /**
+         * Set the fields to the correct value when the editor is opened.
+         * @param res
+         */
 	    public void setChanges(Reservation res) {
             cabinName.setValue(res.getName());
             cabinName.getItems().addAll(MainApp.getCabinNames());
@@ -50,7 +50,9 @@ package gui;
 
 
 	    }
-
+        /**
+         * Runs when the user hits ok. It first runs a validation check and if everything is ok it sets the changes.
+         */
 	    @FXML
 		protected void handleOk() {
 	    
@@ -90,8 +92,8 @@ package gui;
 	        } else {
 	            // Show the error message.
 	            Dialogs.create()
-	                .title("Ugyldig input")
-	                .masthead("Venligst fiks følgende feil")
+	                .title("Ugyldige felt")
+	                .masthead("Venligst se over følgende")
 	                .message(errorMessage)
 	                .showError();
 	            return false;

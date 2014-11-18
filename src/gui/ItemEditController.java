@@ -20,7 +20,10 @@ public class ItemEditController extends AbstractEditor {
 	protected void initialize() {
     }
 
-    
+    /**
+     * sets the fields to the correct values when the editor is started.
+     * @param i
+     */
     public void setChanges(Item i) {
         this.item = i;
         cabinName.setValue(i.getCabinName());
@@ -30,39 +33,53 @@ public class ItemEditController extends AbstractEditor {
         if(i.getAmount().equals("0")){
             this.amount.setText("");
         }else{
-
         this.amount.setText(i.getAmount());
         }
 
 
     }
 
+    /**
+     * Runs when the user hits ok. It first runs a validation check and if everything is ok it sets the changes.
+     */
     @FXML
 	protected void handleOk() {
         if (isInputValid()) {
         	item.setAmount(amount.getText());
         	item.setCabinName((String)cabinName.getSelectionModel().getSelectedItem());
         	item.setItemName(itemName.getText());
-        	
-        	
-        	
-           
 
             okClicked = true;
             dialogStage.close();
         }
     }
-    
-   
 
+    /**
+     * checks if a String s numeric.
+     * @param str
+     * @return
+     */
+    public boolean isNumber(String str){
+        try{
+            int i = Integer.parseInt(str);
+        }catch(NumberFormatException nfe){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the input from the user is valid and displays an message letting him know what is wrong if it is not.
+     * @return
+     */
     protected boolean isInputValid() {
         String errorMessage = "";
 
         if (itemName.getText() == null || itemName.getText().length() == 0) {
-            errorMessage += "Did not set a itemName\n"; 
+            errorMessage += "Det ingen utstyrsnavn\n";
         }
-        if (amount.getText() == null || amount.getText().length() == 0) {
-            errorMessage += "Did not set a amount\n"; 
+        if (amount.getText() == null || amount.getText().length() == 0 || !isNumber(amount.getText()) || Integer.parseInt(amount.getText()) < 1) {
+            errorMessage += "Ikke gyldig antall\n";
         }
 
         if (errorMessage.length() == 0) {
@@ -70,8 +87,8 @@ public class ItemEditController extends AbstractEditor {
         } else {
             // Show the error message.
             Dialogs.create()
-                .title("Invalid Fields")
-                .masthead("Please correct invalid fields")
+                .title("Ugyldige felt")
+                .masthead("Venligst se over følgende")
                 .message(errorMessage)
                 .showError();
             return false;

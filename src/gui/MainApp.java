@@ -74,10 +74,11 @@ public class MainApp extends Application{
  *fix email så email settes i til feltet
  fix så man ikke kan adde two instanser av samme item på en koie(lavprio)
  add så man kan slette destoryed/forgotten
+ fix wood average level labeln
 
  */
     
-    //listene som hentes fra mysql som Observable List
+    //the lists that comes from the mysql and contains the main data for the program
     private ObservableList<Cabin> cabinData = FXCollections.observableArrayList();
     private ObservableList<MailInterface> forgottenData = FXCollections.observableArrayList();
     private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
@@ -86,12 +87,12 @@ public class MainApp extends Application{
     private ObservableList<Sent> outBox = FXCollections.observableArrayList();
     private static ArrayList<String> cabinNames = new ArrayList<String>();
 
-   
 
+    /**
+     * The main constructor retrives all the data from the mysql and put them in observablelists
+     */
     public MainApp() {
-    	
-    	//Main constructor, loader data fra mysql inn i programmet.
-    	
+
 		try {
 			cabinData = Sql_data.getCabinData();
 			forgottenData = Sql_data.getForgottenData();
@@ -130,27 +131,28 @@ public class MainApp extends Application{
 
         reservationSorting();
 		itemHandling();
-
+        //lager liste av alle koie navnene som skal brukes til dropdown menyene
         for(Cabin c : cabinData){
             cabinNames.add(c.getName());
         }
         //this.forgottenData = BackupHandler.readMailInterfaceBackup();
     }
 
-    public static ArrayList<String> getCabinNames(){
-        return cabinNames;
-    }
+
+    /**
+     * Sorts the items into the correct cabins and itemtype.
+     */
     public void itemHandling(){
 
         itemTypeData.clear();
-    	for(Cabin c : cabinData){
+        for(Cabin c : cabinData){
             c.getItemList().clear();
-    		for(Item i : itemData){
-    			if(c.getName().equals(i.getCabinName())){
-    				c.addItem(i);
-    			}
-    		}
-    	}
+            for(Item i : itemData){
+                if(c.getName().equals(i.getCabinName())){
+                    c.addItem(i);
+                }
+            }
+        }
 
         ArrayList<String> names = new ArrayList<String>();
         for(Item i : itemData){
@@ -177,9 +179,14 @@ public class MainApp extends Application{
             }
         }
     }
-    
+
     //sorterer reservasjonene og legger de til riktig koie.
     //c.getName().toLowerCase().equals(r.getName().toLowerCase())
+
+    /**
+     * Sorts the reservations to the correct cabins
+     */
+
     public void reservationSorting(){
     	for(Cabin c : cabinData){
             c.getReservationList().clear();
@@ -187,22 +194,22 @@ public class MainApp extends Application{
 			//	System.out.println("cabin name = "+c.getName()+"   reservation name = "+r.getName());
 				if(c.getName().toLowerCase().equals(r.getName().toLowerCase())){
 					c.addReservation(r);
-					
+
 				}
 			}
 		}
     }
-    
-    
+
+
     //getters for observable listene
     public ObservableList<Cabin> getCabinData() {
         return cabinData;
     }
-    
+
     public ObservableList<MailInterface> getForgottenData(){
     	return forgottenData;
     }
-    
+
     public ObservableList<Reservation> getReservationData(){
     	return reservationData;
     }
@@ -214,11 +221,16 @@ public class MainApp extends Application{
         return itemTypeData;
     }
     public ObservableList<Sent> getOutBox(){return outBox;}
-    
 
-    // ... THE REST OF THE CLASS ...
-    
-    
+    public static ArrayList<String> getCabinNames(){
+        return cabinNames;
+    }
+
+
+    /**
+     * Initializes the window of the program.
+     * @param primaryStage
+     */
     @Override
     public void start(Stage primaryStage) {
     	
@@ -239,6 +251,10 @@ public class MainApp extends Application{
     }
 
    //initialiserer root layouten
+
+    /**
+     * initializes the root layout
+     */
     public void initRootLayout() {
         try {
             // Load root layout from fxml file.
@@ -257,6 +273,9 @@ public class MainApp extends Application{
         }
     }
 
+    /**
+     * loads all the tabs into the program.
+     */
     public void showCabinOverview() {
         try {
             // Load sqldata overview.
@@ -277,10 +296,19 @@ public class MainApp extends Application{
         }
     }
 
+    /**
+     * returns the primary stage
+     * @return
+     */
     public Stage getPrimaryStage() {
         return primaryStage;
     }
-    
+
+    /**
+     * Shows the item edit window
+     * @param selected
+     * @return
+     */
     public boolean showItemEditDialog(Item selected) {
    	 try {
             // Load the fxml file and create a new stage for the popup dialog.
@@ -308,8 +336,12 @@ public class MainApp extends Application{
             return false;
         }
    }
-    
-    
+
+    /**
+     * shows the reservation edit window
+     * @param res
+     * @return
+     */
     public boolean showReservationEditDialog(Reservation res) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
@@ -339,6 +371,10 @@ public class MainApp extends Application{
             return false;
         }
     }
+
+    /**
+     * Saves the data to the database
+     */
     public void saveAllDataToDatabase(){
     	Sql_data.saveItemsToDatabase(this.itemData);
     	Sql_data.saveReservationsAndUsers(this.reservationData);
