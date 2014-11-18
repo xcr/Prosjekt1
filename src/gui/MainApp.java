@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -380,6 +380,7 @@ public class MainApp extends Application{
     	sql.saveItemsToDatabase(this.itemData);
     	sql.saveReservationsAndUsers(this.reservationData);
     	sql.saveWoodToDatabase(this.cabinData);
+    	sql.deleteMessagesFromDatabase(this.forgottenData);
     }
  
     public static void main(String[] args) {

@@ -248,8 +248,7 @@ public class Sql_data {
 					d = new Destroyed(Integer.toString(destroyedItems.getInt("dnr")), destroyedItems.getString("cabinname"), destroyedItems.getString("description")
 							, destroyedItems.getString("email"));
 					destroyed.add(d);
-					f = d = new Destroyed(Integer.toString(destroyedItems.getInt("dnr")), destroyedItems.getString("cabinname"), destroyedItems.getString("description")
-							, destroyedItems.getString("email"));
+					f = d = new Destroyed(Integer.toString(destroyedItems.getInt("dnr")), null,null,null);
 					destroyedOld.add(f);
 				}
 			} catch (SQLException e) {
@@ -275,13 +274,17 @@ public class Sql_data {
 
 		connect();
 		ObservableList<MailInterface> forgotten = FXCollections.observableArrayList();
+		forgottenOld = new ArrayList<Forgotten>(); 
 		Forgotten f;
+		Forgotten fOld;
 		ResultSet fi = getTableInformation("Forgotten");
 
 		try {
 			while(fi.next()){
 				f = new Forgotten(Integer.toString(fi.getInt("fnr")), fi.getString("cabinname"), fi.getString("description"), fi.getString("email"));
 				forgotten.add(f);
+				fOld = new Forgotten(Integer.toString(fi.getInt("fnr")), null,null,null);
+				forgottenOld.add(fOld);
 			}
 		} catch (SQLException e) {
 			System.out.println("Failed to retrieve forgotten items from ResultSet");
@@ -458,7 +461,7 @@ public class Sql_data {
 
 	private  void updateWoodInDatabase(ArrayList<Cabin> updatedWood){
 		System.out.println("inne i updatewood: " + updatedWood.size());
-		
+
 		try {
 			connect();
 			for (Cabin c : updatedWood) {
@@ -475,7 +478,7 @@ public class Sql_data {
 		finally{
 			closeConnection();
 		}
-		
+
 		System.out.println("successfully updated woodstatus for all cabins");
 	}
 
@@ -489,15 +492,15 @@ public class Sql_data {
 				continue;
 			}
 			for(Item j : itemsOld){
-				
+
 				if(i.getId().equals(j.getId())){
-//					System.out.println("new: " + i.getItemName());
-//					System.out.println("old: " + j.getItemName());
-//					System.out.println("items have same id");
-//					System.out.println(i.getCabinName());
-//					System.out.println(j.getCabinName());
-//					System.out.println(i.getItemName());
-//					System.out.println(j.getItemName());
+					//					System.out.println("new: " + i.getItemName());
+					//					System.out.println("old: " + j.getItemName());
+					//					System.out.println("items have same id");
+					//					System.out.println(i.getCabinName());
+					//					System.out.println(j.getCabinName());
+					//					System.out.println(i.getItemName());
+					//					System.out.println(j.getItemName());
 					if(!(i.getCabinName().equals(j.getCabinName()))){
 						System.out.println("item has changed cabinname");
 						updatedItems.add(i);
@@ -543,7 +546,7 @@ public class Sql_data {
 		removeItemsFromDatabase(items);
 	}
 
-	
+
 
 	public  void saveReservationsAndUsers(ObservableList<Reservation> reservations){
 		ArrayList<Reservation> updatedRes = new ArrayList<Reservation>();
@@ -557,7 +560,7 @@ public class Sql_data {
 				System.out.println("new reservations yeas");
 				continue;
 			}
-			
+
 			for(Reservation res : reservationsOld){
 				if(r.getReservationId().equals(res.getReservationId())){
 
@@ -646,32 +649,32 @@ public class Sql_data {
 		}
 		removeReservationAndUserFromdatabase(reservations);
 	}
-	
+
 	private void removeUserFromDatabase(String id) throws SQLException{
 		statement = connection.createStatement();
 		statement.execute(("DELETE FROM User WHERE pnr = " + id));
 		statement.close();
 	}
-	
+
 	public void removeReservationAndUserFromdatabase(ObservableList<Reservation> reservations){
 		ArrayList<String> oldresids = new ArrayList<String>();
 		ArrayList<String> newresids = new ArrayList<String>();
 		ArrayList<String> olduserids = new ArrayList<String>();
 		ArrayList<String> newuserids = new ArrayList<String>();
-		
+
 		//reservations ids
 		for(Reservation r : reservations){
 			if(r.getReservationId() != null){
 				newresids.add(r.getReservationId());
 			}
 		}
-		
+
 		for(Reservation r : reservationsOld){
 			if(r.getReservationId() != null){
 				oldresids.add(r.getReservationId());
 			}
 		}
-		
+
 		//userids
 		for(Reservation r : reservations){
 			if(r.getUserId() != null){
@@ -683,10 +686,10 @@ public class Sql_data {
 				olduserids.add(r.getUserId());
 			}
 		}
-		
+
 		oldresids.removeAll(newresids);
 		olduserids.removeAll(newuserids);
-		
+
 		if(oldresids.size() > 0){
 			try {
 				connect();
@@ -702,7 +705,6 @@ public class Sql_data {
 				System.out.println("failed to connect in removeusersand reserverations");
 				e1.printStackTrace();
 			}
-			
 		}
 		if(olduserids.size() > 0){
 			try {
@@ -721,7 +723,7 @@ public class Sql_data {
 			}
 		}
 	}
-	
+
 	private  void removeItemsFromDatabase(ObservableList<Item> items){
 		ArrayList<String> oldIds = new ArrayList<String>();
 		ArrayList<String> newIds = new ArrayList<String>();
@@ -738,9 +740,9 @@ public class Sql_data {
 			oldIds.add(i.getId());
 			//System.out.println("gamle" + i.getId());
 		}
-		
+
 		oldIds.removeAll(newIds);
-		
+
 		if(oldIds.size() > 0){
 			//System.out.println(oldIds.size());
 			try {
@@ -760,17 +762,13 @@ public class Sql_data {
 			}
 		}
 	}
-	
-	
-	
-	
-	
+
 	public void saveWoodToDatabase(ObservableList<Cabin> cabins){
 		ArrayList<Cabin> updatedWood = new ArrayList<Cabin>();
 
-		
+
 		for(Cabin c : cabins){
-			
+
 			for(Cabin ca : cabinsOld){
 				if(c.getId().equals(ca.getId())){
 					if(!(c.getWood().equals(ca.getWood()))){
@@ -783,10 +781,92 @@ public class Sql_data {
 		if(updatedWood.size() > 0){
 			updateWoodInDatabase(updatedWood);
 		}
+	}
+
+	public void deleteMessagesFromDatabase(ObservableList<MailInterface> destroyed){
+
+		ArrayList<String> destroyedids = new ArrayList<String>();
+		ArrayList<String> forgottenids = new ArrayList<String>();
+		ArrayList<String> destroyedNew = new ArrayList<String>();
+		ArrayList<String> forgottenNew = new ArrayList<String>();
+
+		for(MailInterface m : destroyed){
+			if(m.getSubject().get().equals("Glemt")){
+				forgottenNew.add(m.getid());
+				System.out.println("id for glemt: " + m.getid());
+			}
+			if(m.getSubject().get().equals("Ødelagt")){
+				System.out.println("id for ødelagt: " + m.getid());
+				destroyedNew.add(m.getid());
+			}
+		}
+
+		for(Destroyed d : destroyedOld){
+			destroyedids.add(d.getid());
+		}
+		for(Forgotten d : forgottenOld){
+			forgottenids.add(d.getid());
+		}
 		
+		System.out.println("size of forgottenNew: " + forgottenNew.size());
+		System.out.println("size of destroyedNew: " + destroyedNew.size());
+		System.out.println("size of destroyedold: " + destroyedids.size());
+		System.out.println("size of destroyedold: " + forgottenids.size());
+
+		forgottenids.removeAll(forgottenNew);
+		destroyedids.removeAll(destroyedNew);
+		
+		System.out.println("Size of destroyed: " + destroyedids.size());
+		System.out.println("Size of forgotten: " + forgottenids.size());
+		if(destroyedids.size() > 0){
+			try {
+				connect();
+				for(String id : destroyedids){
+					try {
+						removeDestroyedFromDatabase(id);
+					} catch (SQLException e) {
+						System.out.println("Failed to remove destroyed item from database");
+						e.printStackTrace();
+					}
+				}
+			} catch (SQLException e1) {
+				System.out.println("failed to connect in deleteMessageFromDatabase");
+				e1.printStackTrace();
+			}
+		}
+		if(forgottenids.size() > 0){
+			try {
+				connect();
+				for(String id : forgottenids){
+					try {
+						removeForgottenFromDatabase(id);
+					} catch (SQLException e) {
+						System.out.println("Failed to remove Forgotten items from database ");
+						e.printStackTrace();
+					}
+				}
+			} catch (SQLException e1) {
+				System.out.println("failed to connect in deleteMessageFromDatabase");
+				e1.printStackTrace();
+			}
+		}
+	}
+
+	public void removeDestroyedFromDatabase(String id) throws SQLException{
+		statement = connection.createStatement();
+		statement.execute("DELETE FROM Destroyed WHERE dnr =" + id);
+		System.out.println("removed item with id: " + id);
+		System.out.println("removed destroyed item");
+		statement.close();
+	}
+	public void removeForgottenFromDatabase(String id) throws SQLException{
+		statement = connection.createStatement();
+		statement.execute("DELETE FROM Forgotten WHERE fnr =" + id);
+		System.out.println("removed forgotten item");
+		statement.close();
+
 	}
 }
-
 
 
 

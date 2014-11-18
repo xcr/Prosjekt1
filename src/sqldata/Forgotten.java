@@ -61,4 +61,9 @@ public class Forgotten implements MailInterface {
 	public void setDescription(String description){
 		this.description.setValue(description);
 	}
+
+	@Override
+	public String getid() {
+		return this.id;
+	}
 }

@@ -14,6 +14,7 @@ public interface MailInterface {
 
     public StringProperty getSubject();
 
+    public String getid();
 
     public String getName();
 

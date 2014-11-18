@@ -45,6 +45,7 @@ public class Destroyed implements MailInterface {
     public StringProperty getSubject() {
         return this.subject;
     }
+    
 
     public String getEmail(){
 			return this.email.get();
@@ -61,5 +62,10 @@ public class Destroyed implements MailInterface {
 		
 		public void setDescription(String description){
 			this.description.setValue(description);
+		}
+
+		@Override
+		public String getid() {
+			return this.id;
 		}
 	}
