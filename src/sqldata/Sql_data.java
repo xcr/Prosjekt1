@@ -14,16 +14,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
-//stmt.execute("INSERT INTO login (username, passwd) VALUES ('SomeUsername', '123')");
-/**
- * Creates an object that can connect to an sql databse.
- * <p></p>
- *
- * @param  url  url to the database
- * @param  username the username used to connect to sql database
- * @param  passwd the password assosiated with the username
- * @return      an Sql_data instance
- */
 
 public class Sql_data {
 
@@ -682,8 +672,6 @@ public class Sql_data {
 		removeReservationAndUserFromdatabase(reservations);
 	}
 
-	
-
 	public void removeReservationAndUserFromdatabase(ObservableList<Reservation> reservations){
 		ArrayList<String> oldresids = new ArrayList<String>();
 		ArrayList<String> newresids = new ArrayList<String>();
@@ -869,6 +857,67 @@ public class Sql_data {
 			}
 		}
 	}
+	
+	public void removeSentFromDatabase(ObservableList<Sent> sent){
+		ArrayList<String> oldid = new ArrayList<String>();
+		ArrayList<String> newid = new ArrayList<String>();
+		
+		for(Sent s : sent){
+			newid.add(s.getId());
+		}
+		for(Sent s : sentOld){
+			oldid.add(s.getId());
+		}
+		
+		oldid.removeAll(newid);
+		
+		if(oldid.size() > 0){
+			try {
+				connect();
+				for(String id : oldid){
+					try {
+						removeSentOrReceivedFromDatabase(id);
+					} catch (SQLException e) {
+						System.out.println("failed to remove sent from database");
+						e.printStackTrace();
+					}
+				}
+			} catch (SQLException e1) {
+				System.out.println("failed to connect to database in removeSentFromDatabse");
+				e1.printStackTrace();
+			}
+		}
+	}
+	public void removeReceivedFromDatabase(ObservableList<Received> received){
+		ArrayList<String> oldid = new ArrayList<String>();
+		ArrayList<String> newid = new ArrayList<String>();
+		
+		for(Received s : received){
+			newid.add(s.getId());
+		}
+		for(Received s : receivedOld){
+			oldid.add(s.getId());
+		}
+		
+		oldid.removeAll(newid);
+		
+		if(oldid.size() > 0){
+			try {
+				connect();
+				for(String id : oldid){
+					try {
+						removeSentOrReceivedFromDatabase(id);
+					} catch (SQLException e) {
+						System.out.println("failed to remove sent from database");
+						e.printStackTrace();
+					}
+				}
+			} catch (SQLException e1) {
+				System.out.println("failed to connect to database in removeSentFromDatabse");
+				e1.printStackTrace();
+			}
+		}
+	}
 
 	private void removeDestroyedFromDatabase(String id) throws SQLException{
 		statement = connection.createStatement();
@@ -884,7 +933,7 @@ public class Sql_data {
 		statement.close();
 	}
 	
-	private void removeSentOrReceivedFromDatabase(ArrayList<String> id) throws SQLException{
+	private void removeSentOrReceivedFromDatabase(String id) throws SQLException{
 		statement = connection.createStatement();
 		statement.execute("DELETE FROM Message WHERE mnr =" + id);
 		System.out.println("removed items from message");
@@ -916,12 +965,4 @@ public class Sql_data {
 		statement.close();
 	}
 }
-
-
-
-
-
-
-
-
 
