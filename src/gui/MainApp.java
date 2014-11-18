@@ -380,7 +380,7 @@ public class MainApp extends Application{
     	sql.saveItemsToDatabase(this.itemData);
     	sql.saveReservationsAndUsers(this.reservationData);
     	sql.saveWoodToDatabase(this.cabinData);
-    	sql.deleteMessagesFromDatabase(this.forgottenData);
+    	sql.removeDestroyedAndForgottenFromDatabase(this.forgottenData);
     }
  
     public static void main(String[] args) {

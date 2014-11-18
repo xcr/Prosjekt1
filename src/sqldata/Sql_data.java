@@ -276,8 +276,8 @@ public class Sql_data {
 			while(sent.next()){
 				if(sent.getString("type") != null){
 					if(sent.getString("type").equals("outbox")){
-						s = new Sent(sent.getString("id"), sent.getString("email"), sent.getString("title"), sent.getString("message"), sent.getString("type"));
-						sold = new Sent(sent.getString("id"), null, null, null, null);
+						s = new Sent(sent.getString("mnr"), sent.getString("email"), sent.getString("title"), sent.getString("message"), sent.getString("type"));
+						sold = new Sent(sent.getString("mnr"), null, null, null, null);
 						sentOld.add(sold);
 					}
 				}
@@ -298,9 +298,9 @@ public class Sql_data {
 			while(sent.next()){
 				if(sent.getString("type") != null){
 					if(sent.getString("type").equals("inbox")){
-						r = new Received(sent.getString("id"), sent.getString("email"), sent.getString("title"), sent.getString("message"), sent.getString("type"));
+						r = new Received(sent.getString("mnr"), sent.getString("email"), sent.getString("title"), sent.getString("message"), sent.getString("type"));
 						receivedmessages.add(r);
-						rold = new Received(sent.getString("id"), null, null, null, null);
+						rold = new Received(sent.getString("mnr"), null, null, null, null);
 						receivedOld.add(rold);
 					}
 				}
@@ -824,7 +824,7 @@ public class Sql_data {
 		}
 	}
 
-	public void deleteMessagesFromDatabase(ObservableList<MailInterface> destroyed){
+	public void removeDestroyedAndForgottenFromDatabase(ObservableList<MailInterface> destroyed){
 
 		ArrayList<String> destroyedids = new ArrayList<String>();
 		ArrayList<String> forgottenids = new ArrayList<String>();
